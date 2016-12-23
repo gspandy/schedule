@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package com.kanven.schedual.network.protoc;
+
+option java_outer_classname = "MessageTypeProto";
+
+//消息类型
+enum MessageType {
+	SERVER = 0; 
+	TASK = 1; //任务
+	PING = 2; //心跳检查 ping 操作
+	PONG = 3; //心跳检查 pong 操作
+}
