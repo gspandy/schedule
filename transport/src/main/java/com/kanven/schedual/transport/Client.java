@@ -3,6 +3,7 @@ package com.kanven.schedual.transport;
 public interface Client {
 
 	/**
+	 * 获取连接
 	 * 
 	 * @return
 	 * @throws Exception

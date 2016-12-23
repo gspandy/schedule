@@ -42,7 +42,7 @@ class NettyChannelHandler extends ChannelInboundHandlerAdapter {
 				log.error(requestId + "请求没有对应响应对象！");
 				return;
 			}
-			res.setResult(response);
+			res.callback(response);
 			break;
 		}
 	}

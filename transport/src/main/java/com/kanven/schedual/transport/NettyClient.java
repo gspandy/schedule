@@ -38,7 +38,7 @@ public class NettyClient implements Client {
 
 	private NettyBootstrap bootstrap = null;
 
-	private boolean available = true;
+	private boolean closed = false;
 
 	public NettyClient() {
 	}
@@ -64,7 +64,6 @@ public class NettyClient implements Client {
 					e.printStackTrace();
 				}
 			}
-			available = true;
 		}
 		return pool;
 	}
@@ -93,21 +92,21 @@ public class NettyClient implements Client {
 		return config;
 	}
 
-	public NettyChannel getChannel() throws Exception {
+	public synchronized NettyChannel getChannel() throws Exception {
 		return createPool().borrowObject();
 	}
 
-	public synchronized boolean isClosed() {
-		return !available;
+	public  boolean isClosed() {
+		return closed;
 	}
 
 	public synchronized void close() {
-		if (!available) {
+		if (isClosed()) {
 			return;
 		}
 		bootstrap.close();
 		pool.close();
-		available = false;
+		closed = true;
 	}
 
 	public String getIp() {

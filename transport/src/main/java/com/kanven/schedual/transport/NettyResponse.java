@@ -9,6 +9,25 @@ import com.kanven.schedual.network.protoc.ResponseProto.Response;
 
 final class NettyResponse {
 
+	static enum Status {
+		DOING, DONE, CANCELED;
+
+		public boolean isDoing() {
+			return this == DOING;
+		}
+
+		public boolean isDone() {
+			return this == DONE;
+		}
+
+		public boolean isCanceled() {
+			return this == Status.CANCELED;
+		}
+
+	}
+
+	private Status status = Status.DOING;
+
 	private String requestId;
 
 	private long createTime = System.currentTimeMillis();
@@ -23,12 +42,17 @@ final class NettyResponse {
 
 	public NettyResponse(String requestId, long timeout) {
 		this.requestId = requestId;
-		this.timeout = timeout;
+		if (timeout <= 0) {
+			this.timeout = Constants.DEFAULT_TIME_OUT;
+		} else {
+			this.timeout = timeout;
+		}
 	}
 
-	void setResult(Response response) {
+	void callback(Response response) {
 		lock.lock();
 		try {
+			this.status = Status.DONE;
 			this.response = response;
 			condition.signalAll();
 		} finally {
@@ -38,22 +62,21 @@ final class NettyResponse {
 
 	public Response getValue() {
 		lock.lock();
-		System.out.println(Thread.currentThread().getName());
 		try {
 			if (response == null) {
-				if (timeout <= 0) {
-					try {
-						condition.await();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				} else {
-					long times = timeout - (System.currentTimeMillis() - createTime);
-					if (times > 0) {
+				long times = timeout - (System.currentTimeMillis() - createTime);
+				if (times > 0) {
+					while (true) {
 						try {
 							condition.await(times, TimeUnit.MILLISECONDS);
 						} catch (InterruptedException e) {
-							e.printStackTrace();
+						}
+						if (!status.isDoing()) {
+							break;
+						}
+						times = timeout - (System.currentTimeMillis() - createTime);
+						if (times <= 0) {
+							break;
 						}
 					}
 				}
@@ -71,6 +94,7 @@ final class NettyResponse {
 	void cancel() {
 		lock.lock();
 		try {
+			this.status = Status.CANCELED;
 			condition.signalAll();
 		} finally {
 			lock.unlock();

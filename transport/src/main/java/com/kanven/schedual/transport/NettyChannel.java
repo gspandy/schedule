@@ -16,8 +16,6 @@ public class NettyChannel {
 
 	private static final Logger log = LoggerFactory.getLogger(NettyChannel.class);
 
-	private static final long DEFAULT_TIME_OUT = 10000;
-
 	private Channel channel;
 
 	private String uuid;
@@ -59,7 +57,7 @@ public class NettyChannel {
 	}
 
 	public Response request(Request request) {
-		return request(request, DEFAULT_TIME_OUT);
+		return request(request, Constants.DEFAULT_TIME_OUT);
 	}
 
 	public Response request(Request request, long timeout) {
@@ -69,7 +67,13 @@ public class NettyChannel {
 		ChannelFuture future = channel.writeAndFlush(request);
 		boolean completed = future.awaitUninterruptibly(timeout, TimeUnit.MILLISECONDS);
 		if (completed && future.isSuccess()) {
-			return response.getValue();
+			try {
+				return response.getValue();
+			} catch (Exception e) {
+				log.error("获取结果出现异常！", e);
+				bootstrap.unregist(requestId);
+				return null;
+			}
 		}
 		// 发送请求超时
 		future.cancel(true);

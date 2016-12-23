@@ -1,6 +1,9 @@
 package com.kanven.schedual.transport;
 
+import java.util.Iterator;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -39,7 +42,7 @@ final class NettyBootstrap {
 
 	private int port;
 
-	private ConcurrentHashMap<String, NettyResponse> ress = new ConcurrentHashMap<String, NettyResponse>();
+	private ConcurrentMap<String, NettyResponse> ress = new ConcurrentHashMap<String, NettyResponse>();
 
 	public NettyBootstrap(String ip, int port) {
 		this(ip, port, -1);
@@ -104,6 +107,16 @@ final class NettyBootstrap {
 	public void close() {
 		if (group != null) {
 			group.shutdownGracefully();
+		}
+		if (ress.size() > 0) {
+			Set<String> keys = ress.keySet();
+			Iterator<String> iterator = keys.iterator();
+			while (iterator.hasNext()) {
+				String key = iterator.next();
+				NettyResponse response = ress.get(key);
+				response.cancel();
+				iterator.remove();
+			}
 		}
 	}
 
