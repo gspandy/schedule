@@ -53,7 +53,6 @@ public class NettyChannel {
 		} else {
 			throw new RuntimeException("连接建立超时！");
 		}
-
 	}
 
 	public Response request(Request request) {

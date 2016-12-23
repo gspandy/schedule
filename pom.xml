@@ -16,10 +16,12 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <schedual.version>1.0.0-SNAPSHOT</schedual.version>
   </properties>
   <modules>
     <module>register</module>
     <module>transport</module>
+    <module>schedual-core</module>
   </modules>
   
   <dependencies>

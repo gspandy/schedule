@@ -20,7 +20,7 @@ public abstract class Node {
 	/**
 	 * 节点创建时间
 	 */
-	private String createdTime;
+	protected String createdTime;
 	/**
 	 * 节点全路径
 	 */
