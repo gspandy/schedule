@@ -22,6 +22,7 @@
     <module>register</module>
     <module>transport</module>
     <module>schedual-core</module>
+    <module>schedual-exactor</module>
   </modules>
   
   <dependencies>

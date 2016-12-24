@@ -21,18 +21,8 @@ public abstract class Node {
 	 * 节点创建时间
 	 */
 	protected String createdTime;
-	/**
-	 * 节点全路径
-	 */
+
 	private String path;
-	/**
-	 * 节点健康情况
-	 */
-	protected boolean availabel = false;
-	/**
-	 * 是否是master节点
-	 */
-	private boolean master;
 
 	{
 
@@ -57,14 +47,6 @@ public abstract class Node {
 	 */
 	protected abstract String buildData();
 
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
 	public String getRoot() {
 		return root;
 	}
@@ -73,12 +55,12 @@ public abstract class Node {
 		this.root = root;
 	}
 
-	public boolean isMaster() {
-		return master;
+	public String getPath() {
+		return path;
 	}
 
-	public void setMaster(boolean master) {
-		this.master = master;
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	@Override
@@ -93,7 +75,7 @@ public abstract class Node {
 		if (node == this) {
 			return true;
 		}
-		if (path.equals(node.path)) {
+		if (this.path == node.path) {
 			return true;
 		}
 		return false;
@@ -101,8 +83,7 @@ public abstract class Node {
 
 	@Override
 	public String toString() {
-		return "Node [root=" + root + ", createdTime=" + createdTime
-				+ ", path=" + path + ", master=" + master + "]";
+		return "Node [root=" + root + ", createdTime=" + createdTime + ", path=" + path + "]";
 	}
 
 }

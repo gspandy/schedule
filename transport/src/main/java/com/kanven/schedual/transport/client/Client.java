@@ -1,4 +1,4 @@
-package com.kanven.schedual.transport;
+package com.kanven.schedual.transport.client;
 
 public interface Client {
 

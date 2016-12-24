@@ -2,7 +2,7 @@ package com.kanven.schedual.transport.test.transport;
 
 import com.kanven.schedual.network.protoc.MessageTypeProto.MessageType;
 import com.kanven.schedual.network.protoc.RequestProto.Request;
-import com.kanven.schedual.transport.NettyClient;
+import com.kanven.schedual.transport.client.NettyClient;
 
 public class Client {
 

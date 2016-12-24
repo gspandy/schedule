@@ -1,4 +1,4 @@
-package com.kanven.schedual.transport;
+package com.kanven.schedual.transport.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

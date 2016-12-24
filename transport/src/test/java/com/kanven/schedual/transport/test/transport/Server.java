@@ -1,6 +1,6 @@
 package com.kanven.schedual.transport.test.transport;
 
-import com.kanven.schedual.transport.NettyServer;
+import com.kanven.schedual.transport.server.NettyServer;
 
 public class Server {
 

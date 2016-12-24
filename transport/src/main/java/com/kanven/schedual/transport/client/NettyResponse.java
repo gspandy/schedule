@@ -1,4 +1,4 @@
-package com.kanven.schedual.transport;
+package com.kanven.schedual.transport.client;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;

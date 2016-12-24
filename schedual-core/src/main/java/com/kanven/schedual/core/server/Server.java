@@ -76,7 +76,7 @@ public final class Server extends Node implements Listener {
 				return;
 			}
 			if (index == 0) {
-				setMaster(true);
+				
 				// todo
 				return;
 			}
@@ -106,11 +106,7 @@ public final class Server extends Node implements Listener {
 			EventType type = event.getType();
 			// 节点被意外删除
 			if (EventType.NodeDeleted == type) {
-				// todo
-				// 如果是master服务取消对executor服务的变更监听
-				if (isMaster()) {
-					// todo 任务执行服务
-				}
+				
 			}
 		}
 
