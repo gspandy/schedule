@@ -1,9 +1,11 @@
 package com.kanven.schedual.exactor;
 
 import org.apache.commons.lang3.StringUtils;
+import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kanven.schedual.quartz.JobManager;
 import com.kanven.schedual.register.Event;
 import com.kanven.schedual.register.Listener;
 import com.kanven.schedual.register.Register;
@@ -31,6 +33,10 @@ public class TaskExactor extends Node implements Listener, MessageReceiver {
 	private Register register;
 
 	private NettyServer server;
+
+	private JobManager manager;
+
+	private boolean available = false;
 
 	public TaskExactor() {
 
@@ -62,17 +68,26 @@ public class TaskExactor extends Node implements Listener, MessageReceiver {
 		check();
 		try {
 			register.regist(this);
+			manager = JobManager.getInstance();
 			server = new NettyServer(port);
 			server.registe(this);
 			server.start();
+			available = true;
 		} catch (RegisterException e) {
 			log.error(this + "注册失败！　", e);
 		} catch (InterruptedException e) {
 			log.error("任务执行服务启动失败！", e);
+		} catch (SchedulerException e) {
+			log.error("任务管理器启动失败！", e);
 		}
 	}
 
+	public boolean isAvailable() {
+		return available;
+	}
+
 	public void close() {
+		available = false;
 		if (register != null) {
 			try {
 				register.unregist(this);
