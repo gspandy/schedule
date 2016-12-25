@@ -1,7 +1,13 @@
 package com.kanven.schedual.transport.server;
 
+/**
+ * 信息接受
+ * 
+ * @author kanven
+ *
+ */
 public interface MessageReceiver {
 
-	void receive(Object o);
+	Object receive(Object o);
 
 }

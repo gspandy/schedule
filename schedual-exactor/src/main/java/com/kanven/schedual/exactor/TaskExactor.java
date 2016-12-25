@@ -86,8 +86,8 @@ public class TaskExactor extends Node implements Listener, MessageReceiver {
 		}
 	}
 
-	public void receive(Object o) {
-
+	public Object receive(Object o) {
+		return null;
 	}
 
 	public void onDisconnected(Event event) {
@@ -99,7 +99,11 @@ public class TaskExactor extends Node implements Listener, MessageReceiver {
 	}
 
 	public void onExpired(Event event) {
-		init();
+		try {
+			register.regist(this);
+		} catch (RegisterException e) {
+			log.error(this + "向注册中心注册失败！", e);
+		}
 	}
 
 	public void onInited(Event event) {

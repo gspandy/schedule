@@ -74,7 +74,7 @@ public class NettyServer {
 			workGroup.shutdownGracefully();
 		}
 		Iterator<MessageReceiver> iterator = receivers.iterator();
-		while(iterator.hasNext()){
+		while (iterator.hasNext()) {
 			iterator.next();
 			iterator.remove();
 		}
@@ -110,7 +110,10 @@ public class NettyServer {
 							ctx.writeAndFlush(builder.build());
 						} else {
 							for (MessageReceiver receiver : receivers) {
-								receiver.receive(msg);
+								Object o = receiver.receive(msg);
+								if (o != null) {
+									ctx.writeAndFlush(msg);
+								}
 							}
 						}
 					}
