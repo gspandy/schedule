@@ -1,10 +1,17 @@
 package com.kanven.schedual.exactor;
 
+import java.util.Date;
+
 import org.apache.commons.lang3.StringUtils;
-import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kanven.schedual.network.protoc.MessageTypeProto.MessageType;
+import com.kanven.schedual.network.protoc.RequestProto.Request;
+import com.kanven.schedual.network.protoc.RequestProto.Task;
+import com.kanven.schedual.network.protoc.ResponseProto.Response;
+import com.kanven.schedual.quartz.JobConfig;
+import com.kanven.schedual.quartz.JobException;
 import com.kanven.schedual.quartz.JobManager;
 import com.kanven.schedual.register.Event;
 import com.kanven.schedual.register.Listener;
@@ -26,6 +33,8 @@ public class TaskExactor extends Node implements Listener, MessageReceiver {
 
 	public static final int DEFAULT_EXACTOR_PORT = 7990;
 
+	private static final String DEFAULT_EXACTOR_ROOT = "/schedual/task/exactor";
+
 	private String ip;
 
 	private int port = DEFAULT_EXACTOR_PORT;
@@ -35,8 +44,6 @@ public class TaskExactor extends Node implements Listener, MessageReceiver {
 	private NettyServer server;
 
 	private JobManager manager;
-
-	private boolean available = false;
 
 	public TaskExactor() {
 
@@ -56,38 +63,24 @@ public class TaskExactor extends Node implements Listener, MessageReceiver {
 		if (StringUtils.isEmpty(ip)) {
 			throw new RuntimeException("ip地址为空！");
 		}
-		if (StringUtils.isEmpty(getRoot())) {
-			throw new RuntimeException("任务执行器根路径不能为空！ ");
-		}
 		if (register == null) {
 			throw new RuntimeException("任务执行器没有指定注册中心！");
 		}
-	}
-
-	public void init() {
-		check();
-		try {
-			register.regist(this);
-			manager = JobManager.getInstance();
-			server = new NettyServer(port);
-			server.registe(this);
-			server.start();
-			available = true;
-		} catch (RegisterException e) {
-			log.error(this + "注册失败！　", e);
-		} catch (InterruptedException e) {
-			log.error("任务执行服务启动失败！", e);
-		} catch (SchedulerException e) {
-			log.error("任务管理器启动失败！", e);
+		if (StringUtils.isEmpty(getRoot())) {
+			setRoot(DEFAULT_EXACTOR_ROOT);
 		}
 	}
 
-	public boolean isAvailable() {
-		return available;
+	public void init() throws RegisterException, JobException, InterruptedException {
+		check();
+		register.regist(this);
+		manager = JobManager.getInstance();
+		server = new NettyServer(port);
+		server.registe(this);
+		server.start();
 	}
 
 	public void close() {
-		available = false;
 		if (register != null) {
 			try {
 				register.unregist(this);
@@ -102,6 +95,32 @@ public class TaskExactor extends Node implements Listener, MessageReceiver {
 	}
 
 	public Object receive(Object o) {
+		if (o instanceof Request) {
+			Request request = (Request) o;
+			if (request.getType() == MessageType.TASK) {
+				Response.Builder rb = Response.newBuilder();
+				rb.setRequestId(request.getRequestId());
+
+				Task task = request.getTask();
+				JobConfig config = new JobConfig();
+				config.setId(task.getId());
+				config.setGroup(task.getGroup());
+				config.setName(task.getName());
+				config.setUrl(task.getUrl());
+				config.setStartTime(new Date(task.getStartTime()));
+				config.setCron(task.getCron());
+				try {
+					manager.add(config);
+					rb.setStatus(200);
+					rb.setMsg("添加任务成功！　");
+				} catch (JobException e) {
+					log.error("任务添加失败！", e);
+					rb.setStatus(400);
+					rb.setMsg(e.getMessage());
+				}
+				return rb.build();
+			}
+		}
 		return null;
 	}
 

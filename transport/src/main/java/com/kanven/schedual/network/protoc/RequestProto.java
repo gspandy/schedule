@@ -14,124 +14,6 @@ public final class RequestProto {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  /**
-   * <pre>
-   *任务类型
-   * </pre>
-   *
-   * Protobuf enum {@code com.kanven.schedual.network.protoc.TaskKind}
-   */
-  public enum TaskKind
-      implements com.google.protobuf.ProtocolMessageEnum {
-    /**
-     * <pre>
-     *定时任务
-     * </pre>
-     *
-     * <code>TIME = 0;</code>
-     */
-    TIME(0),
-    /**
-     * <pre>
-     *延时任务
-     * </pre>
-     *
-     * <code>DELAY = 1;</code>
-     */
-    DELAY(1),
-    UNRECOGNIZED(-1),
-    ;
-
-    /**
-     * <pre>
-     *定时任务
-     * </pre>
-     *
-     * <code>TIME = 0;</code>
-     */
-    public static final int TIME_VALUE = 0;
-    /**
-     * <pre>
-     *延时任务
-     * </pre>
-     *
-     * <code>DELAY = 1;</code>
-     */
-    public static final int DELAY_VALUE = 1;
-
-
-    public final int getNumber() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalArgumentException(
-            "Can't get the number of an unknown enum value.");
-      }
-      return value;
-    }
-
-    /**
-     * @deprecated Use {@link #forNumber(int)} instead.
-     */
-    @java.lang.Deprecated
-    public static TaskKind valueOf(int value) {
-      return forNumber(value);
-    }
-
-    public static TaskKind forNumber(int value) {
-      switch (value) {
-        case 0: return TIME;
-        case 1: return DELAY;
-        default: return null;
-      }
-    }
-
-    public static com.google.protobuf.Internal.EnumLiteMap<TaskKind>
-        internalGetValueMap() {
-      return internalValueMap;
-    }
-    private static final com.google.protobuf.Internal.EnumLiteMap<
-        TaskKind> internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<TaskKind>() {
-            public TaskKind findValueByNumber(int number) {
-              return TaskKind.forNumber(number);
-            }
-          };
-
-    public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
-      return getDescriptor().getValues().get(ordinal());
-    }
-    public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
-      return getDescriptor();
-    }
-    public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return com.kanven.schedual.network.protoc.RequestProto.getDescriptor().getEnumTypes().get(0);
-    }
-
-    private static final TaskKind[] VALUES = values();
-
-    public static TaskKind valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-      if (desc.getType() != getDescriptor()) {
-        throw new java.lang.IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
-      }
-      if (desc.getIndex() == -1) {
-        return UNRECOGNIZED;
-      }
-      return VALUES[desc.getIndex()];
-    }
-
-    private final int value;
-
-    private TaskKind(int value) {
-      this.value = value;
-    }
-
-    // @@protoc_insertion_point(enum_scope:com.kanven.schedual.network.protoc.TaskKind)
-  }
-
   public interface RequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:com.kanven.schedual.network.protoc.Request)
       com.google.protobuf.MessageOrBuilder {
@@ -156,17 +38,17 @@ public final class RequestProto {
     com.kanven.schedual.network.protoc.MessageTypeProto.MessageType getType();
 
     /**
-     * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+     * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
      */
-    boolean hasServer();
+    boolean hasPing();
     /**
-     * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+     * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
      */
-    com.kanven.schedual.network.protoc.RequestProto.Server getServer();
+    com.kanven.schedual.network.protoc.RequestProto.Ping getPing();
     /**
-     * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+     * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
      */
-    com.kanven.schedual.network.protoc.RequestProto.ServerOrBuilder getServerOrBuilder();
+    com.kanven.schedual.network.protoc.RequestProto.PingOrBuilder getPingOrBuilder();
 
     /**
      * <code>optional .com.kanven.schedual.network.protoc.Task task = 4;</code>
@@ -239,14 +121,14 @@ public final class RequestProto {
               break;
             }
             case 26: {
-              com.kanven.schedual.network.protoc.RequestProto.Server.Builder subBuilder = null;
-              if (server_ != null) {
-                subBuilder = server_.toBuilder();
+              com.kanven.schedual.network.protoc.RequestProto.Ping.Builder subBuilder = null;
+              if (ping_ != null) {
+                subBuilder = ping_.toBuilder();
               }
-              server_ = input.readMessage(com.kanven.schedual.network.protoc.RequestProto.Server.parser(), extensionRegistry);
+              ping_ = input.readMessage(com.kanven.schedual.network.protoc.RequestProto.Ping.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom(server_);
-                server_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom(ping_);
+                ping_ = subBuilder.buildPartial();
               }
 
               break;
@@ -337,25 +219,25 @@ public final class RequestProto {
       return result == null ? com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.UNRECOGNIZED : result;
     }
 
-    public static final int SERVER_FIELD_NUMBER = 3;
-    private com.kanven.schedual.network.protoc.RequestProto.Server server_;
+    public static final int PING_FIELD_NUMBER = 3;
+    private com.kanven.schedual.network.protoc.RequestProto.Ping ping_;
     /**
-     * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+     * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
      */
-    public boolean hasServer() {
-      return server_ != null;
+    public boolean hasPing() {
+      return ping_ != null;
     }
     /**
-     * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+     * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
      */
-    public com.kanven.schedual.network.protoc.RequestProto.Server getServer() {
-      return server_ == null ? com.kanven.schedual.network.protoc.RequestProto.Server.getDefaultInstance() : server_;
+    public com.kanven.schedual.network.protoc.RequestProto.Ping getPing() {
+      return ping_ == null ? com.kanven.schedual.network.protoc.RequestProto.Ping.getDefaultInstance() : ping_;
     }
     /**
-     * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+     * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
      */
-    public com.kanven.schedual.network.protoc.RequestProto.ServerOrBuilder getServerOrBuilder() {
-      return getServer();
+    public com.kanven.schedual.network.protoc.RequestProto.PingOrBuilder getPingOrBuilder() {
+      return getPing();
     }
 
     public static final int TASK_FIELD_NUMBER = 4;
@@ -394,11 +276,11 @@ public final class RequestProto {
       if (!getRequestIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, requestId_);
       }
-      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.SERVER.getNumber()) {
+      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.TASK.getNumber()) {
         output.writeEnum(2, type_);
       }
-      if (server_ != null) {
-        output.writeMessage(3, getServer());
+      if (ping_ != null) {
+        output.writeMessage(3, getPing());
       }
       if (task_ != null) {
         output.writeMessage(4, getTask());
@@ -413,13 +295,13 @@ public final class RequestProto {
       if (!getRequestIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, requestId_);
       }
-      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.SERVER.getNumber()) {
+      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.TASK.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, type_);
       }
-      if (server_ != null) {
+      if (ping_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getServer());
+          .computeMessageSize(3, getPing());
       }
       if (task_ != null) {
         size += com.google.protobuf.CodedOutputStream
@@ -444,10 +326,10 @@ public final class RequestProto {
       result = result && getRequestId()
           .equals(other.getRequestId());
       result = result && type_ == other.type_;
-      result = result && (hasServer() == other.hasServer());
-      if (hasServer()) {
-        result = result && getServer()
-            .equals(other.getServer());
+      result = result && (hasPing() == other.hasPing());
+      if (hasPing()) {
+        result = result && getPing()
+            .equals(other.getPing());
       }
       result = result && (hasTask() == other.hasTask());
       if (hasTask()) {
@@ -468,9 +350,9 @@ public final class RequestProto {
       hash = (53 * hash) + getRequestId().hashCode();
       hash = (37 * hash) + TYPE_FIELD_NUMBER;
       hash = (53 * hash) + type_;
-      if (hasServer()) {
-        hash = (37 * hash) + SERVER_FIELD_NUMBER;
-        hash = (53 * hash) + getServer().hashCode();
+      if (hasPing()) {
+        hash = (37 * hash) + PING_FIELD_NUMBER;
+        hash = (53 * hash) + getPing().hashCode();
       }
       if (hasTask()) {
         hash = (37 * hash) + TASK_FIELD_NUMBER;
@@ -602,11 +484,11 @@ public final class RequestProto {
 
         type_ = 0;
 
-        if (serverBuilder_ == null) {
-          server_ = null;
+        if (pingBuilder_ == null) {
+          ping_ = null;
         } else {
-          server_ = null;
-          serverBuilder_ = null;
+          ping_ = null;
+          pingBuilder_ = null;
         }
         if (taskBuilder_ == null) {
           task_ = null;
@@ -638,10 +520,10 @@ public final class RequestProto {
         com.kanven.schedual.network.protoc.RequestProto.Request result = new com.kanven.schedual.network.protoc.RequestProto.Request(this);
         result.requestId_ = requestId_;
         result.type_ = type_;
-        if (serverBuilder_ == null) {
-          result.server_ = server_;
+        if (pingBuilder_ == null) {
+          result.ping_ = ping_;
         } else {
-          result.server_ = serverBuilder_.build();
+          result.ping_ = pingBuilder_.build();
         }
         if (taskBuilder_ == null) {
           result.task_ = task_;
@@ -696,8 +578,8 @@ public final class RequestProto {
         if (other.type_ != 0) {
           setTypeValue(other.getTypeValue());
         }
-        if (other.hasServer()) {
-          mergeServer(other.getServer());
+        if (other.hasPing()) {
+          mergePing(other.getPing());
         }
         if (other.hasTask()) {
           mergeTask(other.getTask());
@@ -841,121 +723,121 @@ public final class RequestProto {
         return this;
       }
 
-      private com.kanven.schedual.network.protoc.RequestProto.Server server_ = null;
+      private com.kanven.schedual.network.protoc.RequestProto.Ping ping_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.kanven.schedual.network.protoc.RequestProto.Server, com.kanven.schedual.network.protoc.RequestProto.Server.Builder, com.kanven.schedual.network.protoc.RequestProto.ServerOrBuilder> serverBuilder_;
+          com.kanven.schedual.network.protoc.RequestProto.Ping, com.kanven.schedual.network.protoc.RequestProto.Ping.Builder, com.kanven.schedual.network.protoc.RequestProto.PingOrBuilder> pingBuilder_;
       /**
-       * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+       * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
        */
-      public boolean hasServer() {
-        return serverBuilder_ != null || server_ != null;
+      public boolean hasPing() {
+        return pingBuilder_ != null || ping_ != null;
       }
       /**
-       * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+       * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
        */
-      public com.kanven.schedual.network.protoc.RequestProto.Server getServer() {
-        if (serverBuilder_ == null) {
-          return server_ == null ? com.kanven.schedual.network.protoc.RequestProto.Server.getDefaultInstance() : server_;
+      public com.kanven.schedual.network.protoc.RequestProto.Ping getPing() {
+        if (pingBuilder_ == null) {
+          return ping_ == null ? com.kanven.schedual.network.protoc.RequestProto.Ping.getDefaultInstance() : ping_;
         } else {
-          return serverBuilder_.getMessage();
+          return pingBuilder_.getMessage();
         }
       }
       /**
-       * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+       * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
        */
-      public Builder setServer(com.kanven.schedual.network.protoc.RequestProto.Server value) {
-        if (serverBuilder_ == null) {
+      public Builder setPing(com.kanven.schedual.network.protoc.RequestProto.Ping value) {
+        if (pingBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          server_ = value;
+          ping_ = value;
           onChanged();
         } else {
-          serverBuilder_.setMessage(value);
+          pingBuilder_.setMessage(value);
         }
 
         return this;
       }
       /**
-       * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+       * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
        */
-      public Builder setServer(
-          com.kanven.schedual.network.protoc.RequestProto.Server.Builder builderForValue) {
-        if (serverBuilder_ == null) {
-          server_ = builderForValue.build();
+      public Builder setPing(
+          com.kanven.schedual.network.protoc.RequestProto.Ping.Builder builderForValue) {
+        if (pingBuilder_ == null) {
+          ping_ = builderForValue.build();
           onChanged();
         } else {
-          serverBuilder_.setMessage(builderForValue.build());
+          pingBuilder_.setMessage(builderForValue.build());
         }
 
         return this;
       }
       /**
-       * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+       * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
        */
-      public Builder mergeServer(com.kanven.schedual.network.protoc.RequestProto.Server value) {
-        if (serverBuilder_ == null) {
-          if (server_ != null) {
-            server_ =
-              com.kanven.schedual.network.protoc.RequestProto.Server.newBuilder(server_).mergeFrom(value).buildPartial();
+      public Builder mergePing(com.kanven.schedual.network.protoc.RequestProto.Ping value) {
+        if (pingBuilder_ == null) {
+          if (ping_ != null) {
+            ping_ =
+              com.kanven.schedual.network.protoc.RequestProto.Ping.newBuilder(ping_).mergeFrom(value).buildPartial();
           } else {
-            server_ = value;
+            ping_ = value;
           }
           onChanged();
         } else {
-          serverBuilder_.mergeFrom(value);
+          pingBuilder_.mergeFrom(value);
         }
 
         return this;
       }
       /**
-       * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+       * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
        */
-      public Builder clearServer() {
-        if (serverBuilder_ == null) {
-          server_ = null;
+      public Builder clearPing() {
+        if (pingBuilder_ == null) {
+          ping_ = null;
           onChanged();
         } else {
-          server_ = null;
-          serverBuilder_ = null;
+          ping_ = null;
+          pingBuilder_ = null;
         }
 
         return this;
       }
       /**
-       * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+       * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
        */
-      public com.kanven.schedual.network.protoc.RequestProto.Server.Builder getServerBuilder() {
+      public com.kanven.schedual.network.protoc.RequestProto.Ping.Builder getPingBuilder() {
         
         onChanged();
-        return getServerFieldBuilder().getBuilder();
+        return getPingFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+       * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
        */
-      public com.kanven.schedual.network.protoc.RequestProto.ServerOrBuilder getServerOrBuilder() {
-        if (serverBuilder_ != null) {
-          return serverBuilder_.getMessageOrBuilder();
+      public com.kanven.schedual.network.protoc.RequestProto.PingOrBuilder getPingOrBuilder() {
+        if (pingBuilder_ != null) {
+          return pingBuilder_.getMessageOrBuilder();
         } else {
-          return server_ == null ?
-              com.kanven.schedual.network.protoc.RequestProto.Server.getDefaultInstance() : server_;
+          return ping_ == null ?
+              com.kanven.schedual.network.protoc.RequestProto.Ping.getDefaultInstance() : ping_;
         }
       }
       /**
-       * <code>optional .com.kanven.schedual.network.protoc.Server server = 3;</code>
+       * <code>optional .com.kanven.schedual.network.protoc.Ping ping = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.kanven.schedual.network.protoc.RequestProto.Server, com.kanven.schedual.network.protoc.RequestProto.Server.Builder, com.kanven.schedual.network.protoc.RequestProto.ServerOrBuilder> 
-          getServerFieldBuilder() {
-        if (serverBuilder_ == null) {
-          serverBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.kanven.schedual.network.protoc.RequestProto.Server, com.kanven.schedual.network.protoc.RequestProto.Server.Builder, com.kanven.schedual.network.protoc.RequestProto.ServerOrBuilder>(
-                  getServer(),
+          com.kanven.schedual.network.protoc.RequestProto.Ping, com.kanven.schedual.network.protoc.RequestProto.Ping.Builder, com.kanven.schedual.network.protoc.RequestProto.PingOrBuilder> 
+          getPingFieldBuilder() {
+        if (pingBuilder_ == null) {
+          pingBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.kanven.schedual.network.protoc.RequestProto.Ping, com.kanven.schedual.network.protoc.RequestProto.Ping.Builder, com.kanven.schedual.network.protoc.RequestProto.PingOrBuilder>(
+                  getPing(),
                   getParentForChildren(),
                   isClean());
-          server_ = null;
+          ping_ = null;
         }
-        return serverBuilder_;
+        return pingBuilder_;
       }
 
       private com.kanven.schedual.network.protoc.RequestProto.Task task_ = null;
@@ -1123,49 +1005,28 @@ public final class RequestProto {
 
   }
 
-  public interface ServerOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.kanven.schedual.network.protoc.Server)
+  public interface PingOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.kanven.schedual.network.protoc.Ping)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string ip = 1;</code>
+     * <code>optional int64 time = 1;</code>
      */
-    java.lang.String getIp();
-    /**
-     * <code>optional string ip = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getIpBytes();
-
-    /**
-     * <code>optional int32 port = 2;</code>
-     */
-    int getPort();
-
-    /**
-     * <code>optional bool master = 3;</code>
-     */
-    boolean getMaster();
+    long getTime();
   }
   /**
-   * <pre>
-   *服务信息实体
-   * </pre>
-   *
-   * Protobuf type {@code com.kanven.schedual.network.protoc.Server}
+   * Protobuf type {@code com.kanven.schedual.network.protoc.Ping}
    */
-  public  static final class Server extends
+  public  static final class Ping extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.kanven.schedual.network.protoc.Server)
-      ServerOrBuilder {
-    // Use Server.newBuilder() to construct.
-    private Server(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:com.kanven.schedual.network.protoc.Ping)
+      PingOrBuilder {
+    // Use Ping.newBuilder() to construct.
+    private Ping(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private Server() {
-      ip_ = "";
-      port_ = 0;
-      master_ = false;
+    private Ping() {
+      time_ = 0L;
     }
 
     @java.lang.Override
@@ -1173,7 +1034,7 @@ public final class RequestProto {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private Server(
+    private Ping(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1193,20 +1054,9 @@ public final class RequestProto {
               }
               break;
             }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 8: {
 
-              ip_ = s;
-              break;
-            }
-            case 16: {
-
-              port_ = input.readInt32();
-              break;
-            }
-            case 24: {
-
-              master_ = input.readBool();
+              time_ = input.readInt64();
               break;
             }
           }
@@ -1222,66 +1072,23 @@ public final class RequestProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.kanven.schedual.network.protoc.RequestProto.internal_static_com_kanven_schedual_network_protoc_Server_descriptor;
+      return com.kanven.schedual.network.protoc.RequestProto.internal_static_com_kanven_schedual_network_protoc_Ping_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.kanven.schedual.network.protoc.RequestProto.internal_static_com_kanven_schedual_network_protoc_Server_fieldAccessorTable
+      return com.kanven.schedual.network.protoc.RequestProto.internal_static_com_kanven_schedual_network_protoc_Ping_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.kanven.schedual.network.protoc.RequestProto.Server.class, com.kanven.schedual.network.protoc.RequestProto.Server.Builder.class);
+              com.kanven.schedual.network.protoc.RequestProto.Ping.class, com.kanven.schedual.network.protoc.RequestProto.Ping.Builder.class);
     }
 
-    public static final int IP_FIELD_NUMBER = 1;
-    private volatile java.lang.Object ip_;
+    public static final int TIME_FIELD_NUMBER = 1;
+    private long time_;
     /**
-     * <code>optional string ip = 1;</code>
+     * <code>optional int64 time = 1;</code>
      */
-    public java.lang.String getIp() {
-      java.lang.Object ref = ip_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        ip_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string ip = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getIpBytes() {
-      java.lang.Object ref = ip_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        ip_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PORT_FIELD_NUMBER = 2;
-    private int port_;
-    /**
-     * <code>optional int32 port = 2;</code>
-     */
-    public int getPort() {
-      return port_;
-    }
-
-    public static final int MASTER_FIELD_NUMBER = 3;
-    private boolean master_;
-    /**
-     * <code>optional bool master = 3;</code>
-     */
-    public boolean getMaster() {
-      return master_;
+    public long getTime() {
+      return time_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1296,14 +1103,8 @@ public final class RequestProto {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getIpBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ip_);
-      }
-      if (port_ != 0) {
-        output.writeInt32(2, port_);
-      }
-      if (master_ != false) {
-        output.writeBool(3, master_);
+      if (time_ != 0L) {
+        output.writeInt64(1, time_);
       }
     }
 
@@ -1312,16 +1113,9 @@ public final class RequestProto {
       if (size != -1) return size;
 
       size = 0;
-      if (!getIpBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ip_);
-      }
-      if (port_ != 0) {
+      if (time_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, port_);
-      }
-      if (master_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(3, master_);
+          .computeInt64Size(1, time_);
       }
       memoizedSize = size;
       return size;
@@ -1333,18 +1127,14 @@ public final class RequestProto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.kanven.schedual.network.protoc.RequestProto.Server)) {
+      if (!(obj instanceof com.kanven.schedual.network.protoc.RequestProto.Ping)) {
         return super.equals(obj);
       }
-      com.kanven.schedual.network.protoc.RequestProto.Server other = (com.kanven.schedual.network.protoc.RequestProto.Server) obj;
+      com.kanven.schedual.network.protoc.RequestProto.Ping other = (com.kanven.schedual.network.protoc.RequestProto.Ping) obj;
 
       boolean result = true;
-      result = result && getIp()
-          .equals(other.getIp());
-      result = result && (getPort()
-          == other.getPort());
-      result = result && (getMaster()
-          == other.getMaster());
+      result = result && (getTime()
+          == other.getTime());
       return result;
     }
 
@@ -1355,70 +1145,66 @@ public final class RequestProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + IP_FIELD_NUMBER;
-      hash = (53 * hash) + getIp().hashCode();
-      hash = (37 * hash) + PORT_FIELD_NUMBER;
-      hash = (53 * hash) + getPort();
-      hash = (37 * hash) + MASTER_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getMaster());
+      hash = (37 * hash) + TIME_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTime());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static com.kanven.schedual.network.protoc.RequestProto.Server parseFrom(
+    public static com.kanven.schedual.network.protoc.RequestProto.Ping parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.kanven.schedual.network.protoc.RequestProto.Server parseFrom(
+    public static com.kanven.schedual.network.protoc.RequestProto.Ping parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.kanven.schedual.network.protoc.RequestProto.Server parseFrom(byte[] data)
+    public static com.kanven.schedual.network.protoc.RequestProto.Ping parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.kanven.schedual.network.protoc.RequestProto.Server parseFrom(
+    public static com.kanven.schedual.network.protoc.RequestProto.Ping parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.kanven.schedual.network.protoc.RequestProto.Server parseFrom(java.io.InputStream input)
+    public static com.kanven.schedual.network.protoc.RequestProto.Ping parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.kanven.schedual.network.protoc.RequestProto.Server parseFrom(
+    public static com.kanven.schedual.network.protoc.RequestProto.Ping parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.kanven.schedual.network.protoc.RequestProto.Server parseDelimitedFrom(java.io.InputStream input)
+    public static com.kanven.schedual.network.protoc.RequestProto.Ping parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.kanven.schedual.network.protoc.RequestProto.Server parseDelimitedFrom(
+    public static com.kanven.schedual.network.protoc.RequestProto.Ping parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.kanven.schedual.network.protoc.RequestProto.Server parseFrom(
+    public static com.kanven.schedual.network.protoc.RequestProto.Ping parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.kanven.schedual.network.protoc.RequestProto.Server parseFrom(
+    public static com.kanven.schedual.network.protoc.RequestProto.Ping parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1430,7 +1216,7 @@ public final class RequestProto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.kanven.schedual.network.protoc.RequestProto.Server prototype) {
+    public static Builder newBuilder(com.kanven.schedual.network.protoc.RequestProto.Ping prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -1445,29 +1231,25 @@ public final class RequestProto {
       return builder;
     }
     /**
-     * <pre>
-     *服务信息实体
-     * </pre>
-     *
-     * Protobuf type {@code com.kanven.schedual.network.protoc.Server}
+     * Protobuf type {@code com.kanven.schedual.network.protoc.Ping}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.kanven.schedual.network.protoc.Server)
-        com.kanven.schedual.network.protoc.RequestProto.ServerOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.kanven.schedual.network.protoc.Ping)
+        com.kanven.schedual.network.protoc.RequestProto.PingOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.kanven.schedual.network.protoc.RequestProto.internal_static_com_kanven_schedual_network_protoc_Server_descriptor;
+        return com.kanven.schedual.network.protoc.RequestProto.internal_static_com_kanven_schedual_network_protoc_Ping_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.kanven.schedual.network.protoc.RequestProto.internal_static_com_kanven_schedual_network_protoc_Server_fieldAccessorTable
+        return com.kanven.schedual.network.protoc.RequestProto.internal_static_com_kanven_schedual_network_protoc_Ping_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.kanven.schedual.network.protoc.RequestProto.Server.class, com.kanven.schedual.network.protoc.RequestProto.Server.Builder.class);
+                com.kanven.schedual.network.protoc.RequestProto.Ping.class, com.kanven.schedual.network.protoc.RequestProto.Ping.Builder.class);
       }
 
-      // Construct using com.kanven.schedual.network.protoc.RequestProto.Server.newBuilder()
+      // Construct using com.kanven.schedual.network.protoc.RequestProto.Ping.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1484,37 +1266,31 @@ public final class RequestProto {
       }
       public Builder clear() {
         super.clear();
-        ip_ = "";
-
-        port_ = 0;
-
-        master_ = false;
+        time_ = 0L;
 
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.kanven.schedual.network.protoc.RequestProto.internal_static_com_kanven_schedual_network_protoc_Server_descriptor;
+        return com.kanven.schedual.network.protoc.RequestProto.internal_static_com_kanven_schedual_network_protoc_Ping_descriptor;
       }
 
-      public com.kanven.schedual.network.protoc.RequestProto.Server getDefaultInstanceForType() {
-        return com.kanven.schedual.network.protoc.RequestProto.Server.getDefaultInstance();
+      public com.kanven.schedual.network.protoc.RequestProto.Ping getDefaultInstanceForType() {
+        return com.kanven.schedual.network.protoc.RequestProto.Ping.getDefaultInstance();
       }
 
-      public com.kanven.schedual.network.protoc.RequestProto.Server build() {
-        com.kanven.schedual.network.protoc.RequestProto.Server result = buildPartial();
+      public com.kanven.schedual.network.protoc.RequestProto.Ping build() {
+        com.kanven.schedual.network.protoc.RequestProto.Ping result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public com.kanven.schedual.network.protoc.RequestProto.Server buildPartial() {
-        com.kanven.schedual.network.protoc.RequestProto.Server result = new com.kanven.schedual.network.protoc.RequestProto.Server(this);
-        result.ip_ = ip_;
-        result.port_ = port_;
-        result.master_ = master_;
+      public com.kanven.schedual.network.protoc.RequestProto.Ping buildPartial() {
+        com.kanven.schedual.network.protoc.RequestProto.Ping result = new com.kanven.schedual.network.protoc.RequestProto.Ping(this);
+        result.time_ = time_;
         onBuilt();
         return result;
       }
@@ -1546,25 +1322,18 @@ public final class RequestProto {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.kanven.schedual.network.protoc.RequestProto.Server) {
-          return mergeFrom((com.kanven.schedual.network.protoc.RequestProto.Server)other);
+        if (other instanceof com.kanven.schedual.network.protoc.RequestProto.Ping) {
+          return mergeFrom((com.kanven.schedual.network.protoc.RequestProto.Ping)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.kanven.schedual.network.protoc.RequestProto.Server other) {
-        if (other == com.kanven.schedual.network.protoc.RequestProto.Server.getDefaultInstance()) return this;
-        if (!other.getIp().isEmpty()) {
-          ip_ = other.ip_;
-          onChanged();
-        }
-        if (other.getPort() != 0) {
-          setPort(other.getPort());
-        }
-        if (other.getMaster() != false) {
-          setMaster(other.getMaster());
+      public Builder mergeFrom(com.kanven.schedual.network.protoc.RequestProto.Ping other) {
+        if (other == com.kanven.schedual.network.protoc.RequestProto.Ping.getDefaultInstance()) return this;
+        if (other.getTime() != 0L) {
+          setTime(other.getTime());
         }
         onChanged();
         return this;
@@ -1578,11 +1347,11 @@ public final class RequestProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.kanven.schedual.network.protoc.RequestProto.Server parsedMessage = null;
+        com.kanven.schedual.network.protoc.RequestProto.Ping parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.kanven.schedual.network.protoc.RequestProto.Server) e.getUnfinishedMessage();
+          parsedMessage = (com.kanven.schedual.network.protoc.RequestProto.Ping) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1592,123 +1361,28 @@ public final class RequestProto {
         return this;
       }
 
-      private java.lang.Object ip_ = "";
+      private long time_ ;
       /**
-       * <code>optional string ip = 1;</code>
+       * <code>optional int64 time = 1;</code>
        */
-      public java.lang.String getIp() {
-        java.lang.Object ref = ip_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          ip_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public long getTime() {
+        return time_;
       }
       /**
-       * <code>optional string ip = 1;</code>
+       * <code>optional int64 time = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getIpBytes() {
-        java.lang.Object ref = ip_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          ip_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string ip = 1;</code>
-       */
-      public Builder setIp(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        ip_ = value;
+      public Builder setTime(long value) {
+        
+        time_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string ip = 1;</code>
+       * <code>optional int64 time = 1;</code>
        */
-      public Builder clearIp() {
+      public Builder clearTime() {
         
-        ip_ = getDefaultInstance().getIp();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string ip = 1;</code>
-       */
-      public Builder setIpBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        ip_ = value;
-        onChanged();
-        return this;
-      }
-
-      private int port_ ;
-      /**
-       * <code>optional int32 port = 2;</code>
-       */
-      public int getPort() {
-        return port_;
-      }
-      /**
-       * <code>optional int32 port = 2;</code>
-       */
-      public Builder setPort(int value) {
-        
-        port_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int32 port = 2;</code>
-       */
-      public Builder clearPort() {
-        
-        port_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private boolean master_ ;
-      /**
-       * <code>optional bool master = 3;</code>
-       */
-      public boolean getMaster() {
-        return master_;
-      }
-      /**
-       * <code>optional bool master = 3;</code>
-       */
-      public Builder setMaster(boolean value) {
-        
-        master_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional bool master = 3;</code>
-       */
-      public Builder clearMaster() {
-        
-        master_ = false;
+        time_ = 0L;
         onChanged();
         return this;
       }
@@ -1723,39 +1397,39 @@ public final class RequestProto {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.kanven.schedual.network.protoc.Server)
+      // @@protoc_insertion_point(builder_scope:com.kanven.schedual.network.protoc.Ping)
     }
 
-    // @@protoc_insertion_point(class_scope:com.kanven.schedual.network.protoc.Server)
-    private static final com.kanven.schedual.network.protoc.RequestProto.Server DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.kanven.schedual.network.protoc.Ping)
+    private static final com.kanven.schedual.network.protoc.RequestProto.Ping DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.kanven.schedual.network.protoc.RequestProto.Server();
+      DEFAULT_INSTANCE = new com.kanven.schedual.network.protoc.RequestProto.Ping();
     }
 
-    public static com.kanven.schedual.network.protoc.RequestProto.Server getDefaultInstance() {
+    public static com.kanven.schedual.network.protoc.RequestProto.Ping getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<Server>
-        PARSER = new com.google.protobuf.AbstractParser<Server>() {
-      public Server parsePartialFrom(
+    private static final com.google.protobuf.Parser<Ping>
+        PARSER = new com.google.protobuf.AbstractParser<Ping>() {
+      public Ping parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Server(input, extensionRegistry);
+          return new Ping(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<Server> parser() {
+    public static com.google.protobuf.Parser<Ping> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Server> getParserForType() {
+    public com.google.protobuf.Parser<Ping> getParserForType() {
       return PARSER;
     }
 
-    public com.kanven.schedual.network.protoc.RequestProto.Server getDefaultInstanceForType() {
+    public com.kanven.schedual.network.protoc.RequestProto.Ping getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1766,38 +1440,54 @@ public final class RequestProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string url = 1;</code>
+     * <code>optional int64 id = 1;</code>
+     */
+    long getId();
+
+    /**
+     * <code>optional string group = 2;</code>
+     */
+    java.lang.String getGroup();
+    /**
+     * <code>optional string group = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getGroupBytes();
+
+    /**
+     * <code>optional string name = 3;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>optional string name = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>optional string url = 4;</code>
      */
     java.lang.String getUrl();
     /**
-     * <code>optional string url = 1;</code>
+     * <code>optional string url = 4;</code>
      */
     com.google.protobuf.ByteString
         getUrlBytes();
 
     /**
-     * <code>optional .com.kanven.schedual.network.protoc.TaskKind kind = 2;</code>
-     */
-    int getKindValue();
-    /**
-     * <code>optional .com.kanven.schedual.network.protoc.TaskKind kind = 2;</code>
-     */
-    com.kanven.schedual.network.protoc.RequestProto.TaskKind getKind();
-
-    /**
-     * <code>optional string cron = 3;</code>
+     * <code>optional string cron = 5;</code>
      */
     java.lang.String getCron();
     /**
-     * <code>optional string cron = 3;</code>
+     * <code>optional string cron = 5;</code>
      */
     com.google.protobuf.ByteString
         getCronBytes();
 
     /**
-     * <code>optional int32 delay = 4;</code>
+     * <code>optional int64 startTime = 6;</code>
      */
-    int getDelay();
+    long getStartTime();
   }
   /**
    * <pre>
@@ -1815,10 +1505,12 @@ public final class RequestProto {
       super(builder);
     }
     private Task() {
+      id_ = 0L;
+      group_ = "";
+      name_ = "";
       url_ = "";
-      kind_ = 0;
       cron_ = "";
-      delay_ = 0;
+      startTime_ = 0L;
     }
 
     @java.lang.Override
@@ -1846,27 +1538,38 @@ public final class RequestProto {
               }
               break;
             }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 8: {
 
-              url_ = s;
+              id_ = input.readInt64();
               break;
             }
-            case 16: {
-              int rawValue = input.readEnum();
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              kind_ = rawValue;
+              group_ = s;
               break;
             }
             case 26: {
               java.lang.String s = input.readStringRequireUtf8();
 
+              name_ = s;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              url_ = s;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
               cron_ = s;
               break;
             }
-            case 32: {
+            case 48: {
 
-              delay_ = input.readInt32();
+              startTime_ = input.readInt64();
               break;
             }
           }
@@ -1892,10 +1595,87 @@ public final class RequestProto {
               com.kanven.schedual.network.protoc.RequestProto.Task.class, com.kanven.schedual.network.protoc.RequestProto.Task.Builder.class);
     }
 
-    public static final int URL_FIELD_NUMBER = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private long id_;
+    /**
+     * <code>optional int64 id = 1;</code>
+     */
+    public long getId() {
+      return id_;
+    }
+
+    public static final int GROUP_FIELD_NUMBER = 2;
+    private volatile java.lang.Object group_;
+    /**
+     * <code>optional string group = 2;</code>
+     */
+    public java.lang.String getGroup() {
+      java.lang.Object ref = group_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        group_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string group = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getGroupBytes() {
+      java.lang.Object ref = group_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        group_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NAME_FIELD_NUMBER = 3;
+    private volatile java.lang.Object name_;
+    /**
+     * <code>optional string name = 3;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string name = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int URL_FIELD_NUMBER = 4;
     private volatile java.lang.Object url_;
     /**
-     * <code>optional string url = 1;</code>
+     * <code>optional string url = 4;</code>
      */
     public java.lang.String getUrl() {
       java.lang.Object ref = url_;
@@ -1910,7 +1690,7 @@ public final class RequestProto {
       }
     }
     /**
-     * <code>optional string url = 1;</code>
+     * <code>optional string url = 4;</code>
      */
     public com.google.protobuf.ByteString
         getUrlBytes() {
@@ -1926,26 +1706,10 @@ public final class RequestProto {
       }
     }
 
-    public static final int KIND_FIELD_NUMBER = 2;
-    private int kind_;
-    /**
-     * <code>optional .com.kanven.schedual.network.protoc.TaskKind kind = 2;</code>
-     */
-    public int getKindValue() {
-      return kind_;
-    }
-    /**
-     * <code>optional .com.kanven.schedual.network.protoc.TaskKind kind = 2;</code>
-     */
-    public com.kanven.schedual.network.protoc.RequestProto.TaskKind getKind() {
-      com.kanven.schedual.network.protoc.RequestProto.TaskKind result = com.kanven.schedual.network.protoc.RequestProto.TaskKind.valueOf(kind_);
-      return result == null ? com.kanven.schedual.network.protoc.RequestProto.TaskKind.UNRECOGNIZED : result;
-    }
-
-    public static final int CRON_FIELD_NUMBER = 3;
+    public static final int CRON_FIELD_NUMBER = 5;
     private volatile java.lang.Object cron_;
     /**
-     * <code>optional string cron = 3;</code>
+     * <code>optional string cron = 5;</code>
      */
     public java.lang.String getCron() {
       java.lang.Object ref = cron_;
@@ -1960,7 +1724,7 @@ public final class RequestProto {
       }
     }
     /**
-     * <code>optional string cron = 3;</code>
+     * <code>optional string cron = 5;</code>
      */
     public com.google.protobuf.ByteString
         getCronBytes() {
@@ -1976,13 +1740,13 @@ public final class RequestProto {
       }
     }
 
-    public static final int DELAY_FIELD_NUMBER = 4;
-    private int delay_;
+    public static final int STARTTIME_FIELD_NUMBER = 6;
+    private long startTime_;
     /**
-     * <code>optional int32 delay = 4;</code>
+     * <code>optional int64 startTime = 6;</code>
      */
-    public int getDelay() {
-      return delay_;
+    public long getStartTime() {
+      return startTime_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1997,17 +1761,23 @@ public final class RequestProto {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getUrlBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, url_);
+      if (id_ != 0L) {
+        output.writeInt64(1, id_);
       }
-      if (kind_ != com.kanven.schedual.network.protoc.RequestProto.TaskKind.TIME.getNumber()) {
-        output.writeEnum(2, kind_);
+      if (!getGroupBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, group_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, name_);
+      }
+      if (!getUrlBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, url_);
       }
       if (!getCronBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, cron_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, cron_);
       }
-      if (delay_ != 0) {
-        output.writeInt32(4, delay_);
+      if (startTime_ != 0L) {
+        output.writeInt64(6, startTime_);
       }
     }
 
@@ -2016,19 +1786,25 @@ public final class RequestProto {
       if (size != -1) return size;
 
       size = 0;
-      if (!getUrlBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, url_);
-      }
-      if (kind_ != com.kanven.schedual.network.protoc.RequestProto.TaskKind.TIME.getNumber()) {
+      if (id_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, kind_);
+          .computeInt64Size(1, id_);
+      }
+      if (!getGroupBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, group_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, name_);
+      }
+      if (!getUrlBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, url_);
       }
       if (!getCronBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, cron_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, cron_);
       }
-      if (delay_ != 0) {
+      if (startTime_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, delay_);
+          .computeInt64Size(6, startTime_);
       }
       memoizedSize = size;
       return size;
@@ -2046,13 +1822,18 @@ public final class RequestProto {
       com.kanven.schedual.network.protoc.RequestProto.Task other = (com.kanven.schedual.network.protoc.RequestProto.Task) obj;
 
       boolean result = true;
+      result = result && (getId()
+          == other.getId());
+      result = result && getGroup()
+          .equals(other.getGroup());
+      result = result && getName()
+          .equals(other.getName());
       result = result && getUrl()
           .equals(other.getUrl());
-      result = result && kind_ == other.kind_;
       result = result && getCron()
           .equals(other.getCron());
-      result = result && (getDelay()
-          == other.getDelay());
+      result = result && (getStartTime()
+          == other.getStartTime());
       return result;
     }
 
@@ -2063,14 +1844,20 @@ public final class RequestProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getId());
+      hash = (37 * hash) + GROUP_FIELD_NUMBER;
+      hash = (53 * hash) + getGroup().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
       hash = (37 * hash) + URL_FIELD_NUMBER;
       hash = (53 * hash) + getUrl().hashCode();
-      hash = (37 * hash) + KIND_FIELD_NUMBER;
-      hash = (53 * hash) + kind_;
       hash = (37 * hash) + CRON_FIELD_NUMBER;
       hash = (53 * hash) + getCron().hashCode();
-      hash = (37 * hash) + DELAY_FIELD_NUMBER;
-      hash = (53 * hash) + getDelay();
+      hash = (37 * hash) + STARTTIME_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getStartTime());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2193,13 +1980,17 @@ public final class RequestProto {
       }
       public Builder clear() {
         super.clear();
-        url_ = "";
+        id_ = 0L;
 
-        kind_ = 0;
+        group_ = "";
+
+        name_ = "";
+
+        url_ = "";
 
         cron_ = "";
 
-        delay_ = 0;
+        startTime_ = 0L;
 
         return this;
       }
@@ -2223,10 +2014,12 @@ public final class RequestProto {
 
       public com.kanven.schedual.network.protoc.RequestProto.Task buildPartial() {
         com.kanven.schedual.network.protoc.RequestProto.Task result = new com.kanven.schedual.network.protoc.RequestProto.Task(this);
+        result.id_ = id_;
+        result.group_ = group_;
+        result.name_ = name_;
         result.url_ = url_;
-        result.kind_ = kind_;
         result.cron_ = cron_;
-        result.delay_ = delay_;
+        result.startTime_ = startTime_;
         onBuilt();
         return result;
       }
@@ -2268,19 +2061,27 @@ public final class RequestProto {
 
       public Builder mergeFrom(com.kanven.schedual.network.protoc.RequestProto.Task other) {
         if (other == com.kanven.schedual.network.protoc.RequestProto.Task.getDefaultInstance()) return this;
+        if (other.getId() != 0L) {
+          setId(other.getId());
+        }
+        if (!other.getGroup().isEmpty()) {
+          group_ = other.group_;
+          onChanged();
+        }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
         if (!other.getUrl().isEmpty()) {
           url_ = other.url_;
           onChanged();
-        }
-        if (other.kind_ != 0) {
-          setKindValue(other.getKindValue());
         }
         if (!other.getCron().isEmpty()) {
           cron_ = other.cron_;
           onChanged();
         }
-        if (other.getDelay() != 0) {
-          setDelay(other.getDelay());
+        if (other.getStartTime() != 0L) {
+          setStartTime(other.getStartTime());
         }
         onChanged();
         return this;
@@ -2308,9 +2109,173 @@ public final class RequestProto {
         return this;
       }
 
+      private long id_ ;
+      /**
+       * <code>optional int64 id = 1;</code>
+       */
+      public long getId() {
+        return id_;
+      }
+      /**
+       * <code>optional int64 id = 1;</code>
+       */
+      public Builder setId(long value) {
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 id = 1;</code>
+       */
+      public Builder clearId() {
+        
+        id_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object group_ = "";
+      /**
+       * <code>optional string group = 2;</code>
+       */
+      public java.lang.String getGroup() {
+        java.lang.Object ref = group_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          group_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string group = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getGroupBytes() {
+        java.lang.Object ref = group_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          group_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string group = 2;</code>
+       */
+      public Builder setGroup(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        group_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string group = 2;</code>
+       */
+      public Builder clearGroup() {
+        
+        group_ = getDefaultInstance().getGroup();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string group = 2;</code>
+       */
+      public Builder setGroupBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        group_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>optional string name = 3;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string name = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string name = 3;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string name = 3;</code>
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string name = 3;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
       private java.lang.Object url_ = "";
       /**
-       * <code>optional string url = 1;</code>
+       * <code>optional string url = 4;</code>
        */
       public java.lang.String getUrl() {
         java.lang.Object ref = url_;
@@ -2325,7 +2290,7 @@ public final class RequestProto {
         }
       }
       /**
-       * <code>optional string url = 1;</code>
+       * <code>optional string url = 4;</code>
        */
       public com.google.protobuf.ByteString
           getUrlBytes() {
@@ -2341,7 +2306,7 @@ public final class RequestProto {
         }
       }
       /**
-       * <code>optional string url = 1;</code>
+       * <code>optional string url = 4;</code>
        */
       public Builder setUrl(
           java.lang.String value) {
@@ -2354,7 +2319,7 @@ public final class RequestProto {
         return this;
       }
       /**
-       * <code>optional string url = 1;</code>
+       * <code>optional string url = 4;</code>
        */
       public Builder clearUrl() {
         
@@ -2363,7 +2328,7 @@ public final class RequestProto {
         return this;
       }
       /**
-       * <code>optional string url = 1;</code>
+       * <code>optional string url = 4;</code>
        */
       public Builder setUrlBytes(
           com.google.protobuf.ByteString value) {
@@ -2377,53 +2342,9 @@ public final class RequestProto {
         return this;
       }
 
-      private int kind_ = 0;
-      /**
-       * <code>optional .com.kanven.schedual.network.protoc.TaskKind kind = 2;</code>
-       */
-      public int getKindValue() {
-        return kind_;
-      }
-      /**
-       * <code>optional .com.kanven.schedual.network.protoc.TaskKind kind = 2;</code>
-       */
-      public Builder setKindValue(int value) {
-        kind_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional .com.kanven.schedual.network.protoc.TaskKind kind = 2;</code>
-       */
-      public com.kanven.schedual.network.protoc.RequestProto.TaskKind getKind() {
-        com.kanven.schedual.network.protoc.RequestProto.TaskKind result = com.kanven.schedual.network.protoc.RequestProto.TaskKind.valueOf(kind_);
-        return result == null ? com.kanven.schedual.network.protoc.RequestProto.TaskKind.UNRECOGNIZED : result;
-      }
-      /**
-       * <code>optional .com.kanven.schedual.network.protoc.TaskKind kind = 2;</code>
-       */
-      public Builder setKind(com.kanven.schedual.network.protoc.RequestProto.TaskKind value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        
-        kind_ = value.getNumber();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional .com.kanven.schedual.network.protoc.TaskKind kind = 2;</code>
-       */
-      public Builder clearKind() {
-        
-        kind_ = 0;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object cron_ = "";
       /**
-       * <code>optional string cron = 3;</code>
+       * <code>optional string cron = 5;</code>
        */
       public java.lang.String getCron() {
         java.lang.Object ref = cron_;
@@ -2438,7 +2359,7 @@ public final class RequestProto {
         }
       }
       /**
-       * <code>optional string cron = 3;</code>
+       * <code>optional string cron = 5;</code>
        */
       public com.google.protobuf.ByteString
           getCronBytes() {
@@ -2454,7 +2375,7 @@ public final class RequestProto {
         }
       }
       /**
-       * <code>optional string cron = 3;</code>
+       * <code>optional string cron = 5;</code>
        */
       public Builder setCron(
           java.lang.String value) {
@@ -2467,7 +2388,7 @@ public final class RequestProto {
         return this;
       }
       /**
-       * <code>optional string cron = 3;</code>
+       * <code>optional string cron = 5;</code>
        */
       public Builder clearCron() {
         
@@ -2476,7 +2397,7 @@ public final class RequestProto {
         return this;
       }
       /**
-       * <code>optional string cron = 3;</code>
+       * <code>optional string cron = 5;</code>
        */
       public Builder setCronBytes(
           com.google.protobuf.ByteString value) {
@@ -2490,28 +2411,28 @@ public final class RequestProto {
         return this;
       }
 
-      private int delay_ ;
+      private long startTime_ ;
       /**
-       * <code>optional int32 delay = 4;</code>
+       * <code>optional int64 startTime = 6;</code>
        */
-      public int getDelay() {
-        return delay_;
+      public long getStartTime() {
+        return startTime_;
       }
       /**
-       * <code>optional int32 delay = 4;</code>
+       * <code>optional int64 startTime = 6;</code>
        */
-      public Builder setDelay(int value) {
+      public Builder setStartTime(long value) {
         
-        delay_ = value;
+        startTime_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 delay = 4;</code>
+       * <code>optional int64 startTime = 6;</code>
        */
-      public Builder clearDelay() {
+      public Builder clearStartTime() {
         
-        delay_ = 0;
+        startTime_ = 0L;
         onChanged();
         return this;
       }
@@ -2570,10 +2491,10 @@ public final class RequestProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_kanven_schedual_network_protoc_Request_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_kanven_schedual_network_protoc_Server_descriptor;
+    internal_static_com_kanven_schedual_network_protoc_Ping_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_kanven_schedual_network_protoc_Server_fieldAccessorTable;
+      internal_static_com_kanven_schedual_network_protoc_Ping_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_kanven_schedual_network_protoc_Task_descriptor;
   private static final 
@@ -2589,18 +2510,16 @@ public final class RequestProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\rRequest.proto\022\"com.kanven.schedual.net" +
-      "work.protoc\032\021MessageType.proto\"\317\001\n\007Reque" +
+      "work.protoc\032\021MessageType.proto\"\313\001\n\007Reque" +
       "st\022\021\n\trequestId\030\001 \001(\t\022=\n\004type\030\002 \001(\0162/.co" +
       "m.kanven.schedual.network.protoc.Message" +
-      "Type\022:\n\006server\030\003 \001(\0132*.com.kanven.schedu" +
-      "al.network.protoc.Server\0226\n\004task\030\004 \001(\0132(" +
-      ".com.kanven.schedual.network.protoc.Task" +
-      "\"2\n\006Server\022\n\n\002ip\030\001 \001(\t\022\014\n\004port\030\002 \001(\005\022\016\n\006" +
-      "master\030\003 \001(\010\"l\n\004Task\022\013\n\003url\030\001 \001(\t\022:\n\004kin" +
-      "d\030\002 \001(\0162,.com.kanven.schedual.network.pr",
-      "otoc.TaskKind\022\014\n\004cron\030\003 \001(\t\022\r\n\005delay\030\004 \001" +
-      "(\005*\037\n\010TaskKind\022\010\n\004TIME\020\000\022\t\n\005DELAY\020\001B\016B\014R" +
-      "equestProtob\006proto3"
+      "Type\0226\n\004ping\030\003 \001(\0132(.com.kanven.schedual" +
+      ".network.protoc.Ping\0226\n\004task\030\004 \001(\0132(.com" +
+      ".kanven.schedual.network.protoc.Task\"\024\n\004" +
+      "Ping\022\014\n\004time\030\001 \001(\003\"]\n\004Task\022\n\n\002id\030\001 \001(\003\022\r" +
+      "\n\005group\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022\013\n\003url\030\004 \001(\t" +
+      "\022\014\n\004cron\030\005 \001(\t\022\021\n\tstartTime\030\006 \001(\003B\016B\014Req",
+      "uestProtob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2620,19 +2539,19 @@ public final class RequestProto {
     internal_static_com_kanven_schedual_network_protoc_Request_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_kanven_schedual_network_protoc_Request_descriptor,
-        new java.lang.String[] { "RequestId", "Type", "Server", "Task", });
-    internal_static_com_kanven_schedual_network_protoc_Server_descriptor =
+        new java.lang.String[] { "RequestId", "Type", "Ping", "Task", });
+    internal_static_com_kanven_schedual_network_protoc_Ping_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_com_kanven_schedual_network_protoc_Server_fieldAccessorTable = new
+    internal_static_com_kanven_schedual_network_protoc_Ping_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_kanven_schedual_network_protoc_Server_descriptor,
-        new java.lang.String[] { "Ip", "Port", "Master", });
+        internal_static_com_kanven_schedual_network_protoc_Ping_descriptor,
+        new java.lang.String[] { "Time", });
     internal_static_com_kanven_schedual_network_protoc_Task_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_com_kanven_schedual_network_protoc_Task_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_kanven_schedual_network_protoc_Task_descriptor,
-        new java.lang.String[] { "Url", "Kind", "Cron", "Delay", });
+        new java.lang.String[] { "Id", "Group", "Name", "Url", "Cron", "StartTime", });
     com.kanven.schedual.network.protoc.MessageTypeProto.getDescriptor();
   }
 

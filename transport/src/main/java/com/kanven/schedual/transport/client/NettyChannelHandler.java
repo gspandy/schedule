@@ -4,8 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kanven.schedual.network.protoc.MessageTypeProto.MessageType;
-import com.kanven.schedual.network.protoc.RequestProto.Request;
-import com.kanven.schedual.network.protoc.RequestProto.Request.Builder;
+import com.kanven.schedual.network.protoc.RequestProto.Ping;
 import com.kanven.schedual.network.protoc.ResponseProto.Response;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -26,13 +25,12 @@ class NettyChannelHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		Response response = (Response) msg;
-		switch (response.getType()) {
-		case PONG:
+		MessageType type = response.getType();
+		if (type == MessageType.PONG) {
 			if (log.isDebugEnabled()) {
 				log.debug("收到pong消息...");
 			}
-			break;
-		default:
+		} else {
 			if (log.isDebugEnabled()) {
 				log.debug("response:" + response);
 			}
@@ -43,7 +41,6 @@ class NettyChannelHandler extends ChannelInboundHandlerAdapter {
 				return;
 			}
 			res.callback(response);
-			break;
 		}
 	}
 
@@ -55,9 +52,9 @@ class NettyChannelHandler extends ChannelInboundHandlerAdapter {
 				if (log.isDebugEnabled()) {
 					log.debug("发起心跳检查...");
 				}
-				Builder builder = Request.newBuilder();
-				builder.setType(MessageType.PING);
-				ctx.writeAndFlush(builder.build());
+				Ping.Builder pb = Ping.newBuilder();
+				pb.setTime(System.currentTimeMillis());
+				ctx.writeAndFlush(pb.build());
 			}
 		}
 	}

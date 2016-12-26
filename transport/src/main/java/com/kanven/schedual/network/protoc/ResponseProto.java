@@ -51,6 +51,29 @@ public final class ResponseProto {
      */
     com.google.protobuf.ByteString
         getMsgBytes();
+
+    /**
+     * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+     */
+    boolean hasPong();
+    /**
+     * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+     */
+    com.kanven.schedual.network.protoc.ResponseProto.Pong getPong();
+    /**
+     * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+     */
+    com.kanven.schedual.network.protoc.ResponseProto.PongOrBuilder getPongOrBuilder();
+
+    /**
+     * <code>optional string result = 6;</code>
+     */
+    java.lang.String getResult();
+    /**
+     * <code>optional string result = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getResultBytes();
   }
   /**
    * Protobuf type {@code com.kanven.schedual.network.protoc.Response}
@@ -68,6 +91,7 @@ public final class ResponseProto {
       status_ = 0;
       type_ = 0;
       msg_ = "";
+      result_ = "";
     }
 
     @java.lang.Override
@@ -116,6 +140,25 @@ public final class ResponseProto {
               java.lang.String s = input.readStringRequireUtf8();
 
               msg_ = s;
+              break;
+            }
+            case 42: {
+              com.kanven.schedual.network.protoc.ResponseProto.Pong.Builder subBuilder = null;
+              if (pong_ != null) {
+                subBuilder = pong_.toBuilder();
+              }
+              pong_ = input.readMessage(com.kanven.schedual.network.protoc.ResponseProto.Pong.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pong_);
+                pong_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              result_ = s;
               break;
             }
           }
@@ -234,6 +277,61 @@ public final class ResponseProto {
       }
     }
 
+    public static final int PONG_FIELD_NUMBER = 5;
+    private com.kanven.schedual.network.protoc.ResponseProto.Pong pong_;
+    /**
+     * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+     */
+    public boolean hasPong() {
+      return pong_ != null;
+    }
+    /**
+     * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+     */
+    public com.kanven.schedual.network.protoc.ResponseProto.Pong getPong() {
+      return pong_ == null ? com.kanven.schedual.network.protoc.ResponseProto.Pong.getDefaultInstance() : pong_;
+    }
+    /**
+     * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+     */
+    public com.kanven.schedual.network.protoc.ResponseProto.PongOrBuilder getPongOrBuilder() {
+      return getPong();
+    }
+
+    public static final int RESULT_FIELD_NUMBER = 6;
+    private volatile java.lang.Object result_;
+    /**
+     * <code>optional string result = 6;</code>
+     */
+    public java.lang.String getResult() {
+      java.lang.Object ref = result_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        result_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string result = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getResultBytes() {
+      java.lang.Object ref = result_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        result_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -252,11 +350,17 @@ public final class ResponseProto {
       if (status_ != 0) {
         output.writeInt32(2, status_);
       }
-      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.SERVER.getNumber()) {
+      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.TASK.getNumber()) {
         output.writeEnum(3, type_);
       }
       if (!getMsgBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, msg_);
+      }
+      if (pong_ != null) {
+        output.writeMessage(5, getPong());
+      }
+      if (!getResultBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, result_);
       }
     }
 
@@ -272,12 +376,19 @@ public final class ResponseProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, status_);
       }
-      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.SERVER.getNumber()) {
+      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.TASK.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(3, type_);
       }
       if (!getMsgBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, msg_);
+      }
+      if (pong_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, getPong());
+      }
+      if (!getResultBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, result_);
       }
       memoizedSize = size;
       return size;
@@ -302,6 +413,13 @@ public final class ResponseProto {
       result = result && type_ == other.type_;
       result = result && getMsg()
           .equals(other.getMsg());
+      result = result && (hasPong() == other.hasPong());
+      if (hasPong()) {
+        result = result && getPong()
+            .equals(other.getPong());
+      }
+      result = result && getResult()
+          .equals(other.getResult());
       return result;
     }
 
@@ -320,6 +438,12 @@ public final class ResponseProto {
       hash = (53 * hash) + type_;
       hash = (37 * hash) + MSG_FIELD_NUMBER;
       hash = (53 * hash) + getMsg().hashCode();
+      if (hasPong()) {
+        hash = (37 * hash) + PONG_FIELD_NUMBER;
+        hash = (53 * hash) + getPong().hashCode();
+      }
+      hash = (37 * hash) + RESULT_FIELD_NUMBER;
+      hash = (53 * hash) + getResult().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -446,6 +570,14 @@ public final class ResponseProto {
 
         msg_ = "";
 
+        if (pongBuilder_ == null) {
+          pong_ = null;
+        } else {
+          pong_ = null;
+          pongBuilder_ = null;
+        }
+        result_ = "";
+
         return this;
       }
 
@@ -472,6 +604,12 @@ public final class ResponseProto {
         result.status_ = status_;
         result.type_ = type_;
         result.msg_ = msg_;
+        if (pongBuilder_ == null) {
+          result.pong_ = pong_;
+        } else {
+          result.pong_ = pongBuilder_.build();
+        }
+        result.result_ = result_;
         onBuilt();
         return result;
       }
@@ -525,6 +663,13 @@ public final class ResponseProto {
         }
         if (!other.getMsg().isEmpty()) {
           msg_ = other.msg_;
+          onChanged();
+        }
+        if (other.hasPong()) {
+          mergePong(other.getPong());
+        }
+        if (!other.getResult().isEmpty()) {
+          result_ = other.result_;
           onChanged();
         }
         onChanged();
@@ -760,6 +905,192 @@ public final class ResponseProto {
         onChanged();
         return this;
       }
+
+      private com.kanven.schedual.network.protoc.ResponseProto.Pong pong_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.kanven.schedual.network.protoc.ResponseProto.Pong, com.kanven.schedual.network.protoc.ResponseProto.Pong.Builder, com.kanven.schedual.network.protoc.ResponseProto.PongOrBuilder> pongBuilder_;
+      /**
+       * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+       */
+      public boolean hasPong() {
+        return pongBuilder_ != null || pong_ != null;
+      }
+      /**
+       * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+       */
+      public com.kanven.schedual.network.protoc.ResponseProto.Pong getPong() {
+        if (pongBuilder_ == null) {
+          return pong_ == null ? com.kanven.schedual.network.protoc.ResponseProto.Pong.getDefaultInstance() : pong_;
+        } else {
+          return pongBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+       */
+      public Builder setPong(com.kanven.schedual.network.protoc.ResponseProto.Pong value) {
+        if (pongBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pong_ = value;
+          onChanged();
+        } else {
+          pongBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+       */
+      public Builder setPong(
+          com.kanven.schedual.network.protoc.ResponseProto.Pong.Builder builderForValue) {
+        if (pongBuilder_ == null) {
+          pong_ = builderForValue.build();
+          onChanged();
+        } else {
+          pongBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+       */
+      public Builder mergePong(com.kanven.schedual.network.protoc.ResponseProto.Pong value) {
+        if (pongBuilder_ == null) {
+          if (pong_ != null) {
+            pong_ =
+              com.kanven.schedual.network.protoc.ResponseProto.Pong.newBuilder(pong_).mergeFrom(value).buildPartial();
+          } else {
+            pong_ = value;
+          }
+          onChanged();
+        } else {
+          pongBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+       */
+      public Builder clearPong() {
+        if (pongBuilder_ == null) {
+          pong_ = null;
+          onChanged();
+        } else {
+          pong_ = null;
+          pongBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+       */
+      public com.kanven.schedual.network.protoc.ResponseProto.Pong.Builder getPongBuilder() {
+        
+        onChanged();
+        return getPongFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+       */
+      public com.kanven.schedual.network.protoc.ResponseProto.PongOrBuilder getPongOrBuilder() {
+        if (pongBuilder_ != null) {
+          return pongBuilder_.getMessageOrBuilder();
+        } else {
+          return pong_ == null ?
+              com.kanven.schedual.network.protoc.ResponseProto.Pong.getDefaultInstance() : pong_;
+        }
+      }
+      /**
+       * <code>optional .com.kanven.schedual.network.protoc.Pong pong = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.kanven.schedual.network.protoc.ResponseProto.Pong, com.kanven.schedual.network.protoc.ResponseProto.Pong.Builder, com.kanven.schedual.network.protoc.ResponseProto.PongOrBuilder> 
+          getPongFieldBuilder() {
+        if (pongBuilder_ == null) {
+          pongBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.kanven.schedual.network.protoc.ResponseProto.Pong, com.kanven.schedual.network.protoc.ResponseProto.Pong.Builder, com.kanven.schedual.network.protoc.ResponseProto.PongOrBuilder>(
+                  getPong(),
+                  getParentForChildren(),
+                  isClean());
+          pong_ = null;
+        }
+        return pongBuilder_;
+      }
+
+      private java.lang.Object result_ = "";
+      /**
+       * <code>optional string result = 6;</code>
+       */
+      public java.lang.String getResult() {
+        java.lang.Object ref = result_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          result_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string result = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getResultBytes() {
+        java.lang.Object ref = result_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          result_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string result = 6;</code>
+       */
+      public Builder setResult(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        result_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string result = 6;</code>
+       */
+      public Builder clearResult() {
+        
+        result_ = getDefaultInstance().getResult();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string result = 6;</code>
+       */
+      public Builder setResultBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        result_ = value;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -809,11 +1140,446 @@ public final class ResponseProto {
 
   }
 
+  public interface PongOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.kanven.schedual.network.protoc.Pong)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional int64 time = 1;</code>
+     */
+    long getTime();
+  }
+  /**
+   * Protobuf type {@code com.kanven.schedual.network.protoc.Pong}
+   */
+  public  static final class Pong extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.kanven.schedual.network.protoc.Pong)
+      PongOrBuilder {
+    // Use Pong.newBuilder() to construct.
+    private Pong(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Pong() {
+      time_ = 0L;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private Pong(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+
+              time_ = input.readInt64();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.kanven.schedual.network.protoc.ResponseProto.internal_static_com_kanven_schedual_network_protoc_Pong_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.kanven.schedual.network.protoc.ResponseProto.internal_static_com_kanven_schedual_network_protoc_Pong_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.kanven.schedual.network.protoc.ResponseProto.Pong.class, com.kanven.schedual.network.protoc.ResponseProto.Pong.Builder.class);
+    }
+
+    public static final int TIME_FIELD_NUMBER = 1;
+    private long time_;
+    /**
+     * <code>optional int64 time = 1;</code>
+     */
+    public long getTime() {
+      return time_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (time_ != 0L) {
+        output.writeInt64(1, time_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (time_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, time_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.kanven.schedual.network.protoc.ResponseProto.Pong)) {
+        return super.equals(obj);
+      }
+      com.kanven.schedual.network.protoc.ResponseProto.Pong other = (com.kanven.schedual.network.protoc.ResponseProto.Pong) obj;
+
+      boolean result = true;
+      result = result && (getTime()
+          == other.getTime());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + TIME_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTime());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.kanven.schedual.network.protoc.ResponseProto.Pong parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.kanven.schedual.network.protoc.ResponseProto.Pong parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.kanven.schedual.network.protoc.ResponseProto.Pong parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.kanven.schedual.network.protoc.ResponseProto.Pong parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.kanven.schedual.network.protoc.ResponseProto.Pong parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.kanven.schedual.network.protoc.ResponseProto.Pong parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.kanven.schedual.network.protoc.ResponseProto.Pong parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.kanven.schedual.network.protoc.ResponseProto.Pong parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.kanven.schedual.network.protoc.ResponseProto.Pong parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.kanven.schedual.network.protoc.ResponseProto.Pong parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.kanven.schedual.network.protoc.ResponseProto.Pong prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.kanven.schedual.network.protoc.Pong}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.kanven.schedual.network.protoc.Pong)
+        com.kanven.schedual.network.protoc.ResponseProto.PongOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.kanven.schedual.network.protoc.ResponseProto.internal_static_com_kanven_schedual_network_protoc_Pong_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.kanven.schedual.network.protoc.ResponseProto.internal_static_com_kanven_schedual_network_protoc_Pong_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.kanven.schedual.network.protoc.ResponseProto.Pong.class, com.kanven.schedual.network.protoc.ResponseProto.Pong.Builder.class);
+      }
+
+      // Construct using com.kanven.schedual.network.protoc.ResponseProto.Pong.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        time_ = 0L;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.kanven.schedual.network.protoc.ResponseProto.internal_static_com_kanven_schedual_network_protoc_Pong_descriptor;
+      }
+
+      public com.kanven.schedual.network.protoc.ResponseProto.Pong getDefaultInstanceForType() {
+        return com.kanven.schedual.network.protoc.ResponseProto.Pong.getDefaultInstance();
+      }
+
+      public com.kanven.schedual.network.protoc.ResponseProto.Pong build() {
+        com.kanven.schedual.network.protoc.ResponseProto.Pong result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.kanven.schedual.network.protoc.ResponseProto.Pong buildPartial() {
+        com.kanven.schedual.network.protoc.ResponseProto.Pong result = new com.kanven.schedual.network.protoc.ResponseProto.Pong(this);
+        result.time_ = time_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.kanven.schedual.network.protoc.ResponseProto.Pong) {
+          return mergeFrom((com.kanven.schedual.network.protoc.ResponseProto.Pong)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.kanven.schedual.network.protoc.ResponseProto.Pong other) {
+        if (other == com.kanven.schedual.network.protoc.ResponseProto.Pong.getDefaultInstance()) return this;
+        if (other.getTime() != 0L) {
+          setTime(other.getTime());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.kanven.schedual.network.protoc.ResponseProto.Pong parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.kanven.schedual.network.protoc.ResponseProto.Pong) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long time_ ;
+      /**
+       * <code>optional int64 time = 1;</code>
+       */
+      public long getTime() {
+        return time_;
+      }
+      /**
+       * <code>optional int64 time = 1;</code>
+       */
+      public Builder setTime(long value) {
+        
+        time_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 time = 1;</code>
+       */
+      public Builder clearTime() {
+        
+        time_ = 0L;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.kanven.schedual.network.protoc.Pong)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.kanven.schedual.network.protoc.Pong)
+    private static final com.kanven.schedual.network.protoc.ResponseProto.Pong DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.kanven.schedual.network.protoc.ResponseProto.Pong();
+    }
+
+    public static com.kanven.schedual.network.protoc.ResponseProto.Pong getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Pong>
+        PARSER = new com.google.protobuf.AbstractParser<Pong>() {
+      public Pong parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Pong(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Pong> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Pong> getParserForType() {
+      return PARSER;
+    }
+
+    public com.kanven.schedual.network.protoc.ResponseProto.Pong getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_kanven_schedual_network_protoc_Response_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_kanven_schedual_network_protoc_Response_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_kanven_schedual_network_protoc_Pong_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_kanven_schedual_network_protoc_Pong_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -824,11 +1590,13 @@ public final class ResponseProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\016Response.proto\022\"com.kanven.schedual.ne" +
-      "twork.protoc\032\021MessageType.proto\"y\n\010Respo" +
-      "nse\022\021\n\trequestId\030\001 \001(\t\022\016\n\006status\030\002 \001(\005\022=" +
-      "\n\004type\030\003 \001(\0162/.com.kanven.schedual.netwo" +
-      "rk.protoc.MessageType\022\013\n\003msg\030\004 \001(\tB\017B\rRe" +
-      "sponseProtob\006proto3"
+      "twork.protoc\032\021MessageType.proto\"\301\001\n\010Resp" +
+      "onse\022\021\n\trequestId\030\001 \001(\t\022\016\n\006status\030\002 \001(\005\022" +
+      "=\n\004type\030\003 \001(\0162/.com.kanven.schedual.netw" +
+      "ork.protoc.MessageType\022\013\n\003msg\030\004 \001(\t\0226\n\004p" +
+      "ong\030\005 \001(\0132(.com.kanven.schedual.network." +
+      "protoc.Pong\022\016\n\006result\030\006 \001(\t\"\024\n\004Pong\022\014\n\004t" +
+      "ime\030\001 \001(\003B\017B\rResponseProtob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -848,7 +1616,13 @@ public final class ResponseProto {
     internal_static_com_kanven_schedual_network_protoc_Response_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_kanven_schedual_network_protoc_Response_descriptor,
-        new java.lang.String[] { "RequestId", "Status", "Type", "Msg", });
+        new java.lang.String[] { "RequestId", "Status", "Type", "Msg", "Pong", "Result", });
+    internal_static_com_kanven_schedual_network_protoc_Pong_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_com_kanven_schedual_network_protoc_Pong_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_kanven_schedual_network_protoc_Pong_descriptor,
+        new java.lang.String[] { "Time", });
     com.kanven.schedual.network.protoc.MessageTypeProto.getDescriptor();
   }
 

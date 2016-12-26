@@ -112,7 +112,7 @@ public class NettyServer {
 							for (MessageReceiver receiver : receivers) {
 								Object o = receiver.receive(msg);
 								if (o != null) {
-									ctx.writeAndFlush(msg);
+									ctx.writeAndFlush(o);
 								}
 							}
 						}

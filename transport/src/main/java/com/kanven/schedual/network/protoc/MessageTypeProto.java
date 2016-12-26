@@ -24,64 +24,56 @@ public final class MessageTypeProto {
   public enum MessageType
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
-     * <code>SERVER = 0;</code>
-     */
-    SERVER(0),
-    /**
      * <pre>
      *任务
      * </pre>
      *
-     * <code>TASK = 1;</code>
+     * <code>TASK = 0;</code>
      */
-    TASK(1),
+    TASK(0),
     /**
      * <pre>
-     *心跳检查 ping 操作
+     *心跳检查
      * </pre>
      *
-     * <code>PING = 2;</code>
+     * <code>PING = 1;</code>
      */
-    PING(2),
+    PING(1),
     /**
      * <pre>
-     *心跳检查 pong 操作
+     *心跳检查
      * </pre>
      *
-     * <code>PONG = 3;</code>
+     * <code>PONG = 2;</code>
      */
-    PONG(3),
+    PONG(2),
     UNRECOGNIZED(-1),
     ;
 
     /**
-     * <code>SERVER = 0;</code>
-     */
-    public static final int SERVER_VALUE = 0;
-    /**
      * <pre>
      *任务
      * </pre>
      *
-     * <code>TASK = 1;</code>
+     * <code>TASK = 0;</code>
      */
-    public static final int TASK_VALUE = 1;
+    public static final int TASK_VALUE = 0;
     /**
      * <pre>
-     *心跳检查 ping 操作
+     *心跳检查
      * </pre>
      *
-     * <code>PING = 2;</code>
+     * <code>PING = 1;</code>
      */
-    public static final int PING_VALUE = 2;
+    public static final int PING_VALUE = 1;
     /**
      * <pre>
-     *心跳检查 pong 操作
+     *心跳检查
      * </pre>
      *
-     * <code>PONG = 3;</code>
+     * <code>PONG = 2;</code>
      */
-    public static final int PONG_VALUE = 3;
+    public static final int PONG_VALUE = 2;
 
 
     public final int getNumber() {
@@ -102,10 +94,9 @@ public final class MessageTypeProto {
 
     public static MessageType forNumber(int value) {
       switch (value) {
-        case 0: return SERVER;
-        case 1: return TASK;
-        case 2: return PING;
-        case 3: return PONG;
+        case 0: return TASK;
+        case 1: return PING;
+        case 2: return PONG;
         default: return null;
       }
     }
@@ -168,9 +159,9 @@ public final class MessageTypeProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\021MessageType.proto\022\"com.kanven.schedual" +
-      ".network.protoc*7\n\013MessageType\022\n\n\006SERVER" +
-      "\020\000\022\010\n\004TASK\020\001\022\010\n\004PING\020\002\022\010\n\004PONG\020\003B\022B\020Mess" +
-      "ageTypeProtob\006proto3"
+      ".network.protoc*+\n\013MessageType\022\010\n\004TASK\020\000" +
+      "\022\010\n\004PING\020\001\022\010\n\004PONG\020\002B\022B\020MessageTypeProto" +
+      "b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

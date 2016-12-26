@@ -13,30 +13,30 @@ message Request{
 
 	MessageType type = 2;
 	
-	Server server = 3;
+	Ping ping = 3;
 	
 	Task task = 4;
 	
 }
 
+message Ping {
 
-//服务信息实体
-message Server {
-	string ip = 1;
-    int32 port = 2;
-    bool master = 3;
-}
+	int64 time = 1;
 
-//任务类型
-enum TaskKind {
-	TIME = 0;  //定时任务
-	DELAY = 1; //延时任务
 }
 
 //任务实体
 message Task {
-	string url = 1;
-	TaskKind kind = 2;
-	string cron = 3;
-	int32 delay = 4;
+	
+	int64 id = 1;
+	
+	string group = 2;
+	
+	string name = 3;
+
+	string url = 4;
+	
+	string cron = 5;
+	
+	int64 startTime = 6;
 }

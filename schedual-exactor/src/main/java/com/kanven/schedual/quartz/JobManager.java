@@ -1,5 +1,7 @@
 package com.kanven.schedual.quartz;
 
+import java.util.Date;
+
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
@@ -26,23 +28,33 @@ public class JobManager {
 
 	private Scheduler scheduler;
 
-	private JobManager() throws SchedulerException {
+	private JobManager() throws JobException {
 		SchedulerFactory factory = new StdSchedulerFactory();
-		scheduler = factory.getScheduler();
-		scheduler.start();
+		try {
+			scheduler = factory.getScheduler();
+			scheduler.start();
+		} catch (SchedulerException e) {
+			throw new JobException("任务管理器启动失败！", e);
+		}
 	}
 
-	public synchronized static JobManager getInstance() throws SchedulerException {
+	public synchronized static JobManager getInstance() throws JobException {
 		if (instance == null) {
 			instance = new JobManager();
 		}
 		return instance;
 	}
 
-	public void add(JobConfig config) throws SchedulerException {
+	public void add(JobConfig config) throws JobException {
 		JobKey key = new JobKey(config.getName(), config.getGroup());
-		if (scheduler.checkExists(key)) {
-			throw new RuntimeException("group:" + config.getGroup() + ",name:" + config.getName() + "任务已经存在！　");
+		try {
+			if (scheduler.checkExists(key)) {
+				throw new JobException("任务（id:" + config.getId() + ",group:" + config.getGroup() + ",name:"
+						+ config.getName() + "）已经存在！　");
+			}
+		} catch (SchedulerException e) {
+			throw new JobException("添加任务（id:" + config.getId() + ",group:" + config.getGroup() + ",name:"
+					+ config.getName() + "）出现异常！", e);
 		}
 		JobDataMap params = new JobDataMap();
 		params.put("id", config.getId());
@@ -54,30 +66,62 @@ public class JobManager {
 				config.getGroup());
 		if (StringUtils.isEmpty(config.getCron())) {
 			tb.withSchedule(SimpleScheduleBuilder.simpleSchedule());
+			Date startTime = config.getStartTime();
+			Date now = new Date();
+			if (startTime == null || now.getTime() >= startTime.getTime()) {
+				tb.startNow();
+			} else {
+				tb.startAt(startTime);
+			}
 		} else {
 			tb.withSchedule(CronScheduleBuilder.cronSchedule(config.getCron()));
 		}
-		scheduler.scheduleJob(detail, tb.build());
-	}
-
-	public void remove(JobConfig config) throws SchedulerException {
-		JobKey key = new JobKey(config.getName(), config.getGroup());
-		if (scheduler.checkExists(key)) {
-			scheduler.deleteJob(key);
+		try {
+			scheduler.scheduleJob(detail, tb.build());
+		} catch (SchedulerException e) {
+			throw new JobException(
+					"添加任务（id:" + config.getId() + ",group:" + config.getGroup() + ",name:" + config.getName() + "）失败！",
+					e);
 		}
 	}
 
-	public void pause(JobConfig config) throws SchedulerException {
+	public void remove(JobConfig config) throws JobException {
 		JobKey key = new JobKey(config.getName(), config.getGroup());
-		if (scheduler.checkExists(key)) {
-			scheduler.pauseJob(key);
+		try {
+			if (scheduler.checkExists(key)) {
+				scheduler.deleteJob(key);
+			}
+		} catch (SchedulerException e) {
+			throw new JobException(
+					"移除任务（id:" + config.getId() + ",group:" + config.getGroup() + ",name:" + config.getName() + "）失败！",
+					e);
+		}
+
+	}
+
+	public void pause(JobConfig config) throws JobException {
+		JobKey key = new JobKey(config.getName(), config.getGroup());
+		try {
+			if (scheduler.checkExists(key)) {
+				scheduler.pauseJob(key);
+			}
+		} catch (SchedulerException e) {
+			throw new JobException(
+					"暂停任务（id:" + config.getId() + ",group:" + config.getGroup() + ",name:" + config.getName() + "）失败！",
+					e);
 		}
 	}
 
-	public void resume(JobConfig config) throws SchedulerException {
+	public void resume(JobConfig config) throws JobException {
 		JobKey key = new JobKey(config.getName(), config.getGroup());
-		if (scheduler.checkExists(key)) {
-			scheduler.resumeJob(key);
+		try {
+			if (scheduler.checkExists(key)) {
+				scheduler.resumeJob(key);
+			}
+		} catch (SchedulerException e) {
+			throw new JobException(
+					"重启任务（id:" + config.getId() + ",group:" + config.getGroup() + ",name:" + config.getName() + "）失败！",
+					e);
 		}
 	}
 

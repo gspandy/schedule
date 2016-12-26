@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 
 import com.kanven.schedual.register.node.Node;
 
-
 /**
  * 注册中心
  * 
@@ -30,9 +29,11 @@ public class Register {
 
 	private static final Logger log = LoggerFactory.getLogger(Register.class);
 
+	public static final int DEFAULT_SESION_TIMEOUT = 5000;
+
 	private String conn;
 
-	private int sessionTimeout = 3000;
+	private int sessionTimeout = DEFAULT_SESION_TIMEOUT;
 
 	private volatile boolean available = false;
 
@@ -108,14 +109,14 @@ public class Register {
 			throw new IllegalArgumentException("节点为空！");
 		}
 		try {
+			lock.lock();
 			String dt = node.getData();
 			if (StringUtils.isEmpty(dt)) {
 				dt = "";
 			}
 			try {
 				String root = createParentNode(node.getRoot());
-				String path = zk.create(root, dt.getBytes(),
-						Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+				String path = zk.create(root, dt.getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
 				node.setPath(path);
 				return path;
 			} catch (KeeperException e) {
@@ -147,8 +148,7 @@ public class Register {
 		}
 	}
 
-	public List<String> getChildren(String path, Watcher watcher)
-			throws RegisterException {
+	public List<String> getChildren(String path, Watcher watcher) throws RegisterException {
 		if (StringUtils.isEmpty(path)) {
 			throw new IllegalArgumentException("path参数不能为空！");
 		}
@@ -214,8 +214,7 @@ public class Register {
 			String p = sb.toString();
 			try {
 				if (zk.exists(p, false) == null) {
-					zk.create(p, "".getBytes(), Ids.OPEN_ACL_UNSAFE,
-							CreateMode.PERSISTENT);
+					zk.create(p, "".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 				}
 			} catch (KeeperException e) {
 				throw new RegisterException("创建根节点出现异常！", e);

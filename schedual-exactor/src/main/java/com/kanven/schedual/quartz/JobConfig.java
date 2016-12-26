@@ -1,5 +1,7 @@
 package com.kanven.schedual.quartz;
 
+import java.util.Date;
+
 /**
  * 任务配置信息
  * 
@@ -27,12 +29,11 @@ public class JobConfig {
 	 * 表达式
 	 */
 	private String cron;
-	/**
-	 * 延期时间
-	 */
-	private long delay = 0;
 
-	private long interval = 0;
+	/**
+	 * 开始执行时间
+	 */
+	private Date startTime;
 
 	public Long getId() {
 		return id;
@@ -74,20 +75,12 @@ public class JobConfig {
 		this.cron = cron;
 	}
 
-	public long getDelay() {
-		return delay;
+	public Date getStartTime() {
+		return startTime;
 	}
 
-	public void setDelay(long delay) {
-		this.delay = delay;
-	}
-
-	public long getInterval() {
-		return interval;
-	}
-
-	public void setInterval(long interval) {
-		this.interval = interval;
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
 	}
 
 }
