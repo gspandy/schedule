@@ -8,6 +8,10 @@ package com.kanven.schedual.quartz;
  */
 public class JobConfig {
 	/**
+	 * 任务编号
+	 */
+	private Long id;
+	/**
 	 * 分组名称
 	 */
 	private String group;
@@ -29,6 +33,14 @@ public class JobConfig {
 	private long delay = 0;
 
 	private long interval = 0;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getGroup() {
 		return group;
