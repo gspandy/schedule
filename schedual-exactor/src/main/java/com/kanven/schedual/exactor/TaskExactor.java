@@ -13,6 +13,7 @@ import com.kanven.schedual.network.protoc.ResponseProto.Response;
 import com.kanven.schedual.quartz.JobConfig;
 import com.kanven.schedual.quartz.JobException;
 import com.kanven.schedual.quartz.JobManager;
+import com.kanven.schedual.register.Constants;
 import com.kanven.schedual.register.Event;
 import com.kanven.schedual.register.Listener;
 import com.kanven.schedual.register.Register;
@@ -33,7 +34,7 @@ public class TaskExactor extends Node implements Listener, MessageReceiver {
 
 	public static final int DEFAULT_EXACTOR_PORT = 7990;
 
-	private static final String DEFAULT_EXACTOR_ROOT = "/schedual/task/exactor";
+	private static final String DEFAULT_EXACTOR_ROOT = Constants.EXECUTOR_ROOT;
 
 	private String ip;
 

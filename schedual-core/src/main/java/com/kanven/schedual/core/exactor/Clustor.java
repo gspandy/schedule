@@ -13,8 +13,8 @@ import org.apache.zookeeper.Watcher.Event.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kanven.schedual.core.Constants;
 import com.kanven.schedual.core.NodeInfo;
+import com.kanven.schedual.register.Constants;
 import com.kanven.schedual.register.Event;
 import com.kanven.schedual.register.Listener;
 import com.kanven.schedual.register.Register;

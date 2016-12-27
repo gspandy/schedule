@@ -1,4 +1,4 @@
-package com.kanven.schedual.core;
+package com.kanven.schedual.register;
 
 public interface Constants {
 
