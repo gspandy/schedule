@@ -9,6 +9,8 @@ public interface Client {
 	 * @throws Exception
 	 */
 	NettyChannel getChannel() throws Exception;
+	
+	void returnChannel(NettyChannel nettyChannel);
 
 	/**
 	 * 服务是否关闭

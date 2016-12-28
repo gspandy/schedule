@@ -6,33 +6,33 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
 public class NettyClient implements Client {
 
-	private int minIdle = GenericObjectPoolConfig.DEFAULT_MIN_IDLE;
+	private Integer minIdle = GenericObjectPoolConfig.DEFAULT_MIN_IDLE;
 
-	private int maxIdle = GenericObjectPoolConfig.DEFAULT_MAX_IDLE;
+	private Integer maxIdle = GenericObjectPoolConfig.DEFAULT_MAX_IDLE;
 
-	private int maxTotal = GenericObjectPoolConfig.DEFAULT_MAX_TOTAL;
+	private Integer maxTotal = GenericObjectPoolConfig.DEFAULT_MAX_TOTAL;
 
-	private long maxWaitMillis = GenericObjectPoolConfig.DEFAULT_MAX_WAIT_MILLIS;
+	private Long maxWaitMillis = GenericObjectPoolConfig.DEFAULT_MAX_WAIT_MILLIS;
 
-	private long minEvictableIdleTimeMillis = GenericObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_TIME_MILLIS;
+	private Long minEvictableIdleTimeMillis = GenericObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_TIME_MILLIS;
 
-	private int numTestsPerEvictionRun = GenericObjectPoolConfig.DEFAULT_NUM_TESTS_PER_EVICTION_RUN;
+	private Integer numTestsPerEvictionRun = GenericObjectPoolConfig.DEFAULT_NUM_TESTS_PER_EVICTION_RUN;
 
-	private boolean testOnCreate = GenericObjectPoolConfig.DEFAULT_TEST_ON_CREATE;
+	private Boolean testOnCreate = GenericObjectPoolConfig.DEFAULT_TEST_ON_CREATE;
 
-	private boolean testOnBorrow = GenericObjectPoolConfig.DEFAULT_TEST_ON_BORROW;
+	private Boolean testOnBorrow = GenericObjectPoolConfig.DEFAULT_TEST_ON_BORROW;
 
-	private boolean testOnReturn = GenericObjectPoolConfig.DEFAULT_TEST_ON_RETURN;
+	private Boolean testOnReturn = GenericObjectPoolConfig.DEFAULT_TEST_ON_RETURN;
 
-	private boolean testWhileIdle = GenericObjectPoolConfig.DEFAULT_TEST_WHILE_IDLE;
+	private Boolean testWhileIdle = GenericObjectPoolConfig.DEFAULT_TEST_WHILE_IDLE;
 
-	private long connectTimeout = 3000;
+	private Long connectTimeout = 3000L;
 
-	private int threads = -1;
+	private Integer threads = -1;
 
 	private String ip;
 
-	private int port;
+	private Integer port;
 
 	private GenericObjectPool<NettyChannel> pool;
 
@@ -96,7 +96,7 @@ public class NettyClient implements Client {
 		return createPool().borrowObject();
 	}
 
-	public  boolean isClosed() {
+	public boolean isClosed() {
 		return closed;
 	}
 
@@ -125,100 +125,126 @@ public class NettyClient implements Client {
 		return threads;
 	}
 
-	public void setThreads(int threads) {
-		this.threads = threads;
+	public void setThreads(Integer threads) {
+		if (threads != null) {
+			this.threads = threads;
+		}
 	}
 
 	public int getMinIdle() {
 		return minIdle;
 	}
 
-	public void setMinIdle(int minIdle) {
-		this.minIdle = minIdle;
+	public void setMinIdle(Integer minIdle) {
+		if (minIdle != null) {
+			this.minIdle = minIdle;
+		}
 	}
 
 	public int getMaxIdle() {
 		return maxIdle;
 	}
 
-	public void setMaxIdle(int maxIdle) {
-		this.maxIdle = maxIdle;
+	public void setMaxIdle(Integer maxIdle) {
+		if (maxIdle != null) {
+			this.maxIdle = maxIdle;
+		}
 	}
 
 	public int getMaxTotal() {
 		return maxTotal;
 	}
 
-	public void setMaxTotal(int maxTotal) {
-		this.maxTotal = maxTotal;
+	public void setMaxTotal(Integer maxTotal) {
+		if (maxTotal != null) {
+			this.maxTotal = maxTotal;
+		}
 	}
 
 	public long getMaxWaitMillis() {
 		return maxWaitMillis;
 	}
 
-	public void setMaxWaitMillis(long maxWaitMillis) {
-		this.maxWaitMillis = maxWaitMillis;
+	public void setMaxWaitMillis(Long maxWaitMillis) {
+		if (maxWaitMillis != null) {
+			this.maxWaitMillis = maxWaitMillis;
+		}
 	}
 
 	public long getMinEvictableIdleTimeMillis() {
 		return minEvictableIdleTimeMillis;
 	}
 
-	public void setMinEvictableIdleTimeMillis(long minEvictableIdleTimeMillis) {
-		this.minEvictableIdleTimeMillis = minEvictableIdleTimeMillis;
+	public void setMinEvictableIdleTimeMillis(Long minEvictableIdleTimeMillis) {
+		if (minEvictableIdleTimeMillis != null) {
+			this.minEvictableIdleTimeMillis = minEvictableIdleTimeMillis;
+		}
 	}
 
 	public int getNumTestsPerEvictionRun() {
 		return numTestsPerEvictionRun;
 	}
 
-	public void setNumTestsPerEvictionRun(int numTestsPerEvictionRun) {
-		this.numTestsPerEvictionRun = numTestsPerEvictionRun;
+	public void setNumTestsPerEvictionRun(Integer numTestsPerEvictionRun) {
+		if (numTestsPerEvictionRun != null) {
+			this.numTestsPerEvictionRun = numTestsPerEvictionRun;
+		}
 	}
 
 	public boolean isTestOnCreate() {
 		return testOnCreate;
 	}
 
-	public void setTestOnCreate(boolean testOnCreate) {
-		this.testOnCreate = testOnCreate;
+	public void setTestOnCreate(Boolean testOnCreate) {
+		if (testOnCreate != null) {
+			this.testOnCreate = testOnCreate;
+		}
 	}
 
 	public boolean isTestOnBorrow() {
 		return testOnBorrow;
 	}
 
-	public void setTestOnBorrow(boolean testOnBorrow) {
-		this.testOnBorrow = testOnBorrow;
+	public void setTestOnBorrow(Boolean testOnBorrow) {
+		if (testOnBorrow != null) {
+			this.testOnBorrow = testOnBorrow;
+		}
 	}
 
 	public boolean isTestOnReturn() {
 		return testOnReturn;
 	}
 
-	public void setTestOnReturn(boolean testOnReturn) {
-		this.testOnReturn = testOnReturn;
+	public void setTestOnReturn(Boolean testOnReturn) {
+		if (testOnReturn != null) {
+			this.testOnReturn = testOnReturn;
+		}
 	}
 
 	public boolean isTestWhileIdle() {
 		return testWhileIdle;
 	}
 
-	public void setTestWhileIdle(boolean testWhileIdle) {
-		this.testWhileIdle = testWhileIdle;
+	public void setTestWhileIdle(Boolean testWhileIdle) {
+		if (testWhileIdle != null) {
+			this.testWhileIdle = testWhileIdle;
+		}
 	}
 
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
 
-	public void setPort(int port) {
-		this.port = port;
+	public void setPort(Integer port) {
+		if (port != null) {
+			this.port = port;
+		}
 	}
 
-	public void setConnectTimeout(long connectTimeout) {
-		this.connectTimeout = connectTimeout;
+	public void setConnectTimeout(Long connectTimeout) {
+		if (connectTimeout != null) {
+			this.connectTimeout = connectTimeout;
+		}
 	}
 
 	@Override
@@ -229,6 +255,10 @@ public class NettyClient implements Client {
 				+ ", testOnBorrow=" + testOnBorrow + ", testOnReturn=" + testOnReturn + ", testWhileIdle="
 				+ testWhileIdle + ", connectTimeout=" + connectTimeout + ", threads=" + threads + ", ip=" + ip
 				+ ", port=" + port + ", pool=" + pool + "]";
+	}
+
+	public void returnChannel(NettyChannel nettyChannel) {
+		pool.returnObject(nettyChannel);
 	}
 
 }
