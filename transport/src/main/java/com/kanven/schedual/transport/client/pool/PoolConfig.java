@@ -1,6 +1,6 @@
-package com.kanven.schedual.core;
+package com.kanven.schedual.transport.client.pool;
 
-public class ExactorConfig {
+public class PoolConfig {
 
 	private Integer minIdle;
 

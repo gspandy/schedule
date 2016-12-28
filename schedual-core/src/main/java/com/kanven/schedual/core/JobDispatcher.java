@@ -2,24 +2,30 @@ package com.kanven.schedual.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.kanven.schedual.core.clustor.Clustor;
-import com.kanven.schedual.core.clustor.impl.DefaultClustorImpl;
 import com.kanven.schedual.register.ChildrenListener;
 import com.kanven.schedual.register.Constants;
 import com.kanven.schedual.register.Register;
 import com.kanven.schedual.transport.client.Client;
 import com.kanven.schedual.transport.client.NettyClient;
+import com.kanven.schedual.transport.client.pool.PoolConfig;
 
 public class JobDispatcher implements ChildrenListener {
 
 	private Register register;
 
-	private ExactorConfig config;
+	private PoolConfig config;
 
-	private Clustor clustor = new DefaultClustorImpl();
+	private Clustor clustor;
+
+	private boolean avaliable = false;
+
+	private Lock lock = new ReentrantLock();
 
 	private Client createClient(String dt) {
 		String[] items = dt.split(";");
@@ -39,24 +45,18 @@ public class JobDispatcher implements ChildrenListener {
 			return null;
 		}
 		NettyClient client = new NettyClient(ip, port);
-		client.setMaxIdle(config.getMaxIdle());
 		return client;
 	}
 
-	public void init() {
+	private void init() {
+		if (register == null) {
+			throw new RuntimeException("注册中心没有初始化！");
+		}
+		if (clustor == null) {
+			throw new RuntimeException("集群没有初始化！");
+		}
 		register.addChildrenListener(Constants.EXECUTOR_ROOT, this);
-	}
-
-	public void alloc(Job job) {
-		clustor.alloc(job);
-	}
-
-	public void setRegister(Register register) {
-		this.register = register;
-	}
-
-	public void setConfig(ExactorConfig config) {
-		this.config = config;
+		avaliable = true;
 	}
 
 	public void handChildrenChange(List<String> children) {
@@ -68,6 +68,32 @@ public class JobDispatcher implements ChildrenListener {
 			}
 		}
 		clustor.refresh(clients);
+	}
+
+	public void alloc(Job job) {
+		if (!avaliable) {
+			lock.lock();
+			try {
+				if (!avaliable) {
+					init();
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+		clustor.alloc(job);
+	}
+
+	public void setRegister(Register register) {
+		this.register = register;
+	}
+
+	public void setConfig(PoolConfig config) {
+		this.config = config;
+	}
+
+	public void setClustor(Clustor clustor) {
+		this.clustor = clustor;
 	}
 
 }
