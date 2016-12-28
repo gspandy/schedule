@@ -1,7 +1,12 @@
 package com.kanven.schedual.register;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -47,9 +52,46 @@ public class Register {
 		return new Event(type);
 	}
 
+	private Map<String, Set<ChildrenListener>> childrenListeners = new ConcurrentHashMap<String, Set<ChildrenListener>>();
+
+	private List<String> getChildrenData(String path) {
+		List<String> dts = new ArrayList<String>();
+		try {
+			List<String> paths = zk.getChildren(path, true);
+			if (paths != null) {
+				for (String p : paths) {
+					try {
+						dts.add(new String(zk.getData(p, false, null)));
+					} catch (KeeperException e) {
+						log.error("获取孩子节点（" + path + "）数据失败！", e);
+					} catch (InterruptedException e) {
+						log.error("获取孩子节点（" + path + "）数据失败！", e);
+					}
+				}
+			}
+		} catch (KeeperException e) {
+			log.error("获取节点（" + path + "）孩子节点失败！", e);
+		} catch (InterruptedException e) {
+			log.error("获取节点（" + path + "）孩子节点失败！", e);
+		}
+		return dts;
+	}
+
 	private Watcher watcher = new Watcher() {
 
 		public void process(WatchedEvent event) {
+			org.apache.zookeeper.Watcher.Event.EventType type = event.getType();
+			if (type == org.apache.zookeeper.Watcher.Event.EventType.NodeChildrenChanged) {
+				String path = event.getPath();
+
+				Set<ChildrenListener> listeners = childrenListeners.get(path);
+				if (listeners != null) {
+					for (ChildrenListener listener : listeners) {
+						listener.handChildrenChange(getChildrenData(path));
+					}
+				}
+				return;
+			}
 			KeeperState state = event.getState();
 			if (state == KeeperState.Disconnected) { // 网络断开
 				available = false;
@@ -126,6 +168,21 @@ public class Register {
 			}
 		} finally {
 			lock.unlock();
+		}
+	}
+
+	public void addChildrenListener(String path, ChildrenListener childrenListener) {
+		if (StringUtils.isNotEmpty(path) && childrenListener != null) {
+			lock.lock();
+			try {
+				if (!childrenListeners.containsKey(path)) {
+					childrenListeners.put(path, new HashSet<ChildrenListener>());
+				}
+				Set<ChildrenListener> listeners = childrenListeners.get(path);
+				listeners.add(childrenListener);
+			} finally {
+				lock.unlock();
+			}
 		}
 	}
 
