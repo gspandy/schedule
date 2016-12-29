@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kanven.schedual.exactor.TaskExactor;
+import com.kanven.schedual.register.Constants;
 import com.kanven.schedual.register.Register;
 
 public class ExactorBootstrap {
@@ -41,7 +42,7 @@ public class ExactorBootstrap {
 			int port = StringUtils.isNotEmpty(properties.getProperty("exactor.port"))
 					? Integer.parseInt(properties.getProperty("exactor.port")) : TaskExactor.DEFAULT_EXACTOR_PORT;
 			exactor.setPort(port);
-			exactor.setRoot(properties.getProperty("exactor.root"));
+			exactor.setRoot(Constants.EXECUTOR_ROOT);
 			exactor.setRegister(register);
 			exactor.init();
 			if (log.isDebugEnabled()) {

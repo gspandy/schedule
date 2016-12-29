@@ -61,6 +61,7 @@ public class Register {
 			if (paths != null) {
 				for (String p : paths) {
 					try {
+						p = path + "/" + p;
 						dts.add(new String(zk.getData(p, false, null)));
 					} catch (KeeperException e) {
 						log.error("获取孩子节点（" + path + "）数据失败！", e);
@@ -180,10 +181,12 @@ public class Register {
 				}
 				Set<ChildrenListener> listeners = childrenListeners.get(path);
 				listeners.add(childrenListener);
+				childrenListener.handChildrenChange(getChildrenData(path));
 			} finally {
 				lock.unlock();
 			}
 		}
+
 	}
 
 	/**

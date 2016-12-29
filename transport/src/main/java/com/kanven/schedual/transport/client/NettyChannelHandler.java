@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.kanven.schedual.network.protoc.MessageTypeProto.MessageType;
 import com.kanven.schedual.network.protoc.RequestProto.Ping;
+import com.kanven.schedual.network.protoc.RequestProto.Request;
 import com.kanven.schedual.network.protoc.ResponseProto.Response;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -52,9 +53,12 @@ class NettyChannelHandler extends ChannelInboundHandlerAdapter {
 				if (log.isDebugEnabled()) {
 					log.debug("发起心跳检查...");
 				}
+				Request.Builder rb = Request.newBuilder();
+				rb.setType(MessageType.PING);
 				Ping.Builder pb = Ping.newBuilder();
 				pb.setTime(System.currentTimeMillis());
-				ctx.writeAndFlush(pb.build());
+				rb.setPing(pb.build());
+				ctx.writeAndFlush(rb.build());
 			}
 		}
 	}

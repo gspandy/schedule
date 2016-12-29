@@ -1,5 +1,6 @@
 package com.kanven.schedual.core.clustor.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,6 +10,7 @@ import com.kanven.schedual.core.clustor.LoadBalance;
 import com.kanven.schedual.network.protoc.MessageTypeProto.MessageType;
 import com.kanven.schedual.network.protoc.RequestProto.Request;
 import com.kanven.schedual.network.protoc.RequestProto.Task;
+import com.kanven.schedual.network.protoc.ResponseProto.Response;
 import com.kanven.schedual.transport.client.Client;
 import com.kanven.schedual.transport.client.NettyChannel;
 
@@ -34,13 +36,17 @@ public class DefaultClustorImpl implements Clustor {
 		tb.setName(job.getName());
 		tb.setUrl(job.getUrl());
 		tb.setCron(job.getCron());
-		tb.setStartTime(job.getStartTime().getTime());
+		Date startTime = job.getStartTime();
+		if(startTime != null) {
+			tb.setStartTime(startTime.getTime());
+		}
+		
 		rb.setTask(tb.build());
 		Client client = loadBalance.select();
 		NettyChannel channel = null;
 		try {
 			channel = client.getChannel();
-			channel.request(rb.build());
+			Response response = channel.request(rb.build());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
