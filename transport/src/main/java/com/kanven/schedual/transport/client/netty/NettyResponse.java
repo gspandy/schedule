@@ -1,4 +1,4 @@
-package com.kanven.schedual.transport.client;
+package com.kanven.schedual.transport.client.netty;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
@@ -6,6 +6,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.kanven.schedual.network.protoc.ResponseProto.Response;
+import com.kanven.schedual.transport.client.Constants;
 
 final class NettyResponse {
 

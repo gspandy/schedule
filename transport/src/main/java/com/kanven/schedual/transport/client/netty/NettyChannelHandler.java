@@ -1,10 +1,9 @@
-package com.kanven.schedual.transport.client;
+package com.kanven.schedual.transport.client.netty;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kanven.schedual.network.protoc.MessageTypeProto.MessageType;
-import com.kanven.schedual.network.protoc.RequestProto.Ping;
 import com.kanven.schedual.network.protoc.RequestProto.Request;
 import com.kanven.schedual.network.protoc.ResponseProto.Response;
 
@@ -55,9 +54,6 @@ class NettyChannelHandler extends ChannelInboundHandlerAdapter {
 				}
 				Request.Builder rb = Request.newBuilder();
 				rb.setType(MessageType.PING);
-				Ping.Builder pb = Ping.newBuilder();
-				pb.setTime(System.currentTimeMillis());
-				rb.setPing(pb.build());
 				ctx.writeAndFlush(rb.build());
 			}
 		}

@@ -16,6 +16,11 @@
 	</properties>
 	<dependencies>
 		<dependency>
+		    <groupId>commons-beanutils</groupId>
+		    <artifactId>commons-beanutils</artifactId>
+		    <version>1.9.2</version>
+		</dependency>
+		<dependency>
 			<groupId>com.kanven</groupId>
 			<artifactId>register</artifactId>
 			<version>${schedual.version}</version>

@@ -1,4 +1,4 @@
-package com.kanven.schedual.transport.client;
+package com.kanven.schedual.transport.client.netty;
 
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.PooledObjectFactory;

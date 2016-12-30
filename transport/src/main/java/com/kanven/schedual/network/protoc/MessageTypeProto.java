@@ -47,6 +47,14 @@ public final class MessageTypeProto {
      * <code>PONG = 2;</code>
      */
     PONG(2),
+    /**
+     * <pre>
+     *任务反馈
+     * </pre>
+     *
+     * <code>TASK_REPORT = 3;</code>
+     */
+    TASK_REPORT(3),
     UNRECOGNIZED(-1),
     ;
 
@@ -74,6 +82,14 @@ public final class MessageTypeProto {
      * <code>PONG = 2;</code>
      */
     public static final int PONG_VALUE = 2;
+    /**
+     * <pre>
+     *任务反馈
+     * </pre>
+     *
+     * <code>TASK_REPORT = 3;</code>
+     */
+    public static final int TASK_REPORT_VALUE = 3;
 
 
     public final int getNumber() {
@@ -97,6 +113,7 @@ public final class MessageTypeProto {
         case 0: return TASK;
         case 1: return PING;
         case 2: return PONG;
+        case 3: return TASK_REPORT;
         default: return null;
       }
     }
@@ -159,9 +176,9 @@ public final class MessageTypeProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\021MessageType.proto\022\"com.kanven.schedual" +
-      ".network.protoc*+\n\013MessageType\022\010\n\004TASK\020\000" +
-      "\022\010\n\004PING\020\001\022\010\n\004PONG\020\002B\022B\020MessageTypeProto" +
-      "b\006proto3"
+      ".network.protoc*<\n\013MessageType\022\010\n\004TASK\020\000" +
+      "\022\010\n\004PING\020\001\022\010\n\004PONG\020\002\022\017\n\013TASK_REPORT\020\003B\022B" +
+      "\020MessageTypeProtob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

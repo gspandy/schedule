@@ -13,16 +13,13 @@ message Request{
 
 	MessageType type = 2;
 	
-	Ping ping = 3;
+	oneof content{
+		
+		Task task = 3;
+		
+		TaskReportor reportor = 4;
+	}
 	
-	Task task = 4;
-	
-}
-
-message Ping {
-
-	int64 time = 1;
-
 }
 
 //任务实体
@@ -39,4 +36,18 @@ message Task {
 	string cron = 5;
 	
 	int64 startTime = 6;
+}
+
+//任务汇报
+message TaskReportor{
+
+	int64 id = 1;
+	
+	int64 startTime = 2;
+	
+	int64 endTime = 3;
+	
+	int32 status = 4;
+	
+	string msg = 5;
 }

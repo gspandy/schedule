@@ -1,4 +1,4 @@
-package com.kanven.schedual.transport.client;
+package com.kanven.schedual.transport.client.netty;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.kanven.schedual.network.protoc.RequestProto.Request;
 import com.kanven.schedual.network.protoc.ResponseProto.Response;
+import com.kanven.schedual.transport.client.Constants;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;

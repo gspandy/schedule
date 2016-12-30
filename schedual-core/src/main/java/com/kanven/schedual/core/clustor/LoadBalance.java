@@ -2,12 +2,12 @@ package com.kanven.schedual.core.clustor;
 
 import java.util.List;
 
-import com.kanven.schedual.transport.client.Client;
+import com.kanven.schedual.transport.client.api.Client;
 
-public interface LoadBalance {
+public interface LoadBalance <C> {
 
-	Client select();
+	Client<C> select();
 
-	void refresh(List<Client> clients);
+	void refresh(List<Client<C>> clients);
 
 }

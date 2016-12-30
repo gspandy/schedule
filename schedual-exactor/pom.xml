@@ -37,6 +37,11 @@
 			<artifactId>transport</artifactId>
 			<version>${schedual.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.kanven</groupId>
+			<artifactId>schedual-core</artifactId>
+			<version>${schedual.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -2,16 +2,13 @@ package com.kanven.schedual.core.clustor;
 
 import java.util.List;
 
-import com.kanven.schedual.core.Job;
-import com.kanven.schedual.transport.client.Client;
+import com.kanven.schedual.transport.client.api.Sender;
+import com.kanven.schedual.transport.client.api.Client;
 
+public interface Clustor<C> extends Sender<C> {
 
-public interface Clustor {
+	void refresh(List<Client<C>> clients);
 
-	void refresh(List<Client> clients);
-
-	void setLoadBalance(LoadBalance loadBalance);
-	
-	void alloc(Job job);
+	void setLoadBalance(LoadBalance<C> loadBalance);
 
 }

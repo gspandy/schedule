@@ -1,6 +1,14 @@
-package com.kanven.schedual.transport.client.pool;
+package com.kanven.schedual.transport.client;
 
 public class PoolConfig {
+
+	private String ip;
+
+	private int port;
+
+	private Long connectTimeout;
+
+	private Integer threads;
 
 	private Integer minIdle;
 
@@ -22,9 +30,37 @@ public class PoolConfig {
 
 	private Boolean testWhileIdle;
 
-	private Long connectTimeout;
+	public String getIp() {
+		return ip;
+	}
 
-	private Integer threads;
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public Long getConnectTimeout() {
+		return connectTimeout;
+	}
+
+	public void setConnectTimeout(Long connectTimeout) {
+		this.connectTimeout = connectTimeout;
+	}
+
+	public Integer getThreads() {
+		return threads;
+	}
+
+	public void setThreads(Integer threads) {
+		this.threads = threads;
+	}
 
 	public Integer getMinIdle() {
 		return minIdle;
@@ -106,22 +142,14 @@ public class PoolConfig {
 		this.testWhileIdle = testWhileIdle;
 	}
 
-	public Long getConnectTimeout() {
-		return connectTimeout;
+	@Override
+	public String toString() {
+		return "PoolConfig [ip=" + ip + ", port=" + port + ", connectTimeout=" + connectTimeout + ", threads=" + threads
+				+ ", minIdle=" + minIdle + ", maxIdle=" + maxIdle + ", maxTotal=" + maxTotal + ", maxWaitMillis="
+				+ maxWaitMillis + ", minEvictableIdleTimeMillis=" + minEvictableIdleTimeMillis
+				+ ", numTestsPerEvictionRun=" + numTestsPerEvictionRun + ", testOnCreate=" + testOnCreate
+				+ ", testOnBorrow=" + testOnBorrow + ", testOnReturn=" + testOnReturn + ", testWhileIdle="
+				+ testWhileIdle + "]";
 	}
 
-	public void setConnectTimeout(Long connectTimeout) {
-		this.connectTimeout = connectTimeout;
-	}
-
-	public Integer getThreads() {
-		return threads;
-	}
-
-	public void setThreads(Integer threads) {
-		this.threads = threads;
-	}
-
-	
-	
 }
