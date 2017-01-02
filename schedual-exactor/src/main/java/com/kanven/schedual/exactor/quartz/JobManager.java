@@ -28,8 +28,6 @@ public class JobManager {
 
 	private Scheduler scheduler;
 
-	
-
 	private JobManager() throws JobException {
 		SchedulerFactory factory = new StdSchedulerFactory();
 		try {

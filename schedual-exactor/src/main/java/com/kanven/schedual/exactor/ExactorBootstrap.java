@@ -53,9 +53,9 @@ public class ExactorBootstrap {
 		TaskExactor exactor = new TaskExactor();
 		exactor.setIp(ip);
 		int port = StringUtils.isNotEmpty(properties.getProperty("exactor.port"))
-				? Integer.parseInt(properties.getProperty("exactor.port")) : TaskExactor.DEFAULT_EXACTOR_PORT;
+				? Integer.parseInt(properties.getProperty("exactor.port")) : TaskExactor.DEFAULT_TASK_EXACTOR_PORT;
 		exactor.setPort(port);
-		exactor.setRoot(Constants.EXECUTOR_ROOT);
+		exactor.setRoot(TaskExactor.DEFAULT_TASK_EXACTOR_ROOT);
 		exactor.setRegister(register);
 		return exactor;
 	}
@@ -104,7 +104,7 @@ public class ExactorBootstrap {
 			Register register = createRegister();
 			createReportor(register);
 			TaskExactor exactor = createExactor(register);
-			exactor.init();
+			exactor.start();
 			if (log.isDebugEnabled()) {
 				log.debug("服务启动完成...");
 			}

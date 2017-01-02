@@ -51,6 +51,7 @@ public class JobReportor implements JobNotify {
 			if (response.getStatus() == Status.FAILURE.getStatus()) {
 				log.error(status.getId() + "任务结果反馈处理失败！");
 			}
+			//TODO
 		} catch (Exception e) {
 			log.error(status.getId() + "任务结果反馈失败！", e);
 		}
