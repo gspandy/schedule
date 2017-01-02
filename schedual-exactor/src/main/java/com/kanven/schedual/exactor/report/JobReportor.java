@@ -1,4 +1,4 @@
-package com.kanven.schedual.report;
+package com.kanven.schedual.exactor.report;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,12 +6,12 @@ import org.slf4j.LoggerFactory;
 import com.kanven.schedual.command.Command;
 import com.kanven.schedual.command.CommendType;
 import com.kanven.schedual.core.clustor.Clustor;
+import com.kanven.schedual.exactor.quartz.JobStatus;
+import com.kanven.schedual.exactor.quartz.JobStatus.Status;
 import com.kanven.schedual.network.protoc.MessageTypeProto.MessageType;
 import com.kanven.schedual.network.protoc.RequestProto.Request;
 import com.kanven.schedual.network.protoc.RequestProto.TaskReportor;
 import com.kanven.schedual.network.protoc.ResponseProto.Response;
-import com.kanven.schedual.quartz.JobStatus;
-import com.kanven.schedual.quartz.JobStatus.Status;
 import com.kanven.schedual.transport.client.api.Transform;
 
 public class JobReportor implements JobNotify {

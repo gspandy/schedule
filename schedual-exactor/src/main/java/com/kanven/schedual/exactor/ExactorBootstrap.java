@@ -1,4 +1,4 @@
-package com.kanven.schedual;
+package com.kanven.schedual.exactor;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,11 +11,10 @@ import org.slf4j.LoggerFactory;
 import com.kanven.schedual.core.clustor.Clustor;
 import com.kanven.schedual.core.clustor.impl.ClustorFactory;
 import com.kanven.schedual.core.config.ProtocolConfig;
-import com.kanven.schedual.exactor.TaskExactor;
+import com.kanven.schedual.exactor.report.JobReportor;
 import com.kanven.schedual.network.protoc.RequestProto.TaskReportor;
 import com.kanven.schedual.register.Constants;
 import com.kanven.schedual.register.Register;
-import com.kanven.schedual.report.JobReportor;
 
 public class ExactorBootstrap {
 

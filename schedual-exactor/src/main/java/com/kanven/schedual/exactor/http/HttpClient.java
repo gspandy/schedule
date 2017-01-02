@@ -1,4 +1,4 @@
-package com.kanven.schedual.http;
+package com.kanven.schedual.exactor.http;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
