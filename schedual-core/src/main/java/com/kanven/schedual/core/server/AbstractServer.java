@@ -83,9 +83,6 @@ public abstract class AbstractServer extends Node implements Server, Listener {
 		if (StringUtils.isEmpty(root)) {
 			throw new RuntimeException("服务没有指定注册根路径！");
 		}
-		if (server == null) {
-			throw new RuntimeException("服务没有指定传输器！");
-		}
 		onCheck();
 	}
 
