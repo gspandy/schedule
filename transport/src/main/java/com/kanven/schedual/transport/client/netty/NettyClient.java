@@ -63,8 +63,7 @@ public class NettyClient<C> implements Client<C> {
 			initConfig(gpc);
 			bootstrap = new NettyBootstrap(config.getIp(), config.getPort(),
 					config == null || config.getThreads() <= 0 ? -1 : config.getThreads(),
-					config.getConnectTimeout() == null ? Constants.DEFAULT_TIME_OUT
-							: config.getConnectTimeout());
+					config.getConnectTimeout() == null ? Constants.DEFAULT_TIME_OUT : config.getConnectTimeout());
 			pool = new GenericObjectPool<NettyChannel>(new NettyChannelFactory(bootstrap), gpc);
 			for (int i = 0; i < gpc.getMinIdle(); i++) {
 				try {
@@ -127,6 +126,25 @@ public class NettyClient<C> implements Client<C> {
 
 	public void setConfig(PoolConfig config) {
 		this.config = config;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof NettyClient)) {
+			return false;
+		}
+		@SuppressWarnings("unchecked")
+		NettyClient<C> other = (NettyClient<C>) obj;
+		if (other.config == this.config) {
+			return true;
+		}
+		if (this.config.getIp().equals(other.config.getIp()) && this.config.getPort() == other.config.getPort()) {
+			return true;
+		}
+		return false;
 	}
 
 }
