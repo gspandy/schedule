@@ -1,5 +1,6 @@
 package com.kanven.schedual.dispatcher;
 
+import com.kanven.schedual.core.server.AbstractServer;
 import com.kanven.schedual.network.protoc.MessageTypeProto.MessageType;
 import com.kanven.schedual.network.protoc.RequestProto.Request;
 import com.kanven.schedual.network.protoc.RequestProto.TaskReportor;
@@ -11,7 +12,7 @@ import com.kanven.schedual.network.protoc.ResponseProto.Response;
  * @author kanven
  *
  */
-public class ReportReceiver {
+public class ReportReceiver extends AbstractServer {
 
 	/**
 	 * 任务报告接收器默认端口号
@@ -21,7 +22,7 @@ public class ReportReceiver {
 	/**
 	 * 任务报告接收器默认注册根路径
 	 */
-	public static final String DEFAULT_REPORT_RECEIVER_ROOT = "/schedual/task/receiver";
+	public static final String DEFAULT_REPORT_RECEIVER_ROOT = "/schedual/task/report";
 
 	public Object receive(Object o) {
 		if (o instanceof Request) {
