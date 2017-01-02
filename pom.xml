@@ -23,6 +23,7 @@
     <module>transport</module>
     <module>schedual-core</module>
     <module>schedual-exactor</module>
+    <module>schedual-dispatchor</module>
   </modules>
   
   <dependencies>

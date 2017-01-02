@@ -1,4 +1,4 @@
-package com.kanven.schedual.core;
+package com.kanven.schedual.dispatcher.job;
 
 import java.util.Date;
 
@@ -62,6 +62,12 @@ public class Job {
 
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
+	}
+
+	@Override
+	public String toString() {
+		return "Job [id=" + id + ", group=" + group + ", name=" + name + ", url=" + url + ", cron=" + cron
+				+ ", startTime=" + startTime + "]";
 	}
 
 }
