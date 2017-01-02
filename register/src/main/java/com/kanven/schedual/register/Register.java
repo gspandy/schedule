@@ -57,16 +57,19 @@ public class Register {
 	private List<String> getChildrenData(String path) {
 		List<String> dts = new ArrayList<String>();
 		try {
-			List<String> paths = zk.getChildren(path, true);
-			if (paths != null) {
-				for (String p : paths) {
-					try {
-						p = path + "/" + p;
-						dts.add(new String(zk.getData(p, false, null)));
-					} catch (KeeperException e) {
-						log.error("获取孩子节点（" + path + "）数据失败！", e);
-					} catch (InterruptedException e) {
-						log.error("获取孩子节点（" + path + "）数据失败！", e);
+			Stat stat = zk.exists(path, false);
+			if (stat != null) {
+				List<String> paths = zk.getChildren(path, true);
+				if (paths != null) {
+					for (String p : paths) {
+						try {
+							p = path + "/" + p;
+							dts.add(new String(zk.getData(p, false, null)));
+						} catch (KeeperException e) {
+							log.error("获取孩子节点（" + path + "）数据失败！", e);
+						} catch (InterruptedException e) {
+							log.error("获取孩子节点（" + path + "）数据失败！", e);
+						}
 					}
 				}
 			}
