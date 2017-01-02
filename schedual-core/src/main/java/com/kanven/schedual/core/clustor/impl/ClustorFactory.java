@@ -30,16 +30,11 @@ public class ClustorFactory<C> implements ChildrenListener {
 
 	private Clustor<C> clustor;
 
-	private boolean available = false;
-
 	public Clustor<C> getClustor() {
-		if (!available) {
-			init();
-		}
 		return clustor;
 	}
 
-	private void init() {
+	public void init() {
 		if (register == null) {
 			throw new RuntimeException("注册中心没有初始化！");
 		}
