@@ -1,5 +1,5 @@
 package com.kanven.schedual.command;
 
 public enum CommendType {
-	TASK, REPORT;
+	ADD, DEL, PAUSE, RECOVER, REPORT;
 }

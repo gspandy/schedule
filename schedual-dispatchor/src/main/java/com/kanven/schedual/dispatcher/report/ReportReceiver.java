@@ -1,4 +1,7 @@
-package com.kanven.schedual.dispatcher;
+package com.kanven.schedual.dispatcher.report;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.kanven.schedual.core.server.AbstractServer;
 import com.kanven.schedual.network.protoc.MessageTypeProto.MessageType;
@@ -14,6 +17,8 @@ import com.kanven.schedual.network.protoc.ResponseProto.Response;
  */
 public class ReportReceiver extends AbstractServer {
 
+	private static final Logger log = LoggerFactory.getLogger(ReportReceiver.class);
+
 	/**
 	 * 任务报告接收器默认端口号
 	 */
@@ -24,6 +29,8 @@ public class ReportReceiver extends AbstractServer {
 	 */
 	public static final String DEFAULT_REPORT_RECEIVER_ROOT = "/schedual/task/report";
 
+	private ReportHandler handler;
+
 	public Object receive(Object o) {
 		if (o instanceof Request) {
 			Request request = (Request) o;
@@ -33,12 +40,28 @@ public class ReportReceiver extends AbstractServer {
 				Response.Builder rb = Response.newBuilder();
 				rb.setRequestId(requestId);
 				TaskReportor reportor = request.getReportor();
-				System.out.println(reportor);
-				// TODO
+				if (handler == null) {
+					rb.setStatus(400);
+					rb.setMsg("没有指定任务处理者！");
+					log.error("没有指定任务处理者！");
+				} else {
+					try {
+						handler.handle(reportor);
+						rb.setStatus(200);
+						rb.setRequestId(requestId);
+					} catch (Exception e) {
+						log.error(requestId + "任务处理失败！", e);
+						rb.setStatus(400);
+					}
+				}
 				return rb.build();
 			}
 		}
 		return null;
+	}
+
+	public void setHandler(ReportHandler handler) {
+		this.handler = handler;
 	}
 
 }

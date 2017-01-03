@@ -300,7 +300,7 @@ public final class ResponseProto {
       if (!getRequestIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, requestId_);
       }
-      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.TASK.getNumber()) {
+      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.TASK_ADD.getNumber()) {
         output.writeEnum(2, type_);
       }
       if (status_ != 0) {
@@ -322,7 +322,7 @@ public final class ResponseProto {
       if (!getRequestIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, requestId_);
       }
-      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.TASK.getNumber()) {
+      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.TASK_ADD.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, type_);
       }

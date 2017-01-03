@@ -25,71 +25,119 @@ public final class MessageTypeProto {
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <pre>
-     *任务
+     *新增任务
      * </pre>
      *
-     * <code>TASK = 0;</code>
+     * <code>TASK_ADD = 0;</code>
      */
-    TASK(0),
+    TASK_ADD(0),
     /**
      * <pre>
-     *心跳检查
+     *删除任务
      * </pre>
      *
-     * <code>PING = 1;</code>
+     * <code>TASK_DELETE = 1;</code>
      */
-    PING(1),
+    TASK_DELETE(1),
     /**
      * <pre>
-     *心跳检查
+     *暂停任务
      * </pre>
      *
-     * <code>PONG = 2;</code>
+     * <code>TASK_PAUSE = 2;</code>
      */
-    PONG(2),
+    TASK_PAUSE(2),
+    /**
+     * <pre>
+     * 恢复任务
+     * </pre>
+     *
+     * <code>TASK_ECOVER = 3;</code>
+     */
+    TASK_ECOVER(3),
     /**
      * <pre>
      *任务反馈
      * </pre>
      *
-     * <code>TASK_REPORT = 3;</code>
+     * <code>TASK_REPORT = 4;</code>
      */
-    TASK_REPORT(3),
+    TASK_REPORT(4),
+    /**
+     * <pre>
+     *心跳检测
+     * </pre>
+     *
+     * <code>PING = 5;</code>
+     */
+    PING(5),
+    /**
+     * <pre>
+     *心跳检测
+     * </pre>
+     *
+     * <code>PONG = 6;</code>
+     */
+    PONG(6),
     UNRECOGNIZED(-1),
     ;
 
     /**
      * <pre>
-     *任务
+     *新增任务
      * </pre>
      *
-     * <code>TASK = 0;</code>
+     * <code>TASK_ADD = 0;</code>
      */
-    public static final int TASK_VALUE = 0;
+    public static final int TASK_ADD_VALUE = 0;
     /**
      * <pre>
-     *心跳检查
+     *删除任务
      * </pre>
      *
-     * <code>PING = 1;</code>
+     * <code>TASK_DELETE = 1;</code>
      */
-    public static final int PING_VALUE = 1;
+    public static final int TASK_DELETE_VALUE = 1;
     /**
      * <pre>
-     *心跳检查
+     *暂停任务
      * </pre>
      *
-     * <code>PONG = 2;</code>
+     * <code>TASK_PAUSE = 2;</code>
      */
-    public static final int PONG_VALUE = 2;
+    public static final int TASK_PAUSE_VALUE = 2;
+    /**
+     * <pre>
+     * 恢复任务
+     * </pre>
+     *
+     * <code>TASK_ECOVER = 3;</code>
+     */
+    public static final int TASK_ECOVER_VALUE = 3;
     /**
      * <pre>
      *任务反馈
      * </pre>
      *
-     * <code>TASK_REPORT = 3;</code>
+     * <code>TASK_REPORT = 4;</code>
      */
-    public static final int TASK_REPORT_VALUE = 3;
+    public static final int TASK_REPORT_VALUE = 4;
+    /**
+     * <pre>
+     *心跳检测
+     * </pre>
+     *
+     * <code>PING = 5;</code>
+     */
+    public static final int PING_VALUE = 5;
+    /**
+     * <pre>
+     *心跳检测
+     * </pre>
+     *
+     * <code>PONG = 6;</code>
+     */
+    public static final int PONG_VALUE = 6;
 
 
     public final int getNumber() {
@@ -110,10 +158,13 @@ public final class MessageTypeProto {
 
     public static MessageType forNumber(int value) {
       switch (value) {
-        case 0: return TASK;
-        case 1: return PING;
-        case 2: return PONG;
-        case 3: return TASK_REPORT;
+        case 0: return TASK_ADD;
+        case 1: return TASK_DELETE;
+        case 2: return TASK_PAUSE;
+        case 3: return TASK_ECOVER;
+        case 4: return TASK_REPORT;
+        case 5: return PING;
+        case 6: return PONG;
         default: return null;
       }
     }
@@ -176,9 +227,10 @@ public final class MessageTypeProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\021MessageType.proto\022\"com.kanven.schedual" +
-      ".network.protoc*<\n\013MessageType\022\010\n\004TASK\020\000" +
-      "\022\010\n\004PING\020\001\022\010\n\004PONG\020\002\022\017\n\013TASK_REPORT\020\003B\022B" +
-      "\020MessageTypeProtob\006proto3"
+      ".network.protoc*r\n\013MessageType\022\014\n\010TASK_A" +
+      "DD\020\000\022\017\n\013TASK_DELETE\020\001\022\016\n\nTASK_PAUSE\020\002\022\017\n" +
+      "\013TASK_ECOVER\020\003\022\017\n\013TASK_REPORT\020\004\022\010\n\004PING\020" +
+      "\005\022\010\n\004PONG\020\006B\022B\020MessageTypeProtob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

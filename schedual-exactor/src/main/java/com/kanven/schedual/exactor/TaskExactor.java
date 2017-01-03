@@ -41,7 +41,8 @@ public class TaskExactor extends AbstractServer {
 	public Object receive(Object o) {
 		if (o instanceof Request) {
 			Request request = (Request) o;
-			if (request.getType() == MessageType.TASK) {
+			if (request.getType() == MessageType.TASK_ADD || request.getType() == MessageType.TASK_DELETE
+					|| request.getType() == MessageType.TASK_PAUSE || request.getType() == MessageType.TASK_ECOVER) {
 				Response.Builder rb = Response.newBuilder();
 				rb.setRequestId(request.getRequestId());
 

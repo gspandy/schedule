@@ -7,12 +7,18 @@ option java_outer_classname = "MessageTypeProto";
 //消息类型
 enum MessageType {
 
-	TASK = 0; //任务
+	TASK_ADD = 0; //新增任务
 	
-	PING = 1; //心跳检查
+	TASK_DELETE = 1; //删除任务
 	
-	PONG = 2; //心跳检查
+	TASK_PAUSE = 2; //暂停任务
 	
-	TASK_REPORT = 3; //任务反馈
+	TASK_ECOVER = 3;// 恢复任务
+	
+	TASK_REPORT = 4; //任务反馈
+	
+	PING = 5; //心跳检测
+	
+	PONG = 6; //心跳检测
 	
 }

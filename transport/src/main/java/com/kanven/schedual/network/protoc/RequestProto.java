@@ -308,7 +308,7 @@ public final class RequestProto {
       if (!getRequestIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, requestId_);
       }
-      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.TASK.getNumber()) {
+      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.TASK_ADD.getNumber()) {
         output.writeEnum(2, type_);
       }
       if (contentCase_ == 3) {
@@ -327,7 +327,7 @@ public final class RequestProto {
       if (!getRequestIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, requestId_);
       }
-      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.TASK.getNumber()) {
+      if (type_ != com.kanven.schedual.network.protoc.MessageTypeProto.MessageType.TASK_ADD.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, type_);
       }
@@ -2174,6 +2174,10 @@ public final class RequestProto {
         getMsgBytes();
   }
   /**
+   * <pre>
+   *任务汇报
+   * </pre>
+   *
    * Protobuf type {@code com.kanven.schedual.network.protoc.TaskReportor}
    */
   public  static final class TaskReportor extends
@@ -2521,6 +2525,10 @@ public final class RequestProto {
       return builder;
     }
     /**
+     * <pre>
+     *任务汇报
+     * </pre>
+     *
      * Protobuf type {@code com.kanven.schedual.network.protoc.TaskReportor}
      */
     public static final class Builder extends
