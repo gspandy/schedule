@@ -27,7 +27,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.kanven</groupId>
-			<artifactId>transport</artifactId>
+			<artifactId>schedual-transport</artifactId>
 			<version>${schedual.version}</version>
 		</dependency>
 	</dependencies>

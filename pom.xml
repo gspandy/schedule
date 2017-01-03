@@ -19,11 +19,12 @@
     <schedual.version>1.0.0-SNAPSHOT</schedual.version>
   </properties>
   <modules>
-    <module>register</module>
-    <module>transport</module>
+    <module>schedual-register</module>
+    <module>schedual-transport</module>
     <module>schedual-core</module>
     <module>schedual-exactor</module>
     <module>schedual-dispatchor</module>
+    <module>schedual-projct</module>
   </modules>
   
   <dependencies>
