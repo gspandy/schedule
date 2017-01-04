@@ -21,16 +21,19 @@ public class DefaultClustorImpl<C> implements Clustor<C> {
 	}
 
 	public synchronized void refresh(List<Client<C>> clients) {
-		List<Client<C>> abandons = new ArrayList<Client<C>>();
 		List<Client<C>> origins = this.clients;
+		this.clients = clients;
+		loadBalance.refresh(clients);
+		if (origins == null || origins.size() <= 0) {
+			return;
+		}
+		List<Client<C>> abandons = new ArrayList<Client<C>>();
 		for (Client<C> client : origins) {
 			if (clients.contains(client)) {
 				continue;
 			}
 			abandons.add(client);
 		}
-		this.clients = clients;
-		loadBalance.refresh(clients);
 		destroy(abandons);
 	}
 

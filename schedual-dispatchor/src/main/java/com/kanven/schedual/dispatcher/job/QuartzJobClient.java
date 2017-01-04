@@ -15,6 +15,7 @@ import com.kanven.schedual.network.protoc.RequestProto.Task;
 import com.kanven.schedual.network.protoc.ResponseProto.Response;
 import com.kanven.schedual.transport.client.api.Transform;
 
+
 public class QuartzJobClient implements JobClient {
 
 	private static final Logger log = LoggerFactory.getLogger(QuartzJobClient.class);
@@ -107,7 +108,9 @@ public class QuartzJobClient implements JobClient {
 		public Request transformRequest(Command<Task> command) {
 			Request.Builder rb = Request.newBuilder();
 			rb.setRequestId("");
-			rb.setType(MessageType.TASK_REPORT);
+			if(command.getType() == CommendType.ADD){
+				rb.setType(MessageType.TASK_ADD);
+			}
 			rb.setTask(command.getContent());
 			return rb.build();
 		}

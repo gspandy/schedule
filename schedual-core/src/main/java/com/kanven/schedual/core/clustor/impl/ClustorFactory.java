@@ -76,7 +76,9 @@ public class ClustorFactory<C> implements ChildrenListener {
 		}
 		PoolConfig poolConfig = new PoolConfig();
 		try {
-			BeanUtils.copyProperties(poolConfig, this.config);
+			if (this.config != null) {
+				BeanUtils.copyProperties(poolConfig, this.config);
+			}
 		} catch (IllegalAccessException e) {
 			log.error("参数复制失败！", e);
 		} catch (InvocationTargetException e) {

@@ -22,7 +22,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.kanven</groupId>
-			<artifactId>register</artifactId>
+			<artifactId>schedual-register</artifactId>
 			<version>${schedual.version}</version>
 		</dependency>
 		<dependency>

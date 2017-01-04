@@ -62,7 +62,8 @@ public class NettyClient<C> implements Client<C> {
 			GenericObjectPoolConfig gpc = new GenericObjectPoolConfig();
 			initConfig(gpc);
 			bootstrap = new NettyBootstrap(config.getIp(), config.getPort(),
-					config == null || config.getThreads() <= 0 ? -1 : config.getThreads(),
+					config == null || config.getThreads() == null || config.getThreads() <= 0 ? -1
+							: config.getThreads(),
 					config.getConnectTimeout() == null ? Constants.DEFAULT_TIME_OUT : config.getConnectTimeout());
 			pool = new GenericObjectPool<NettyChannel>(new NettyChannelFactory(bootstrap), gpc);
 			for (int i = 0; i < gpc.getMinIdle(); i++) {
