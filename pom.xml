@@ -24,7 +24,7 @@
     <module>schedual-core</module>
     <module>schedual-exactor</module>
     <module>schedual-dispatchor</module>
-    <module>schedual-projct</module>
+    <module>schedual-project</module>
   </modules>
   
   <dependencies>
