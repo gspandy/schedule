@@ -7,7 +7,7 @@
     <artifactId>schedual</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>schedual-projct</artifactId>
+  <artifactId>schedual-project</artifactId>
   <packaging>war</packaging>
   <url>http://maven.apache.org</url>
   
