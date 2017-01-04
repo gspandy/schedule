@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="false" />
+		<!--
+			设置但JDBC类型为空时,某些驱动程序 要指定值,default: OTHER
+			说明：postgreSQL，MySQL，SQLSERVER都支持JdbcType.NULL类型，Oracle是不支持，适配的时候也因为这个问题导致mybatis报错
+		 -->
+        <setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+</configuration>
