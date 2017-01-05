@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kanven.schedual.dao.PeriodTaskDao">
+
+	<sql id="period">
+		id id,project_name projectName, task_name
+		taskName,group_name groupName,url url,cron cron,start_time
+		startTime,task_status taskStatus,create_time createTime,create_user
+		createUser,update_time updateTime,update_user updateUser
+	</sql>
+
+	<select id="get" parameterType="java.lang.Long" resultType="period">
+		select
+		<include refid="period"></include>
+		from period_task where id = #{id}
+	</select>
+
+	<insert id="save" parameterType="period" flushCache="true"
+		useGeneratedKeys="true">
+		insert into
+		period_task
+		(project_name,task_name,group_name,url,cron,start_time,task_status,create_time,create_user,update_time,update_user)
+		values(#{projectName},#{taskName},#{groupName},#{url},#{cron},#{startTime},#{taskStatus},#{createTime},#{createUser},#{updateTime},#{updateUser})
+	</insert>
+
+	<update id="update" parameterType="period" flushCache="true" >
+		update period_task
+		<set>
+			<if test="projectName != null">project_name=#{projectName},</if>
+			<if test="taskName != null">task_name=#{taskName},</if>
+			<if test="groupName != null">group_name=#{groupName},</if>
+			<if test="url != null">url=#{url},</if>
+			<if test="cron != null">cron=#{cron},</if>
+			<if test="startTime != null">start_time=#{startTime},</if>
+			<if test="taskStatus != null">task_status=#{taskStatus},</if>
+			<if test="updateTime != null">update_time=#{updateTime},</if>
+			<if test="updateUser != null">update_user=#{updateUser},</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="java.lang.Long"
+		flushCache="true">
+		delete from period_task where id = #{id}
+	</delete>
+
+</mapper>

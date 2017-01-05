@@ -33,7 +33,7 @@
 		<property name="typeAliasesPackage" value="com.kanven.schedual.entity" />
 		<property name="mapperLocations">
 			<list>
-				<value>classpath*:mybatis/mapper/schedual/*-mapper.xml</value>
+				<value>classpath*:mybatis/schedual/mapper/schedual/*-mapper.xml</value>
 			</list>
 		</property>
 	</bean>
