@@ -180,4 +180,20 @@ public class PeriodTask implements Serializable {
 				+ updateTime + ", updateUser=" + updateUser + "]";
 	}
 
+	public static enum TaskStatus {
+
+		DEFAULT(-1),PAUSE(0), EXACTOR(1), CANCEL(-2);
+
+		private int value;
+
+		private TaskStatus(int value) {
+			this.value = value;
+		}
+
+		public int value() {
+			return this.value;
+		}
+
+	}
+
 }

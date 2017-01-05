@@ -16,6 +16,25 @@
 		from period_task where id = #{id}
 	</select>
 
+	<select id="findTask" parameterType="period" resultType="period">
+		select
+		<include refid="period"></include>
+		from period_task where project_name = #{projectName} and group_name =
+		#{groupName} and task_name = #{taskName}
+	</select>
+
+	<select id="findTasksByPage" parameterType="period" resultType="period">
+		select
+		<include refid="period"></include>
+		from period_task
+		<where>
+			<if test="projectName != null">project_name=#{projectName} and</if>
+			<if test="groupName != null">group_name=#{groupName} and </if>
+			<if test="taskStatus != null">task_status=#{taskStatus} and</if>
+		</where>
+		limit #{start},#{size}
+	</select>
+
 	<insert id="save" parameterType="period" flushCache="true"
 		useGeneratedKeys="true">
 		insert into
@@ -24,7 +43,7 @@
 		values(#{projectName},#{taskName},#{groupName},#{url},#{cron},#{startTime},#{taskStatus},#{createTime},#{createUser},#{updateTime},#{updateUser})
 	</insert>
 
-	<update id="update" parameterType="period" flushCache="true" >
+	<update id="update" parameterType="period" flushCache="true">
 		update period_task
 		<set>
 			<if test="projectName != null">project_name=#{projectName},</if>
@@ -40,8 +59,7 @@
 		where id = #{id}
 	</update>
 
-	<delete id="delete" parameterType="java.lang.Long"
-		flushCache="true">
+	<delete id="delete" parameterType="java.lang.Long" flushCache="true">
 		delete from period_task where id = #{id}
 	</delete>
 
