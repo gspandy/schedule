@@ -4,7 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
-import com.kanven.schedual.command.Command;
 import com.kanven.schedual.network.protoc.ResponseProto.Response;
 import com.kanven.schedual.transport.client.Constants;
 import com.kanven.schedual.transport.client.PoolConfig;
@@ -43,7 +42,7 @@ public class NettyClient<C> implements Client<C> {
 		closed = true;
 	}
 
-	public <T> T send(Command<C> command, Transform<C> transform) throws Exception {
+	public <T> T send(C command, Transform<C> transform) throws Exception {
 		NettyChannel channel = createPool().borrowObject();
 		try {
 			Response response = channel.request(transform.transformRequest(command));

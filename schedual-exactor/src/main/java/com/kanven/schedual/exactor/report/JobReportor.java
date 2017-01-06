@@ -3,8 +3,6 @@ package com.kanven.schedual.exactor.report;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kanven.schedual.command.Command;
-import com.kanven.schedual.command.CommendType;
 import com.kanven.schedual.core.clustor.Clustor;
 import com.kanven.schedual.exactor.quartz.JobStatus;
 import com.kanven.schedual.exactor.quartz.JobStatus.Status;
@@ -22,11 +20,11 @@ public class JobReportor implements JobNotify {
 
 	private Transform<TaskReportor> transform = new Transform<TaskReportor>() {
 
-		public Request transformRequest(Command<TaskReportor> command) {
+		public Request transformRequest(TaskReportor reportor) {
 			Request.Builder rb = Request.newBuilder();
 			rb.setRequestId("");
 			rb.setType(MessageType.TASK_REPORT);
-			rb.setReportor(command.getContent());
+			rb.setReportor(reportor);
 			return rb.build();
 		}
 
@@ -38,16 +36,14 @@ public class JobReportor implements JobNotify {
 	};
 
 	public void notify(JobStatus status) {
-		Command<TaskReportor> reportor = new ReportCommand();
 		TaskReportor.Builder tb = TaskReportor.newBuilder();
 		tb.setId(status.getId());
 		tb.setStatus(status.getStatus().getStatus());
 		tb.setStartTime(status.getStartTime().getTime());
 		tb.setEndTime(status.getEndTime().getTime());
 		tb.setMsg(status.getResult());
-		reportor.setContent(tb.build());
 		try {
-			Response response = clustor.send(reportor, transform);
+			Response response = clustor.send(tb.build(), transform);
 			if (response.getStatus() == Status.FAILURE.getStatus()) {
 				log.error(status.getId() + "任务结果反馈处理失败！");
 			}
@@ -55,14 +51,6 @@ public class JobReportor implements JobNotify {
 		} catch (Exception e) {
 			log.error(status.getId() + "任务结果反馈失败！", e);
 		}
-	}
-
-	private static class ReportCommand extends Command<TaskReportor> {
-
-		public ReportCommand() {
-			super(CommendType.REPORT);
-		}
-
 	}
 
 	public void setClustor(Clustor<TaskReportor> clustor) {

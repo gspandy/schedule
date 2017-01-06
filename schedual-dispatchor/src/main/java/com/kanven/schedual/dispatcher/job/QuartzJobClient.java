@@ -6,8 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kanven.schedual.command.Command;
-import com.kanven.schedual.command.CommendType;
 import com.kanven.schedual.core.clustor.Clustor;
 import com.kanven.schedual.network.protoc.MessageTypeProto.MessageType;
 import com.kanven.schedual.network.protoc.RequestProto.Request;
@@ -15,25 +13,24 @@ import com.kanven.schedual.network.protoc.RequestProto.Task;
 import com.kanven.schedual.network.protoc.ResponseProto.Response;
 import com.kanven.schedual.transport.client.api.Transform;
 
-
 public class QuartzJobClient implements JobClient {
 
 	private static final Logger log = LoggerFactory.getLogger(QuartzJobClient.class);
 
-	private Clustor<Task> clustor;
+	private Clustor<Command> clustor;
 
 	public QuartzJobClient() {
 
 	}
 
-	public QuartzJobClient(Clustor<Task> clustor) {
+	public QuartzJobClient(Clustor<Command> clustor) {
 		this.clustor = clustor;
 	}
 
 	public boolean add(Job job) {
 		check(job);
 		try {
-			clustor.send(new AddCommand(transform(job)), transform);
+			clustor.send(buildCommand(job,MessageType.TASK_ADD), transform);
 			return true;
 		} catch (Exception e) {
 			log.error("任务(" + job + ")添加失败！", e);
@@ -44,7 +41,7 @@ public class QuartzJobClient implements JobClient {
 	public boolean del(Job job) {
 		check(job);
 		try {
-			clustor.send(new DelCommand(transform(job)), transform);
+			clustor.send(buildCommand(job,MessageType.TASK_DELETE), transform);
 			return true;
 		} catch (Exception e) {
 			log.error("任务(" + job + ")删除失败！", e);
@@ -55,7 +52,7 @@ public class QuartzJobClient implements JobClient {
 	public boolean pause(Job job) {
 		check(job);
 		try {
-			clustor.send(new PauseCommand(transform(job)), transform);
+			clustor.send(buildCommand(job,MessageType.TASK_PAUSE), transform);
 			return true;
 		} catch (Exception e) {
 			log.error("任务(" + job + ")暂停失败！", e);
@@ -66,7 +63,7 @@ public class QuartzJobClient implements JobClient {
 	public boolean recove(Job job) {
 		check(job);
 		try {
-			clustor.send(new RecoveCommand(transform(job)), transform);
+			clustor.send(buildCommand(job,MessageType.TASK_ECOVER), transform);
 		} catch (Exception e) {
 			log.error("任务(" + e + ")恢复失败！", e);
 		}
@@ -89,7 +86,7 @@ public class QuartzJobClient implements JobClient {
 		}
 	}
 
-	private Task transform(Job job) {
+	private Command buildCommand(Job job, MessageType type) {
 		Task.Builder tb = Task.newBuilder();
 		tb.setId(job.getId());
 		tb.setName(job.getName());
@@ -100,18 +97,16 @@ public class QuartzJobClient implements JobClient {
 		if (createTime != null) {
 			tb.setStartTime(createTime.getTime());
 		}
-		return tb.build();
+		return new Command(tb.build(), type);
 	}
 
-	private Transform<Task> transform = new Transform<Task>() {
+	private Transform<Command> transform = new Transform<Command>() {
 
-		public Request transformRequest(Command<Task> command) {
+		public Request transformRequest(Command command) {
 			Request.Builder rb = Request.newBuilder();
 			rb.setRequestId("");
-			if(command.getType() == CommendType.ADD){
-				rb.setType(MessageType.TASK_ADD);
-			}
-			rb.setTask(command.getContent());
+			rb.setType(command.getType());
+			rb.setTask(command.task);
 			return rb.build();
 		}
 
@@ -122,44 +117,29 @@ public class QuartzJobClient implements JobClient {
 
 	};
 
-	private static class AddCommand extends Command<Task> {
-
-		public AddCommand(Task task) {
-			super(CommendType.ADD);
-			setContent(task);
-		}
-
-	}
-
-	private static final class DelCommand extends Command<Task> {
-
-		public DelCommand(Task task) {
-			super(CommendType.DEL);
-			setContent(task);
-		}
-
-	}
-
-	private static final class PauseCommand extends Command<Task> {
-
-		public PauseCommand(Task task) {
-			super(CommendType.PAUSE);
-			setContent(task);
-		}
-
-	}
-
-	public static final class RecoveCommand extends Command<Task> {
-
-		public RecoveCommand(Task task) {
-			super(CommendType.RECOVER);
-			setContent(task);
-		}
-
-	}
-
-	public void setClustor(Clustor<Task> clustor) {
+	public void setClustor(Clustor<Command> clustor) {
 		this.clustor = clustor;
+	}
+
+	public static class Command {
+
+		private Task task;
+
+		private MessageType type;
+
+		public Command(Task task, MessageType type) {
+			this.task = task;
+			this.type = type;
+		}
+
+		public Task getTask() {
+			return task;
+		}
+
+		public MessageType getType() {
+			return type;
+		}
+
 	}
 
 }
