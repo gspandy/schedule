@@ -1,5 +1,7 @@
 package com.kanven.schedual.transport.client.api;
 
+import com.kanven.schedual.transport.client.command.Command;
+
 public interface Sender<C> {
 
 	/**
@@ -8,6 +10,6 @@ public interface Sender<C> {
 	 * @param command
 	 * @throws Exception
 	 */
-	<T> T send(C command, Transform<C> transform) throws Exception;
+	<T> T send(Command<C> command, Transform transform) throws Exception;
 
 }

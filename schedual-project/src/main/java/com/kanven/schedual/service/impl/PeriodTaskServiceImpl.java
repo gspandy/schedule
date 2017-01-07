@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.kanven.schedual.dao.PeriodTaskDao;
+import com.kanven.schedual.dispatcher.job.Job;
 import com.kanven.schedual.entity.PeriodTask;
 import com.kanven.schedual.entity.PeriodTask.TaskStatus;
 import com.kanven.schedual.exception.SchedualException;
@@ -55,7 +56,8 @@ public class PeriodTaskServiceImpl implements PeriodTaskService {
 			task.setCreateTime(new Date());
 			task.setUpdateTime(new Date());
 			task.setUpdateUser(task.getCreateUser());
-			return periodTaskDao.save(task);
+			Long id = periodTaskDao.save(task);
+			return id;
 		} catch (Exception e) {
 			throw new SchedualException("新增定时任务出现异常！", e);
 		}
@@ -139,6 +141,20 @@ public class PeriodTaskServiceImpl implements PeriodTaskService {
 		if (StringUtils.isEmpty(updateUser)) {
 			throw new SchedualException("没有指定修改人信息！");
 		}
+	}
+
+	private Job toJob(PeriodTask task) {
+		if (task == null) {
+			return null;
+		}
+		Job job = new Job();
+		job.setId(task.getId());
+		job.setName(task.getTaskName());
+		job.setGroup(task.getGroupName());
+		job.setStartTime(task.getStartTime());
+		job.setCron(task.getCron());
+		job.setUrl(task.getUrl());
+		return job;
 	}
 
 }

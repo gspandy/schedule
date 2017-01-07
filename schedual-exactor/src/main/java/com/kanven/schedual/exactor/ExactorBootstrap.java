@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
 import com.kanven.schedual.core.clustor.Clustor;
 import com.kanven.schedual.core.clustor.impl.ClustorFactory;
 import com.kanven.schedual.core.config.ProtocolConfig;
+import com.kanven.schedual.exactor.quartz.JobMonitor;
+import com.kanven.schedual.exactor.quartz.JobStatus;
 import com.kanven.schedual.exactor.report.JobReportor;
-import com.kanven.schedual.network.protoc.RequestProto.TaskReportor;
-import com.kanven.schedual.register.Constants;
 import com.kanven.schedual.register.Register;
 
 public class ExactorBootstrap {
@@ -87,13 +87,15 @@ public class ExactorBootstrap {
 	}
 
 	public static void createReportor(Register register) throws IOException {
-		ClustorFactory<TaskReportor> factory = new ClustorFactory<TaskReportor>();
+		ClustorFactory<JobStatus> factory = new ClustorFactory<JobStatus>();
 		factory.setConfig(createProtocol());
-		factory.setParent(Constants.CENTER_ROOT);
+		factory.setParent("/schedual/task/report");
 		factory.setRegister(register);
-		Clustor<TaskReportor> clustor = factory.getClustor();
+		factory.init();
+		Clustor<JobStatus> clustor = factory.getClustor();
 		JobReportor reportor = new JobReportor();
 		reportor.setClustor(clustor);
+		JobMonitor.getMonitor().addNotify(reportor);
 	}
 
 	public static void main(String[] args) {

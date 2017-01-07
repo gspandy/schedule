@@ -6,7 +6,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.kanven.schedual.network.protoc.ResponseProto.Response;
-import com.kanven.schedual.transport.client.Constants;
 
 final class NettyResponse {
 
@@ -43,11 +42,7 @@ final class NettyResponse {
 
 	public NettyResponse(String requestId, long timeout) {
 		this.requestId = requestId;
-		if (timeout <= 0) {
-			this.timeout = Constants.DEFAULT_TIME_OUT;
-		} else {
-			this.timeout = timeout;
-		}
+		this.timeout = timeout;
 	}
 
 	void callback(Response response) {

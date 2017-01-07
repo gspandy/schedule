@@ -7,6 +7,7 @@ import com.kanven.schedual.core.clustor.Clustor;
 import com.kanven.schedual.core.clustor.LoadBalance;
 import com.kanven.schedual.transport.client.api.Client;
 import com.kanven.schedual.transport.client.api.Transform;
+import com.kanven.schedual.transport.client.command.Command;
 
 public class DefaultClustorImpl<C> implements Clustor<C> {
 
@@ -14,7 +15,7 @@ public class DefaultClustorImpl<C> implements Clustor<C> {
 
 	private List<Client<C>> clients;
 
-	public <T> T send(C command, Transform<C> transform) throws Exception {
+	public <T> T send(Command<C> command, Transform transform) throws Exception {
 		Client<C> client = loadBalance.select();
 		return client.send(command, transform);
 	}

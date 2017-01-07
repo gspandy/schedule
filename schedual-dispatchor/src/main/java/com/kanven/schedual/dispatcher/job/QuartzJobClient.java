@@ -7,30 +7,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kanven.schedual.core.clustor.Clustor;
-import com.kanven.schedual.network.protoc.MessageTypeProto.MessageType;
-import com.kanven.schedual.network.protoc.RequestProto.Request;
 import com.kanven.schedual.network.protoc.RequestProto.Task;
 import com.kanven.schedual.network.protoc.ResponseProto.Response;
 import com.kanven.schedual.transport.client.api.Transform;
+import com.kanven.schedual.transport.client.command.AbstractTaskCommand;
+import com.kanven.schedual.transport.client.command.CommandType;
 
 public class QuartzJobClient implements JobClient {
 
 	private static final Logger log = LoggerFactory.getLogger(QuartzJobClient.class);
 
-	private Clustor<Command> clustor;
+	private Clustor<Job> clustor;
 
 	public QuartzJobClient() {
 
 	}
 
-	public QuartzJobClient(Clustor<Command> clustor) {
+	public QuartzJobClient(Clustor<Job> clustor) {
 		this.clustor = clustor;
 	}
 
 	public boolean add(Job job) {
 		check(job);
 		try {
-			clustor.send(buildCommand(job,MessageType.TASK_ADD), transform);
+			clustor.send(new TaskCommand(CommandType.TASK_ADD, job), transform);
 			return true;
 		} catch (Exception e) {
 			log.error("任务(" + job + ")添加失败！", e);
@@ -41,7 +41,7 @@ public class QuartzJobClient implements JobClient {
 	public boolean del(Job job) {
 		check(job);
 		try {
-			clustor.send(buildCommand(job,MessageType.TASK_DELETE), transform);
+			clustor.send(new TaskCommand(CommandType.TASK_DELETE, job), transform);
 			return true;
 		} catch (Exception e) {
 			log.error("任务(" + job + ")删除失败！", e);
@@ -52,7 +52,7 @@ public class QuartzJobClient implements JobClient {
 	public boolean pause(Job job) {
 		check(job);
 		try {
-			clustor.send(buildCommand(job,MessageType.TASK_PAUSE), transform);
+			clustor.send(new TaskCommand(CommandType.TASK_PAUSE, job), transform);
 			return true;
 		} catch (Exception e) {
 			log.error("任务(" + job + ")暂停失败！", e);
@@ -63,7 +63,7 @@ public class QuartzJobClient implements JobClient {
 	public boolean recove(Job job) {
 		check(job);
 		try {
-			clustor.send(buildCommand(job,MessageType.TASK_ECOVER), transform);
+			clustor.send(new TaskCommand(CommandType.TASK_RECORVE, job), transform);
 		} catch (Exception e) {
 			log.error("任务(" + e + ")恢复失败！", e);
 		}
@@ -86,29 +86,30 @@ public class QuartzJobClient implements JobClient {
 		}
 	}
 
-	private Command buildCommand(Job job, MessageType type) {
-		Task.Builder tb = Task.newBuilder();
-		tb.setId(job.getId());
-		tb.setName(job.getName());
-		tb.setGroup(job.getGroup());
-		tb.setUrl(job.getUrl());
-		tb.setCron(job.getCron());
-		Date createTime = job.getStartTime();
-		if (createTime != null) {
-			tb.setStartTime(createTime.getTime());
+	private static class TaskCommand extends AbstractTaskCommand<Job> {
+
+		public TaskCommand(CommandType type, Job value) {
+			super(type, value);
 		}
-		return new Command(tb.build(), type);
+
+		@Override
+		public Task buildTask(Job job) {
+			Task.Builder tb = Task.newBuilder();
+			tb.setId(job.getId());
+			tb.setName(job.getName());
+			tb.setGroup(job.getGroup());
+			tb.setUrl(job.getUrl());
+			tb.setCron(job.getCron());
+			Date createTime = job.getStartTime();
+			if (createTime != null) {
+				tb.setStartTime(createTime.getTime());
+			}
+			return tb.build();
+		}
+
 	}
 
-	private Transform<Command> transform = new Transform<Command>() {
-
-		public Request transformRequest(Command command) {
-			Request.Builder rb = Request.newBuilder();
-			rb.setRequestId("");
-			rb.setType(command.getType());
-			rb.setTask(command.task);
-			return rb.build();
-		}
+	private Transform transform = new Transform() {
 
 		@SuppressWarnings("unchecked")
 		public <T> T transformResponse(Response response) {
@@ -117,29 +118,8 @@ public class QuartzJobClient implements JobClient {
 
 	};
 
-	public void setClustor(Clustor<Command> clustor) {
+	public void setClustor(Clustor<Job> clustor) {
 		this.clustor = clustor;
-	}
-
-	public static class Command {
-
-		private Task task;
-
-		private MessageType type;
-
-		public Command(Task task, MessageType type) {
-			this.task = task;
-			this.type = type;
-		}
-
-		public Task getTask() {
-			return task;
-		}
-
-		public MessageType getType() {
-			return type;
-		}
-
 	}
 
 }

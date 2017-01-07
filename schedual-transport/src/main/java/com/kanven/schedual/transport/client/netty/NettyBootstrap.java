@@ -36,6 +36,8 @@ final class NettyBootstrap {
 
 	private long connectTimeout;
 
+	private long requestTimeout;
+
 	private int threads;
 
 	private String ip;
@@ -120,20 +122,44 @@ final class NettyBootstrap {
 		}
 	}
 
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public long getRequestTimeout() {
+		return requestTimeout;
+	}
+
+	public void setRequestTimeout(long requestTimeout) {
+		this.requestTimeout = requestTimeout;
+	}
+
 	public long getConnectTimeout() {
 		return connectTimeout;
+	}
+
+	public void setConnectTimeout(long connectTimeout) {
+		this.connectTimeout = connectTimeout;
 	}
 
 	public int getThreads() {
 		return threads;
 	}
 
-	public String getIp() {
-		return ip;
-	}
-
-	public int getPort() {
-		return port;
+	public void setThreads(int threads) {
+		this.threads = threads;
 	}
 
 }

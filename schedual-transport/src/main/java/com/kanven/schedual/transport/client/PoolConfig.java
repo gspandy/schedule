@@ -2,11 +2,17 @@ package com.kanven.schedual.transport.client;
 
 public class PoolConfig {
 
+	public final static long DEFAULT_CONNECT_TIMEOUT = 5000;
+
+	public final static long DEFAULT_REQUEST_TIMEOUT = 3000;
+
 	private String ip;
 
 	private int port;
 
 	private Long connectTimeout;
+
+	private Long requestTimeout;
 
 	private Integer threads;
 
@@ -52,6 +58,14 @@ public class PoolConfig {
 
 	public void setConnectTimeout(Long connectTimeout) {
 		this.connectTimeout = connectTimeout;
+	}
+
+	public Long getRequestTimeout() {
+		return requestTimeout;
+	}
+
+	public void setRequestTimeout(Long requestTimeout) {
+		this.requestTimeout = requestTimeout;
 	}
 
 	public Integer getThreads() {

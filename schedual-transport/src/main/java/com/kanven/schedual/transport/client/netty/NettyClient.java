@@ -5,10 +5,10 @@ import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
 import com.kanven.schedual.network.protoc.ResponseProto.Response;
-import com.kanven.schedual.transport.client.Constants;
 import com.kanven.schedual.transport.client.PoolConfig;
 import com.kanven.schedual.transport.client.api.Client;
 import com.kanven.schedual.transport.client.api.Transform;
+import com.kanven.schedual.transport.client.command.Command;
 
 public class NettyClient<C> implements Client<C> {
 
@@ -42,10 +42,10 @@ public class NettyClient<C> implements Client<C> {
 		closed = true;
 	}
 
-	public <T> T send(C command, Transform<C> transform) throws Exception {
+	public <T> T send(Command<C> command, Transform transform) throws Exception {
 		NettyChannel channel = createPool().borrowObject();
 		try {
-			Response response = channel.request(transform.transformRequest(command));
+			Response response = channel.request(command.buildRequest());
 			return transform.transformResponse(response);
 		} finally {
 			pool.returnObject(channel);
@@ -63,7 +63,11 @@ public class NettyClient<C> implements Client<C> {
 			bootstrap = new NettyBootstrap(config.getIp(), config.getPort(),
 					config == null || config.getThreads() == null || config.getThreads() <= 0 ? -1
 							: config.getThreads(),
-					config.getConnectTimeout() == null ? Constants.DEFAULT_TIME_OUT : config.getConnectTimeout());
+					config.getConnectTimeout() == null ? PoolConfig.DEFAULT_CONNECT_TIMEOUT
+							: config.getConnectTimeout());
+			bootstrap.setRequestTimeout(
+					config == null || config.getRequestTimeout() == null || config.getRequestTimeout() <= 0
+							? PoolConfig.DEFAULT_REQUEST_TIMEOUT : config.getRequestTimeout());
 			pool = new GenericObjectPool<NettyChannel>(new NettyChannelFactory(bootstrap), gpc);
 			for (int i = 0; i < gpc.getMinIdle(); i++) {
 				try {

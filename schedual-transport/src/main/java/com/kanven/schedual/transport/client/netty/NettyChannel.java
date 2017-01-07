@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import com.kanven.schedual.network.protoc.RequestProto.Request;
 import com.kanven.schedual.network.protoc.ResponseProto.Response;
-import com.kanven.schedual.transport.client.Constants;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -43,7 +42,6 @@ public class NettyChannel {
 			if (log.isDebugEnabled()) {
 				long cost = System.currentTimeMillis() - start;
 				log.debug(uuid + "连接建立成功，耗时：" + cost);
-
 			}
 			return;
 		}
@@ -57,11 +55,14 @@ public class NettyChannel {
 	}
 
 	public Response request(Request request) {
-		return request(request, Constants.DEFAULT_TIME_OUT);
+		return request(request, bootstrap.getRequestTimeout());
 	}
 
 	public Response request(Request request, long timeout) {
 		String requestId = request.getRequestId();
+		if (timeout <= 0) {
+			timeout = bootstrap.getRequestTimeout();
+		}
 		NettyResponse response = new NettyResponse(requestId, timeout);
 		bootstrap.regist(request.getRequestId(), response);
 		ChannelFuture future = channel.writeAndFlush(request);
@@ -91,7 +92,7 @@ public class NettyChannel {
 	public void close() {
 		channel.close();
 	}
-
+	
 	@Override
 	public String toString() {
 		return "NettyChannel [uuid=" + uuid + "]";
