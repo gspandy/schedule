@@ -57,6 +57,21 @@ public class PeriodTask implements Serializable {
 	private Integer taskStatus;
 
 	/**
+	 * 任务描述
+	 */
+	private String description;
+
+	/**
+	 * 原IP地址
+	 */
+	private Integer srcIp;
+
+	/**
+	 * 目的IP地址
+	 */
+	private Integer destIp;
+
+	/**
 	 * 任务创建时间
 	 */
 	private Date createTime;
@@ -140,6 +155,30 @@ public class PeriodTask implements Serializable {
 		this.taskStatus = taskStatus;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Integer getSrcIp() {
+		return srcIp;
+	}
+
+	public void setSrcIp(Integer srcIp) {
+		this.srcIp = srcIp;
+	}
+
+	public Integer getDestIp() {
+		return destIp;
+	}
+
+	public void setDestIp(Integer destIp) {
+		this.destIp = destIp;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -176,13 +215,14 @@ public class PeriodTask implements Serializable {
 	public String toString() {
 		return "PeriodTask [id=" + id + ", projectName=" + projectName + ", groupName=" + groupName + ", taskName="
 				+ taskName + ", url=" + url + ", cron=" + cron + ", startTime=" + startTime + ", taskStatus="
-				+ taskStatus + ", createTime=" + createTime + ", createUser=" + createUser + ", updateTime="
-				+ updateTime + ", updateUser=" + updateUser + "]";
+				+ taskStatus + ", description=" + description + ", srcIp=" + srcIp + ", destIp=" + destIp
+				+ ", createTime=" + createTime + ", createUser=" + createUser + ", updateTime=" + updateTime
+				+ ", updateUser=" + updateUser + "]";
 	}
 
 	public static enum TaskStatus {
 
-		DEFAULT(-1),PAUSE(0), EXACTOR(1), CANCEL(-2);
+		DEFAULT(-1), PAUSE(0), EXACTOR(1), CANCEL(-2);
 
 		private int value;
 

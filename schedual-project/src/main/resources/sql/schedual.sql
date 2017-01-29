@@ -18,6 +18,8 @@ CREATE TABLE period_task(
 	start_time DATETIME COMMENT '开始执行时间',
 	task_status TINYINT(1) DEFAULT -1 COMMENT '任务状态',
 	description varchar(200) COMMENT '描叙',
+	src_ip int(10) 	COMMENT '原IP地址',
+	dest_ip int(10) COMMENT '目的IP地址'
 	create_time DATETIME NOT NULL COMMENT '任务创建时间',
 	create_user VARCHAR(50) NOT NULL COMMENT '任务创建人',
 	update_time DATETIME NOT NULL COMMENT '更新时间',

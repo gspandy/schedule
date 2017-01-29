@@ -21,7 +21,7 @@
 
 	<context:component-scan base-package="com.kanven.schedual.*" />
 
-	<mvc:resources location="/vendor/" mapping="/vendor/**" />
+	<mvc:resources location="/vendor/" mapping="/**" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

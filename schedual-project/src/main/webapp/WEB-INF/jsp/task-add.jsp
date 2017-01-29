@@ -6,11 +6,11 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>定时任务添加</title>
-		<link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap.min.css">
-		<script type="text/javascript" src="./vendor/angular/angular.min.js"></script>
+		<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+		<script type="text/javascript" src="lib/angular/angular.min.js"></script>
 	</head>
-	<body ng-app="taskApp">
-		<form class="form-horizontal container" name="taskForm" role="form" ng-controller="addTask">
+	<body ng-app="schedual">
+		<form class="form-horizontal container" name="taskForm" role="form" ng-controller="taskCtrl">
 		  <div class="form-group">
 		    <label class="col-sm-2 control-label">任务名称</label>
 		    <div class="col-sm-10">
@@ -86,7 +86,9 @@
 		  </div>
 		</form>
 	</body>
-	<script type="text/javascript" src="./vendor/jquery/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="./vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="./vendor/task/task.js"></script>
+	<script type="text/javascript" src="lib/jquery/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="service/task.service.js"></script>
+	<script type="text/javascript" src="controller/task.js"></script>
 </html>
