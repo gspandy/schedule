@@ -1,6 +1,6 @@
 angular.module('schedual').controller('TaskCtrl',
 		function(taskService) {
-			self = this;
+			var self = this;
 			self.id = '',
 			self.projectName = 'ttt',
 		    self.groupName = '',
@@ -13,7 +13,6 @@ angular.module('schedual').controller('TaskCtrl',
 			self.createTime = '';
 
 			self.add = function() {
-				alert(1);
 				taskService.add($scope.task).then(function(data) {
 					console.log('task');
 				}, function(error) {

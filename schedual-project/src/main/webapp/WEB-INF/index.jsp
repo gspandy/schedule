@@ -36,11 +36,11 @@
 		</nav>
 		<div ui-view></div>
 	</body>
-	
 	<script type="text/javascript" src="lib/jquery/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
 	<script type="text/javascript" src="lib/angular/angular-ui-router.js"></script>
 	<script type="text/javascript" src="lib/angular/ocLazyLoad.min.js"></script>
 	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="config.router.js"></script>
 </html>
