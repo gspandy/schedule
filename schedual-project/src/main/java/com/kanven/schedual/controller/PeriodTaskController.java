@@ -34,6 +34,12 @@ public class PeriodTaskController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView mav = new ModelAndView(WebConstants.FORWARD + "/task-list.jsp");
+		return mav;
+	}
+
 	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
 	public ResponseEntity<PeriodTask> getTask(@PathVariable Long id) {
 		ResponseEntity<PeriodTask> response = null;

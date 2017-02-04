@@ -48,14 +48,14 @@ public class PeriodTaskServiceImpl implements PeriodTaskService {
 
 	public Long addTask(PeriodTask task) throws SchedualException {
 		check(task);
+		if (periodTaskDao.findTask(task) != null) {
+			throw new SchedualException("任务已经存在！");
+		}
+		task.setTaskStatus(TaskStatus.DEFAULT.value());
+		task.setCreateTime(new Date());
+		task.setUpdateTime(new Date());
+		task.setUpdateUser(task.getCreateUser());
 		try {
-			if (periodTaskDao.findTask(task) != null) {
-				throw new SchedualException("任务已经存在！");
-			}
-			task.setTaskStatus(TaskStatus.DEFAULT.value());
-			task.setCreateTime(new Date());
-			task.setUpdateTime(new Date());
-			task.setUpdateUser(task.getCreateUser());
 			Long id = periodTaskDao.save(task);
 			return id;
 		} catch (Exception e) {

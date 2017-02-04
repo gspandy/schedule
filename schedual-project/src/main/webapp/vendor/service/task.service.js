@@ -16,7 +16,7 @@ schedual.factory("taskService", function($http, $q, $log) {
 				return response.data;
 			},function(error){
 				$log.error('周期任务信息添加失败！');
-				$q.reject(error);
+				return $q.reject(error);
 			});
 		},
 		del : function(taskId) {
@@ -45,9 +45,6 @@ schedual.factory("taskService", function($http, $q, $log) {
 		},
 		findList : function(task, page, size) {
 			$http.get('./period/'+page+'/'+size)
-		},
-		notify:function(msg){
-			alert(msg);
 		}
 	}
 });

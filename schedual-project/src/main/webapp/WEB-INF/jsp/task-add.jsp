@@ -7,7 +7,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>定时任务添加</title>
 		<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
-		<script type="text/javascript" src="lib/angular/angular.min.js"></script>
+		<link rel="stylesheet" href="lib/bootstrap-table/css/bootstrap-table.min.css">
 	</head>
 	<body ng-app="schedual">
 		<form class="form-horizontal container" name="taskForm" role="form" ng-controller="taskCtrl">
@@ -85,9 +85,33 @@
 		  	</div>
 		  </div>
 		</form>
+		<table data-toggle="table">
+		    <thead>
+		        <tr>
+		            <th>Item ID</th>
+		            <th>Item Name</th>
+		            <th>Item Price</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr>
+		            <td>1</td>
+		            <td>Item 1</td>
+		            <td>$1</td>
+		        </tr>
+		        <tr>
+		            <td>2</td>
+		            <td>Item 2</td>
+		            <td>$2</td>
+		        </tr>
+		    </tbody>
+		</table>
 	</body>
 	<script type="text/javascript" src="lib/jquery/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
+	<script type="text/javascript" src="lib/bootstrap-table/js/bootstrap-table.min.js"></script>
+	<script type="text/javascript" src="lib/bootstrap-table/js/bootstrap-table-locale-all.min.js"></script>
 	<script type="text/javascript" src="app.js"></script>
 	<script type="text/javascript" src="service/task.service.js"></script>
 	<script type="text/javascript" src="controller/task.js"></script>
