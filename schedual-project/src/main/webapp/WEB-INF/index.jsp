@@ -35,7 +35,7 @@
 		    </div>
 		  </div>
 		</nav>
-	   <ui-view></ui-view>
+		<div ui-view></div>
 	</body>
 	
 	<script type="text/javascript" src="lib/jquery/jquery-3.1.1.min.js"></script>
