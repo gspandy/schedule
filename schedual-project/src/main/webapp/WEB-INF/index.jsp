@@ -8,7 +8,6 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>调度中心</title>
 		<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="lib/bootstrap-table/css/bootstrap-table.min.css">
 	</head>
 	<body ng-app="schedual">
 		<nav class="navbar navbar-default">
@@ -20,7 +19,7 @@
 		          <ul class="dropdown-menu">
 		            <li><a ui-sref="period/add">添加周期任务</a></li>
 		            <li role="separator" class="divider"></li>
-		            <li><a>周期任务列表</a></li>
+		            <li><a ui-sref="period/list">周期任务列表</a></li>
 		          </ul>
 		        </li>
 		        <li class="dropdown">

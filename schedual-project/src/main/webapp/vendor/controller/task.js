@@ -1,21 +1,19 @@
-alert(1);
-angular.module('schedual').controller('taskCtrl',
-		function($scope, taskService) {
+angular.module('schedual').controller('TaskCtrl',
+		function(taskService) {
+			self = this;
+			self.id = '',
+			self.projectName = 'ttt',
+		    self.groupName = '',
+			self.taskName = '',
+			self.url = '',
+			self.cron = '',
+			self.taskStatus = '',
+			self.description = '',
+			self.createUser = 'jyl',
+			self.createTime = '';
 
-			$scope.task = {
-				id : '',
-				projectName : 'ttt',
-				groupName : '',
-				taskName : '',
-				url : '',
-				cron : '',
-				taskStatus : '',
-				description : '',
-				createUser : 'jyl',
-				createTime : ''
-			};
-
-			$scope.add = function() {
+			self.add = function() {
+				alert(1);
 				taskService.add($scope.task).then(function(data) {
 					console.log('task');
 				}, function(error) {

@@ -17,27 +17,44 @@ var schedual = angular.module('schedual').config(
 					schedual.value = $provide.value;
 				} ]);
 
-schedual.config(
-		[ '$ocLazyLoadProvider', function($ocLazyLoadProvider) {
-			$ocLazyLoadProvider.config({
-				debug : false,
-				events : true,
-				modules : []
-			})
-		} ]);
+schedual
+		.config([
+				'$ocLazyLoadProvider',
+				function($ocLazyLoadProvider) {
+					$ocLazyLoadProvider
+							.config({
+								debug : true,
+								events : true,
+								modules : [ {
+									name : 'bootstrap.table',
+									files : [
+											'lib/bootstrap-table/css/bootstrap-table.min.css',
+											'lib/bootstrap-table/js/bootstrap-table.min.js',
+											'lib/bootstrap-table/js/bootstrap-table-locale-all.min.js' ]
+								} ]
+							})
+				} ]);
 
 schedual.config([ '$stateProvider', function($stateProvider) {
 	$stateProvider.state('period/add', {
 		url : '/period/add',
 		templateUrl : 'view/period/task.add.html',
-		rosolve : {
+		resolve : {
 			deps : [ '$ocLazyLoad', function($ocLazyLoad) {
 				return $ocLazyLoad.load({
-					serie:true,
-					files:[
-						'controller/task.js',
-						'service/task.service.js'
-					]
+					serie : true,
+					files : [ 'controller/task.js', 'service/task.service.js' ]
+				});
+			} ]
+		}
+	}).state('period/list', {
+		url : '/period/list',
+		templateUrl : 'view/period/task.list.html',
+		resolve : {
+			deps : [ '$ocLazyLoad', function($ocLazyLoad) {
+				return $ocLazyLoad.load({
+					serie : true,
+					files : [ 'controller/task.js', 'service/task.service.js' ]
 				});
 			} ]
 		}
