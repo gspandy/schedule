@@ -35,12 +35,14 @@
 		  </div>
 		</nav>
 		<div ui-view></div>
+		<!-- <div ncy-breadcrumb></div> -->
 	</body>
 	<script type="text/javascript" src="lib/jquery/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
 	<script type="text/javascript" src="lib/angular/angular-touch.min.js"></script>
 	<script type="text/javascript" src="lib/angular/angular-animate.min.js"></script>
+	<script type="text/javascript" src="lib/angular/angular-breadcrumb.min.js"></script>
 	<script type="text/javascript" src="lib/angular/angular-ui-router.js"></script>
 	<script type="text/javascript" src="lib/angular/ocLazyLoad.min.js"></script>
 	<script type="text/javascript" src="app.js"></script>

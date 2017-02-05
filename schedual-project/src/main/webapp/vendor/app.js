@@ -1,5 +1,5 @@
-angular.module('schedual',
-		[ 'ngTouch', 'ngAnimate', 'ui.router', 'oc.lazyLoad' ]);
+angular.module('schedual', [ 'ngTouch', 'ngAnimate', 'ui.router',
+		'oc.lazyLoad', 'ncy-angular-breadcrumb' ]);
 
 var schedual = angular.module('schedual').config(
 		[
