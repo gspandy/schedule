@@ -1,4 +1,5 @@
-angular.module('schedual', [ 'ui.router', 'oc.lazyLoad' ]);
+angular.module('schedual',
+		[ 'ngTouch', 'ngAnimate', 'ui.router', 'oc.lazyLoad' ]);
 
 var schedual = angular.module('schedual').config(
 		[
@@ -16,22 +17,3 @@ var schedual = angular.module('schedual').config(
 					schedual.constant = $provide.constant;
 					schedual.value = $provide.value;
 				} ]);
-
-schedual
-		.config([
-				'$ocLazyLoadProvider',
-				function($ocLazyLoadProvider) {
-					$ocLazyLoadProvider
-							.config({
-								debug : true,
-								events : true,
-								modules : [{
-									name:'toaster',
-									files:[
-										'lib/modules/angularjs-toaster/toaster.min.css',
-										'lib/modules/angularjs-toaster/toaster.min.js'
-									]
-								}]
-							})
-				} ]);
-

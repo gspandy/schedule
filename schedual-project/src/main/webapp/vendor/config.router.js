@@ -15,10 +15,12 @@ schedual.config([
 							deps : [
 									'$ocLazyLoad',
 									function($ocLazyLoad) {
-										return $ocLazyLoad.load({
-											serie : true,
-											files : [ 'controller/user.js',
-													'service/user.service.js' ]
+										return $ocLazyLoad.load(['toaster']).then(function(){
+											return $ocLazyLoad.load({
+												serie : true,
+												files : [ 'controller/user.js',
+														'service/user.service.js' ]
+											});
 										});
 									} ]
 						}
@@ -63,10 +65,12 @@ schedual.config([
 							deps : [
 									'$ocLazyLoad',
 									function($ocLazyLoad) {
-										return $ocLazyLoad.load({
-											serie : true,
-											files : [ 'controller/task.js',
-													'service/task.service.js' ]
+										return $ocLazyLoad.load(['ui.grid']).then(function(){
+											return $ocLazyLoad.load({
+												serie : true,
+												files : [ 'controller/task.js',
+														'service/task.service.js' ]
+											});
 										});
 									} ]
 						}
