@@ -65,16 +65,53 @@ public class TableHandler {
 		return tables;
 	}
 
+	/**
+	 * 数据库字段下划线转换成驼峰
+	 * 
+	 * @param column
+	 *            数据库字段
+	 * @return
+	 */
+	private String toHump(String column) {
+		if (StringUtils.isEmpty(column) || !column.contains("_")) {
+			return column;
+		}
+		String[] fields = column.split("_");
+		StringBuilder sb = new StringBuilder(fields[0]);
+		for (int i = 1, len = fields.length; i < len; i++) {
+			String field = fields[i];
+			char first = field.charAt(0);
+			if (Character.isUpperCase(first)) {
+				sb.append(field);
+			} else {
+				first = Character.toUpperCase(first);
+				sb.append(first).append(field.substring(1));
+			}
+		}
+		return sb.toString();
+	}
+
 	public List<ColumnMeta> getColumns(String table) throws SQLException {
 		List<ColumnMeta> columns = new LinkedList<ColumnMeta>();
 		if (StringUtils.isNotEmpty(table)) {
 			Connection conn = getConn();
 			DatabaseMetaData meta = conn.getMetaData();
+			String pk = null;
+			ResultSet pks = meta.getPrimaryKeys(null, null, table);
+			if (!pks.isAfterLast()) {
+				pks.next();
+				pk = pks.getString(ColumnDesc.NAME.value());
+			}
 			ResultSet rs = meta.getColumns(null, null, table, null);
 			while (rs.next()) {
 				ColumnMeta cm = new ColumnMeta();
 				cm.setTable(table);
-				cm.setColumn(rs.getString(ColumnDesc.NAME.value()));
+				String column = rs.getString(ColumnDesc.NAME.value());
+				cm.setColumn(column);
+				cm.setFiled(toHump(column));
+				if (pk != null && pk.equals(column)) {
+					cm.setPrimaryKey(true);
+				}
 				cm.setComment(rs.getString(ColumnDesc.REMARKS.value()));
 				cm.setDbType(rs.getString(ColumnDesc.DB_TYPE.value()));
 				cm.setJavaType(TypeConvert.convert(rs.getInt(ColumnDesc.JAVA_TYPE.value())));
@@ -86,6 +123,19 @@ public class TableHandler {
 
 	public static boolean isLoaded() {
 		return loaded;
+	}
+
+	public static void main(String[] args) throws SQLException {
+		TableHandler handler = new TableHandler(
+				"jdbc:mysql://127.0.0.1:3306/schedual?characterEncoding=UTF8&amp;allowMultiQueries=true", "root",
+				"admin");
+		List<String> tables = handler.getTables();
+		for (String table : tables) {
+			List<ColumnMeta> metas = handler.getColumns(table);
+			for (ColumnMeta meta : metas) {
+				System.out.println(meta);
+			}
+		}
 	}
 
 }
