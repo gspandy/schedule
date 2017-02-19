@@ -67,6 +67,91 @@ public class TableHandler {
 		return tables;
 	}
 
+	public List<FieldMeta> getColumns(String table) throws SQLException {
+		List<FieldMeta> columns = new LinkedList<FieldMeta>();
+		if (StringUtils.isNotEmpty(table)) {
+			Connection conn = getConn();
+			DatabaseMetaData meta = conn.getMetaData();
+			FieldMeta key = getPrimaryKey(table);
+			ResultSet rs = meta.getColumns(null, null, table, null);
+			while (rs.next()) {
+				FieldMeta fm = buildField(rs);
+				if (key != null && key.getColumn().equals(fm.getColumn())) {
+					fm.setPrimaryKey(true);
+				}
+				columns.add(fm);
+			}
+		}
+		return columns;
+	}
+
+	public FieldMeta getPrimaryKey(String table) throws SQLException {
+		Connection conn = getConn();
+		DatabaseMetaData meta = conn.getMetaData();
+		ResultSet rs = meta.getPrimaryKeys(null, null, table);
+		FieldMeta fm = null;
+		if (!rs.isAfterLast()) {
+			rs.next();
+			fm = new FieldMeta();
+			String column = rs.getString(ColumnDesc.NAME.value());
+			fm.setColumn(column);
+			fm.setField(toHump(column));
+			fm.setPrimaryKey(true);
+		}
+		return fm;
+	}
+
+	public EntityMeta buildEntity(String table, String pkg) {
+		if (StringUtils.isEmpty(table)) {
+			return null;
+		}
+		try {
+			EntityMeta meta = new EntityMeta(pkg);
+			meta.setTable(table);
+			meta.setClazz(toClazz(table));
+			meta.setFields(getColumns(table));
+			meta.setPrimaryKey(getPrimaryKey(table));
+			return meta;
+		} catch (SQLException e) {
+			log.error("获取数据库表列信息出现异常！", e);
+			return null;
+		}
+	}
+
+	public List<EntityMeta> buildEntities(String pkg) {
+		List<EntityMeta> entities = new ArrayList<EntityMeta>();
+		try {
+			List<String> tables = getTables();
+			for (String table : tables) {
+				if (StringUtils.isEmpty(table)) {
+					continue;
+				}
+				EntityMeta entity = buildEntity(table, pkg);
+				if (entity != null) {
+					entities.add(entity);
+				}
+			}
+		} catch (SQLException e) {
+			log.error("获取数据库表信息出现异常！", e);
+		}
+		return entities;
+	}
+
+	public static boolean isLoaded() {
+		return loaded;
+	}
+
+	private FieldMeta buildField(ResultSet rs) throws SQLException {
+		FieldMeta fm = new FieldMeta();
+		String column = rs.getString(ColumnDesc.NAME.value());
+		fm.setColumn(column);
+		fm.setField(toHump(column));
+		fm.setComment(rs.getString(ColumnDesc.REMARKS.value()));
+		fm.setDbType(rs.getString(ColumnDesc.DB_TYPE.value()));
+		fm.setJavaType(TypeConvert.convert(rs.getInt(ColumnDesc.JAVA_TYPE.value())));
+		return fm;
+	}
+
 	/**
 	 * 数据库字段下划线转换成驼峰
 	 * 
@@ -108,74 +193,6 @@ public class TableHandler {
 			sb.append(firstCharUpper(item));
 		}
 		return sb.toString();
-	}
-
-	public List<FieldMeta> getColumns(String table) throws SQLException {
-		List<FieldMeta> columns = new LinkedList<FieldMeta>();
-		if (StringUtils.isNotEmpty(table)) {
-			Connection conn = getConn();
-			DatabaseMetaData meta = conn.getMetaData();
-			String pk = null;
-			ResultSet pks = meta.getPrimaryKeys(null, null, table);
-			if (!pks.isAfterLast()) {
-				pks.next();
-				pk = pks.getString(ColumnDesc.NAME.value());
-			}
-			ResultSet rs = meta.getColumns(null, null, table, null);
-			while (rs.next()) {
-				FieldMeta cm = new FieldMeta();
-				cm.setTable(table);
-				String column = rs.getString(ColumnDesc.NAME.value());
-				cm.setColumn(column);
-				cm.setField(toHump(column));
-				if (pk != null && pk.equals(column)) {
-					cm.setPrimaryKey(true);
-				}
-				cm.setComment(rs.getString(ColumnDesc.REMARKS.value()));
-				cm.setDbType(rs.getString(ColumnDesc.DB_TYPE.value()));
-				cm.setJavaType(TypeConvert.convert(rs.getInt(ColumnDesc.JAVA_TYPE.value())));
-				columns.add(cm);
-			}
-		}
-		return columns;
-	}
-
-	public EntityMeta buildEntity(String table, String pkg) {
-		if (StringUtils.isEmpty(table)) {
-			return null;
-		}
-		try {
-			EntityMeta meta = new EntityMeta(pkg);
-			meta.setClazz(toClazz(table));
-			meta.setFields(getColumns(table));
-			return meta;
-		} catch (SQLException e) {
-			log.error("获取数据库表列信息出现异常！", e);
-			return null;
-		}
-	}
-
-	public List<EntityMeta> buildEntities(String pkg) {
-		List<EntityMeta> entities = new ArrayList<EntityMeta>();
-		try {
-			List<String> tables = getTables();
-			for (String table : tables) {
-				if (StringUtils.isEmpty(table)) {
-					continue;
-				}
-				EntityMeta entity = buildEntity(table, pkg);
-				if (entity != null) {
-					entities.add(entity);
-				}
-			}
-		} catch (SQLException e) {
-			log.error("获取数据库表信息出现异常！", e);
-		}
-		return entities;
-	}
-
-	public static boolean isLoaded() {
-		return loaded;
 	}
 
 }

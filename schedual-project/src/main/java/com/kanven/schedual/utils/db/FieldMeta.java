@@ -8,8 +8,6 @@ package com.kanven.schedual.utils.db;
  */
 public class FieldMeta {
 
-	private String table;
-
 	private String field;
 
 	private String column;
@@ -24,10 +22,6 @@ public class FieldMeta {
 
 	public FieldMeta() {
 
-	}
-
-	public void setTable(String table) {
-		this.table = table;
 	}
 
 	public void setField(String field) {
@@ -52,10 +46,6 @@ public class FieldMeta {
 
 	public void setPrimaryKey(boolean primaryKey) {
 		this.primaryKey = primaryKey;
-	}
-
-	public String getTable() {
-		return table;
 	}
 
 	public String getField() {
@@ -84,8 +74,8 @@ public class FieldMeta {
 
 	@Override
 	public String toString() {
-		return "FieldMeta [table=" + table + ", field=" + field + ", column=" + column + ", javaType=" + javaType
-				+ ", dbType=" + dbType + ", comment=" + comment + ", primaryKey=" + primaryKey + "]";
+		return "FieldMeta [field=" + field + ", column=" + column + ", javaType=" + javaType + ", dbType=" + dbType
+				+ ", comment=" + comment + ", primaryKey=" + primaryKey + "]";
 	}
 
 }

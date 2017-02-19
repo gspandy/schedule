@@ -22,6 +22,10 @@ public class EntityMeta {
 	 */
 	private String clazz;
 	/**
+	 * 表名
+	 */
+	private String table;
+	/**
 	 * 导入类
 	 */
 	private List<String> imports = new LinkedList<String>();
@@ -29,9 +33,14 @@ public class EntityMeta {
 	 * 字段元数据集合
 	 */
 	private List<FieldMeta> fields;
+	/**
+	 * 主键字段
+	 */
+	private FieldMeta primaryKey;
 
 	{
 		imports.add("java.io.Serializable");
+		imports.add("org.apache.ibatis.type.Alias");
 	}
 
 	public EntityMeta() {
@@ -58,6 +67,14 @@ public class EntityMeta {
 		this.clazz = clazz;
 	}
 
+	public String getTable() {
+		return table;
+	}
+
+	public void setTable(String table) {
+		this.table = table;
+	}
+
 	public List<String> getImports() {
 		return imports;
 	}
@@ -77,9 +94,18 @@ public class EntityMeta {
 		this.fields = fields;
 	}
 
+	public FieldMeta getPrimaryKey() {
+		return primaryKey;
+	}
+
+	public void setPrimaryKey(FieldMeta primaryKey) {
+		this.primaryKey = primaryKey;
+	}
+
 	@Override
 	public String toString() {
-		return "EntityMeta [pkg=" + pkg + ", clazz=" + clazz + ", imports=" + imports + ", fields=" + fields + "]";
+		return "EntityMeta [pkg=" + pkg + ", clazz=" + clazz + ", table=" + table + ", imports=" + imports + ", fields="
+				+ fields + ", primaryKey=" + primaryKey + "]";
 	}
 
 }
