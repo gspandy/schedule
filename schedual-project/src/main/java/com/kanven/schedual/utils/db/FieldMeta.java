@@ -1,16 +1,16 @@
 package com.kanven.schedual.utils.db;
 
 /**
- * 数据库字段实体类
+ * 字段元数据实体类
  * 
  * @author kanven
  *
  */
-public class ColumnMeta {
+public class FieldMeta {
 
 	private String table;
 
-	private String filed;
+	private String field;
 
 	private String column;
 
@@ -22,7 +22,7 @@ public class ColumnMeta {
 
 	private boolean primaryKey = false;
 
-	public ColumnMeta() {
+	public FieldMeta() {
 
 	}
 
@@ -30,8 +30,8 @@ public class ColumnMeta {
 		this.table = table;
 	}
 
-	public void setFiled(String filed) {
-		this.filed = filed;
+	public void setField(String field) {
+		this.field = field;
 	}
 
 	public void setColumn(String column) {
@@ -58,8 +58,8 @@ public class ColumnMeta {
 		return table;
 	}
 
-	public String getFiled() {
-		return filed;
+	public String getField() {
+		return field;
 	}
 
 	public String getColumn() {
@@ -84,7 +84,7 @@ public class ColumnMeta {
 
 	@Override
 	public String toString() {
-		return "ColumnMeta [table=" + table + ", filed=" + filed + ", column=" + column + ", javaType=" + javaType
+		return "FieldMeta [table=" + table + ", field=" + field + ", column=" + column + ", javaType=" + javaType
 				+ ", dbType=" + dbType + ", comment=" + comment + ", primaryKey=" + primaryKey + "]";
 	}
 
